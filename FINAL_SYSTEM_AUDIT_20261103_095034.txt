@@ -1,0 +1,157 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261103095034
+Username: DESKTOP-9E29O09\shiva
+RunAs User: DESKTOP-9E29O09\shiva
+Configuration Name: 
+Machine: DESKTOP-9E29O09 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -command try { . "c:\Users\shiva\AppData\Local\Programs\Microsoft VS Code\e646868227\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1" } catch {}
+Process ID: 5148
+PSVersion: 5.1.26100.9711
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9711
+BuildVersion: 10.0.26100.9711
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+
+========== AEGISCORE AI FINAL SYSTEM AUDIT ==========
+Date: 11/03/2026 09:50:34
+Project: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI
+PASS | Python virtual environment | Python 3.11.9
+
+--- FULL PYTEST SUITE ---
+
+PASS | Full automated test suite | pytest exit code: 0
+
+--- PYTHON SYNTAX AUDIT ---
+
+PASS | Python AST syntax audit | Exit code: 0
+PASS | Frontend HTML exists | frontend/index.html
+PASS | Frontend proxy exists | frontend/server.py
+
+PASS | Frontend JavaScript syntax | Node exit code: 0
+PASS | Backend health endpoint | {"status":"ok","service":"aegiscore-api","version":"0.1.0"}
+
+API ROUTES:
+  /
+  /ask
+  /documents
+  /documents/{document_id}/chunks
+  /documents/{document_id}/embed
+  /documents/{document_id}/embeddings
+  /documents/{document_id}/extraction
+  /documents/upload
+  /health
+  /jobs/analyze
+  /jobs/email-draft
+  /jobs/email-drafts/{draft_id}
+  /jobs/email-drafts/{draft_id}/approve
+  /search
+PASS | OpenAPI schema | 14 API paths discovered
+PASS | RAG API routes | Upload, ask and search routes
+PASS | Job workflow routes | Analysis and email draft routes
+PASS | Frontend HTTP response | HTTP 200
+PASS | Frontend page content | AegisCore AI page title found
+
+OLLAMA MODELS:
+  phi3.5:3.8b
+  nomic-embed-text:latest
+PASS | Ollama service | 2 models available
+PASS | Embedding model | nomic-embed-text
+PASS | Local LLM | phi3.5
+
+--- PLAYWRIGHT BROWSER AUDIT ---
+
+PASS | Playwright browser audit | Audit script exit code: 0
+
+GIT STATUS:
+ M backend/app/aegiscore/document_service.py
+ M backend/app/aegiscore/main.py
+?? AEGISCORE_DEVELOPMENT_AUDIT.txt
+?? AEGISCORE_FINAL_AUDIT.txt
+?? AEGISCORE_IMPLEMENTATION_SOURCE_PACK.txt
+?? FINAL_SYSTEM_AUDIT_20261103_095034.txt
+?? MASTER_AUDIT_20261103_092113.txt
+?? MASTER_AUDIT_20261103_092611.txt
+?? MASTER_COMMAND14_20261103_093036.txt
+?? MASTER_COMMAND14_RETRY_20261103_093122.txt
+?? MASTER_COMMAND15_AUDIT_20261103_093326.txt
+?? MASTER_DIAGNOSTIC_20261103_092304.txt
+?? MASTER_FINAL_20261103_093434.txt
+?? backend/app/aegiscore/job_analysis.py
+?? backend/app/aegiscore/job_email.py
+?? backend/app/aegiscore/job_email_storage.py
+?? backend/app/aegiscore/job_email_storage.py.part5-backup
+?? backend/app/aegiscore/job_email_storage.py.phase5-review-backup
+?? backend/app/aegiscore/main.py.part5-email-backup
+?? backend/app/aegiscore/main.py.phase5-review-backup
+?? backend/tests/test_frontend_proxy_methods.py
+?? backend/tests/test_job_analysis.py
+?? backend/tests/test_job_analysis_api.py
+?? backend/tests/test_job_email.py
+?? backend/tests/test_job_email_approval_api.py
+?? backend/tests/test_job_email_approval_storage.py
+?? backend/tests/test_job_email_attachment_api.py
+?? backend/tests/test_job_email_review_api.py
+?? backend/tests/test_job_email_storage.py
+?? backend/tests/test_job_email_update_api.py
+?? backend/tests/test_rag_qa.py.part4f-backup
+?? backend/tests/test_resume_attachment.py
+?? backups/
+?? browser_test_results/
+?? evidence/MASTER-AUDIT-20261102-205051.txt
+?? evidence/parts-1-2-3-combined-verification.txt
+?? frontend/
+?? master_audit_report.txt
+?? tools/
+PASS | Git status collected | Read-only; no commit or push performed
+
+========== FINAL RESULTS ==========
+
+Check
+-----
+Python virtual
+environment
+Full automated
+test suite
+Python AST
+syntax audit
+Frontend HTML
+exists
+Frontend proxy
+exists
+Frontend
+JavaScript
+syntax
+Backend health
+endpoint
+OpenAPI schema
+RAG API routes
+Job workflow
+routes
+Frontend HTTP
+response
+Frontend page
+content
+Ollama service
+Embedding model
+Local LLM
+Playwright
+browser audit
+Git status
+collected
+
+
+
+TOTAL CHECKS: 17
+PASSED: 17
+FAILED: 0
+
+REPORT: .\FINAL_SYSTEM_AUDIT_20261103_095034.txt
+**********************
+Windows PowerShell transcript end
+End time: 20261103095158
+**********************

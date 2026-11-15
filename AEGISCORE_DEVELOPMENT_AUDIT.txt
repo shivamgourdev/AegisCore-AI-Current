@@ -1,0 +1,882 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261031193744
+Username: DESKTOP-9E29O09\shiva
+RunAs User: DESKTOP-9E29O09\shiva
+Configuration Name: 
+Machine: DESKTOP-9E29O09 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -command try { . "c:\Users\shiva\AppData\Local\Programs\Microsoft VS Code\e646868227\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1" } catch {}
+Process ID: 8520
+PSVersion: 5.1.26100.9711
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9711
+BuildVersion: 10.0.26100.9711
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is .\AEGISCORE_DEVELOPMENT_AUDIT.txt
+
+===== 1. ACTIVE PYTHON ENVIRONMENT =====
+
+
+
+===== 2. GIT DEVELOPMENT HISTORY =====
+
+
+
+===== 3. PHASE 1-5 EVIDENCE =====
+
+--- part-01-backend-foundation-verification.txt ---
+AEGISCORE AI - PART 1 VERIFICATION EVIDENCE
+Started: 2026-10-22 20:55:30
+Project: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI
+
+========== 1. PYTHON VERSION ==========
+Python 3.11.9
+Exit code: 0
+
+========== 2. DEPENDENCY CONSISTENCY ==========
+No broken requirements found.
+Exit code: 0
+
+========== 3. PYTHON SYNTAX ==========
+Exit code: 0
+
+========== 4. AUTOMATED API TESTS ==========
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.1.1, pluggy-1.7.0 -- C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI
+configfile: pyproject.toml
+testpaths: backend/tests
+plugins: anyio-4.15.1
+collecting ... collected 4 items
+
+backend/tests/test_health.py::test_root_endpoint_returns_service_information PASSED [ 25%]
+backend/tests/test_health.py::test_health_endpoint_reports_ok PASSED     [ 50%]
+backend/tests/test_health.py::test_openapi_schema_contains_system_endpoints PASSED [ 75%]
+backend/tests/test_health.py::test_unknown_endpoint_returns_404 PASSED   [100%]
+
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 4 passed, 1 warning in 0.66s =========================
+Exit code: 0
+
+========== 5. APPLICATION IMPORT AND ROUTES ==========
+Application: AegisCore AI API
+Routes: ['/', '/docs', '/docs/oauth2-redirect', '/health', '/openapi.json', '/redoc']
+Exit code: 0
+
+========== 6. REQUIRED FILES ==========
+[PASS] requirements.txt
+[PASS] pyproject.toml
+[PASS] backend\app\aegiscore\__init__.py
+[PASS] backend\app\aegiscore\main.py
+[PASS] backend\tests\test_health.py
+
+========== 7. GIT STATUS ==========
+?? backend/
+?? evidence/
+?? pyproject.toml
+?? requirements.txt
+?? scripts/
+Exit code: 0
+
+FINAL RESULT: PASS
+Completed: 2026-10-22 20:55:34
+
+--- part-01-live-api-verification.txt ---
+AEGISCORE AI - LIVE API VERIFICATION
+Started: 2026-10-22 20:56:55
+Base URL: http://127.0.0.1:8765
+
+CHECK 1: Starting actual Uvicorn server
+PASS: Live server started and /health returned HTTP 200.
+
+CHECK 2: GET /
+PASS: Root endpoint returned HTTP 200.
+Response: {"docs": "/docs", "message": "AegisCore AI API is running", "service": "aegiscore-api"}
+
+CHECK 3: GET /health
+PASS: Health endpoint returned expected JSON.
+Response: {"service": "aegiscore-api", "status": "ok", "version": "0.1.0"}
+
+CHECK 4: GET /openapi.json
+PASS: Live OpenAPI schema contains expected endpoints.
+Documented paths: /, /health
+
+CHECK 5: Stopping verification server
+PASS: Verification server process has stopped.
+
+FINAL RESULT: PASS
+Finished: 2026-10-22 20:57:02
+
+--- part-01-uvicorn.log ---
+INFO:     Started server process [9928]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8765 (Press CTRL+C to quit)
+INFO:     127.0.0.1:50571 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50572 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50573 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50574 - "GET /openapi.json HTTP/1.1" 200 OK
+
+--- part-02-upload-verification.txt ---
+AEGISCORE AI - PART 2 VERIFICATION RETEST
+Started: 2026-10-22 21:01:01
+Project: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI
+
+Requirement already satisfied: fastapi<1.0,>=0.115 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from -r requirements.txt (line 1)) (0.159.1)
+Requirement already satisfied: uvicorn<1.0,>=0.30 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from uvicorn[standard]<1.0,>=0.30->-r requirements.txt (line 2)) (0.54.0)
+Requirement already satisfied: httpx<1.0,>=0.27 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from -r requirements.txt (line 3)) (0.28.1)
+Requirement already satisfied: pytest<10,>=8 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from -r requirements.txt (line 4)) (9.1.1)
+Requirement already satisfied: python-multipart<1.0,>=0.0.20 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from -r requirements.txt (line 5)) (0.0.32)
+Requirement already satisfied: starlette>=0.46.0 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from fastapi<1.0,>=0.115->-r requirements.txt (line 1)) (1.9.0)
+Requirement already satisfied: pydantic>=2.9.0 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from fastapi<1.0,>=0.115->-r requirements.txt (line 1)) (2.14.1)
+Requirement already satisfied: typing-extensions>=4.8.0 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from fastapi<1.0,>=0.115->-r requirements.txt (line 1)) (4.16.0)
+Requirement already satisfied: typing-inspection>=0.4.2 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from fastapi<1.0,>=0.115->-r requirements.txt (line 1)) (0.4.4)
+Requirement already satisfied: annotated-doc>=0.0.2 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from fastapi<1.0,>=0.115->-r requirements.txt (line 1)) (0.0.5)
+Requirement already satisfied: opentelemetry-api>=1.44.0 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from fastapi<1.0,>=0.115->-r requirements.txt (line 1)) (1.45.1)
+Requirement already satisfied: click>=7.0 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from uvicorn<1.0,>=0.30->uvicorn[standard]<1.0,>=0.30->-r requirements.txt (line 2)) (8.5.0)
+Requirement already satisfied: h11>=0.8 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from uvicorn<1.0,>=0.30->uvicorn[standard]<1.0,>=0.30->-r requirements.txt (line 2)) (0.16.0)
+Requirement already satisfied: anyio in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from httpx<1.0,>=0.27->-r requirements.txt (line 3)) (4.15.1)
+Requirement already satisfied: certifi in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from httpx<1.0,>=0.27->-r requirements.txt (line 3)) (2026.10.19)
+Requirement already satisfied: httpcore==1.* in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from httpx<1.0,>=0.27->-r requirements.txt (line 3)) (1.0.9)
+Requirement already satisfied: idna in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from httpx<1.0,>=0.27->-r requirements.txt (line 3)) (3.20)
+Requirement already satisfied: colorama>=0.4 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from pytest<10,>=8->-r requirements.txt (line 4)) (0.4.6)
+Requirement already satisfied: iniconfig>=1.0.1 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from pytest<10,>=8->-r requirements.txt (line 4)) (2.3.1)
+Requirement already satisfied: packaging>=22 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from pytest<10,>=8->-r requirements.txt (line 4)) (26.3)
+Requirement already satisfied: pluggy<2,>=1.5 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from pytest<10,>=8->-r requirements.txt (line 4)) (1.7.0)
+Requirement already satisfied: pygments>=2.7.2 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from pytest<10,>=8->-r requirements.txt (line 4)) (2.21.0)
+Requirement already satisfied: httptools>=0.8.0 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from uvicorn[standard]<1.0,>=0.30->-r requirements.txt (line 2)) (0.9.0)
+Requirement already satisfied: python-dotenv>=0.13 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from uvicorn[standard]<1.0,>=0.30->-r requirements.txt (line 2)) (1.2.4)
+Requirement already satisfied: pyyaml>=5.1 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from uvicorn[standard]<1.0,>=0.30->-r requirements.txt (line 2)) (6.0.3)
+Requirement already satisfied: watchfiles>=0.20 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from uvicorn[standard]<1.0,>=0.30->-r requirements.txt (line 2)) (1.3.0)
+Requirement already satisfied: websockets>=13.0 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from uvicorn[standard]<1.0,>=0.30->-r requirements.txt (line 2)) (17.3)
+Requirement already satisfied: annotated-types>=0.6.0 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from pydantic>=2.9.0->fastapi<1.0,>=0.115->-r requirements.txt (line 1)) (0.8.0)
+Requirement already satisfied: pydantic-core==2.50.1 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from pydantic>=2.9.0->fastapi<1.0,>=0.115->-r requirements.txt (line 1)) (2.50.1)
+System.Management.Automation.RemoteException
+[notice] A new release of pip is available: 24.0 -> 26.2.2
+[notice] To update, run: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Scripts\python.exe -m pip install --upgrade pip
+Exit code: 0
+PASS: 1. INSTALL DECLARED REQUIREMENTS
+No broken requirements found.
+Exit code: 0
+PASS: 2. CHECK DEPENDENCY CONSISTENCY
+Exit code: 0
+PASS: 3. COMPILE PYTHON FILES
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.1.1, pluggy-1.7.0 -- C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI
+configfile: pyproject.toml
+testpaths: backend/tests
+plugins: anyio-4.15.1
+collecting ... collected 16 items
+
+backend/tests/test_document_upload.py::test_upload_valid_txt PASSED      [  6%]
+backend/tests/test_document_upload.py::test_upload_valid_markdown PASSED [ 12%]
+backend/tests/test_document_upload.py::test_upload_pdf_with_signature PASSED [ 18%]
+backend/tests/test_document_upload.py::test_unsupported_extension_is_rejected PASSED [ 25%]
+backend/tests/test_document_upload.py::test_empty_file_is_rejected PASSED [ 31%]
+backend/tests/test_document_upload.py::test_whitespace_only_text_is_rejected PASSED [ 37%]
+backend/tests/test_document_upload.py::test_invalid_pdf_signature_is_rejected PASSED [ 43%]
+backend/tests/test_document_upload.py::test_invalid_utf8_text_is_rejected PASSED [ 50%]
+backend/tests/test_document_upload.py::test_oversized_upload_is_rejected PASSED [ 56%]
+backend/tests/test_document_upload.py::test_duplicate_content_is_not_stored_twice PASSED [ 62%]
+backend/tests/test_document_upload.py::test_list_documents_returns_registered_metadata PASSED [ 68%]
+backend/tests/test_document_upload.py::test_document_upload_routes_are_in_openapi PASSED [ 75%]
+backend/tests/test_health.py::test_root_endpoint_returns_service_information PASSED [ 81%]
+backend/tests/test_health.py::test_health_endpoint_reports_ok PASSED     [ 87%]
+backend/tests/test_health.py::test_openapi_schema_contains_system_endpoints PASSED [ 93%]
+backend/tests/test_health.py::test_unknown_endpoint_returns_404 PASSED   [100%]
+
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 16 passed, 1 warning in 0.96s ========================
+Exit code: 0
+PASS: 4. RUN ALL AUTOMATED TESTS
+python-multipart import: OK
+Exit code: 0
+PASS: 5. VERIFY MULTIPART SUPPORT
+[PASS] Required file: backend\app\aegiscore\main.py
+[PASS] Required file: backend\app\aegiscore\document_service.py
+[PASS] Required file: backend\tests\test_health.py
+[PASS] Required file: backend\tests\test_document_upload.py
+[PASS] Required file: requirements.txt
+[PASS] Required file: .gitignore
+
+FINAL RESULT: PASS
+Completed: 2026-10-22 21:01:07
+
+--- part-03-extraction-integration.txt ---
+AEGISCORE AI - PART 3A VERIFICATION
+Date: 2026-10-22 21:14:58
+
+PASS: Python compilation
+PASS: Full pytest suite
+PASS: Dependency consistency
+
+Scope: document upload, extraction, page metadata persistence and extraction API.
+Limitation: OCR and RAG answer citations are not implemented in this phase.
+FINAL RESULT: PASS
+
+--- part-03b-live-api-verification.txt ---
+PASS: Real Uvicorn server starts and /health responds HTTP 200
+PASS: Root endpoint responds HTTP 200
+PASS: Live OpenAPI schema is reachable
+PASS: Live TXT upload responds HTTP 200
+PASS: TXT upload returns a document ID
+PASS: TXT upload triggers successful extraction
+PASS: Stored extraction endpoint responds HTTP 200
+PASS: Extracted text persists and can be read back
+PASS: Repeated TXT upload is handled
+PASS: Repeated identical content is identified as duplicate
+PASS: Duplicate upload reuses the original document ID
+PASS: Live PDF upload responds HTTP 200
+PASS: PDF upload returns a document ID
+PASS: Live PDF text extraction succeeds
+PASS: PDF extraction is readable through API
+PASS: PDF extraction preserves source page numbers
+PASS: Text from both PDF pages is preserved
+PASS: Document listing responds HTTP 200
+PASS: Uploaded documents appear in the document listing
+LIMITATION: OCR, RAG answer generation and answer citations are not verified by this check.
+FINAL RESULT: PASS
+
+--- part-03b-uvicorn.log ---
+INFO:     Started server process [17660]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:55180 (Press CTRL+C to quit)
+INFO:     127.0.0.1:55181 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55181 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55181 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55181 - "POST /documents/upload HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55181 - "GET /documents/071f8b0b-2b54-49f1-89b2-ab413bd90074/extraction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55181 - "POST /documents/upload HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55181 - "POST /documents/upload HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55181 - "GET /documents/8eb6a0ea-73eb-4eb7-81f1-5954fc0e1b5a/extraction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55181 - "GET /documents HTTP/1.1" 200 OK
+
+--- part-03c-reliability-verification.txt ---
+AEGISCORE AI - PART 3C RELIABILITY VERIFICATION
+UTC date: 2026-10-22T15:55:07.689890+00:00
+
+Scope: duplicate upload consistency, persisted extraction failures,
+unknown extraction IDs, existing unit/integration tests, and live API regression.
+
+Pytest exit code: 0
+.................................                                        [100%]
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+33 passed, 1 warning in 1.63s
+
+FINAL RESULT: PASS
+
+--- part-04-full-end-to-end-verification.txt ---
+AEGISCORE AI - PART 4 FULL END-TO-END VERIFICATION
+Time: 2026-10-23T16:24:48.9147389+05:30
+
+PREVIOUSLY VERIFIED PARTS:
+4A: Page-aware deterministic chunking.
+4B: Chunk persistence and source metadata.
+4C: Embedding service validation and normalization.
+4D: Real Ollama embeddings, persisted vectors and semantic search.
+
+CURRENT RUN RESULTS:
+PASS: Local embedding and chat models available.
+PASS: RAG question-answering endpoint implemented.
+PASS: Python compilation.
+PASS: Full automated test suite.
+PASS: Dependency consistency.
+PASS: Existing upload/extraction live API regression.
+PASS: Real multi-document RAG, citations and abstention.
+
+CURRENT RUN LOG:
+
+--- PYTHON COMPILATION ---
+
+--- FULL PYTEST SUITE ---
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.1.1, pluggy-1.7.0 -- C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI
+configfile: pyproject.toml
+testpaths: backend/tests
+plugins: anyio-4.15.1
+collecting ... collected 85 items
+
+backend/tests/test_chunk_storage.py::test_txt_upload_persists_chunks_with_source_metadata PASSED [  1%]
+backend/tests/test_chunk_storage.py::test_pdf_upload_preserves_page_numbers_in_saved_chunks PASSED [  2%]
+backend/tests/test_chunk_storage.py::test_duplicate_upload_keeps_same_chunk_ids PASSED [  3%]
+backend/tests/test_chunk_storage.py::test_corrupt_pdf_has_no_chunks_and_unknown_document_is_404 PASSED [  4%]
+backend/tests/test_chunking_service.py::test_short_page_preserves_text_and_source_metadata PASSED [  5%]
+backend/tests/test_chunking_service.py::test_long_text_is_split_with_configured_maximum_size PASSED [  7%]
+backend/tests/test_chunking_service.py::test_adjacent_chunks_preserve_configured_overlap PASSED [  8%]
+backend/tests/test_chunking_service.py::test_pages_keep_independent_source_numbers PASSED [  9%]
+backend/tests/test_chunking_service.py::test_blank_pages_are_skipped_without_empty_chunks PASSED [ 10%]
+backend/tests/test_chunking_service.py::test_chunk_ids_are_stable_and_unique_for_distinct_chunks PASSED [ 11%]
+backend/tests/test_chunking_service.py::test_invalid_chunk_settings_are_rejected[0-0] PASSED [ 12%]
+backend/tests/test_chunking_service.py::test_invalid_chunk_settings_are_rejected[-1-0] PASSED [ 14%]
+backend/tests/test_chunking_service.py::test_invalid_chunk_settings_are_rejected[10-10] PASSED [ 15%]
+backend/tests/test_chunking_service.py::test_invalid_chunk_settings_are_rejected[10-11] PASSED [ 16%]
+backend/tests/test_chunking_service.py::test_invalid_chunk_settings_are_rejected[10--1] PASSED [ 17%]
+backend/tests/test_chunking_service.py::test_invalid_source_metadata_is_rejected[-a.txt-pages0] PASSED [ 18%]
+backend/tests/test_chunking_service.py::test_invalid_source_metadata_is_rejected[doc--pages1] PASSED [ 20%]
+backend/tests/test_chunking_service.py::test_invalid_source_metadata_is_rejected[doc-a.txt-pages2] PASSED [ 21%]
+backend/tests/test_chunking_service.py::test_invalid_source_metadata_is_rejected[doc-a.txt-pages3] PASSED [ 22%]
+backend/tests/test_document_upload.py::test_upload_valid_txt PASSED      [ 23%]
+backend/tests/test_document_upload.py::test_upload_valid_markdown PASSED [ 24%]
+backend/tests/test_document_upload.py::test_upload_pdf_with_signature PASSED [ 25%]
+backend/tests/test_document_upload.py::test_unsupported_extension_is_rejected PASSED [ 27%]
+backend/tests/test_document_upload.py::test_empty_file_is_rejected PASSED [ 28%]
+backend/tests/test_document_upload.py::test_whitespace_only_text_is_rejected PASSED [ 29%]
+backend/tests/test_document_upload.py::test_invalid_pdf_signature_is_rejected PASSED [ 30%]
+backend/tests/test_document_upload.py::test_invalid_utf8_text_is_rejected PASSED [ 31%]
+backend/tests/test_document_upload.py::test_oversized_upload_is_rejected PASSED [ 32%]
+backend/tests/test_document_upload.py::test_duplicate_content_is_not_stored_twice PASSED [ 34%]
+backend/tests/test_document_upload.py::test_list_documents_returns_registered_metadata PASSED [ 35%]
+backend/tests/test_document_upload.py::test_document_upload_routes_are_in_openapi PASSED [ 36%]
+backend/tests/test_embedding_service.py::test_embedding_is_normalized_and_source_metadata_is_preserved PASSED [ 37%]
+backend/tests/test_embedding_service.py::test_multiple_chunks_keep_their_own_vectors_and_order PASSED [ 38%]
+backend/tests/test_embedding_service.py::test_empty_input_returns_without_loading_a_model PASSED [ 40%]
+backend/tests/test_embedding_service.py::test_missing_or_blank_chunk_text_is_rejected[bad_chunk0] PASSED [ 41%]
+backend/tests/test_embedding_service.py::test_missing_or_blank_chunk_text_is_rejected[bad_chunk1] PASSED [ 42%]
+backend/tests/test_embedding_service.py::test_missing_or_blank_chunk_text_is_rejected[bad_chunk2] PASSED [ 43%]
+backend/tests/test_embedding_service.py::test_missing_or_blank_chunk_text_is_rejected[bad_chunk3] PASSED [ 44%]
+backend/tests/test_embedding_service.py::test_invalid_batch_size_is_rejected[0] PASSED [ 45%]
+backend/tests/test_embedding_service.py::test_invalid_batch_size_is_rejected[-1] PASSED [ 47%]
+backend/tests/test_embedding_service.py::test_invalid_batch_size_is_rejected[True] PASSED [ 48%]
+backend/tests/test_embedding_service.py::test_encoder_must_return_one_vector_per_chunk PASSED [ 49%]
+backend/tests/test_embedding_service.py::test_zero_vector_is_rejected PASSED [ 50%]
+backend/tests/test_embedding_service.py::test_non_finite_vector_values_are_rejected[bad_vector0] PASSED [ 51%]
+backend/tests/test_embedding_service.py::test_non_finite_vector_values_are_rejected[bad_vector1] PASSED [ 52%]
+backend/tests/test_embedding_service.py::test_inconsistent_embedding_dimensions_are_rejected PASSED [ 54%]
+backend/tests/test_embedding_service.py::test_default_encoder_loads_configured_model_lazily PASSED [ 55%]
+backend/tests/test_extraction_integration.py::test_upload_txt_triggers_extraction_and_persists_text PASSED [ 56%]
+backend/tests/test_extraction_integration.py::test_upload_pdf_persists_page_citations PASSED [ 57%]
+backend/tests/test_extraction_integration.py::test_extraction_endpoint_returns_404_for_unknown_id PASSED [ 58%]
+backend/tests/test_extraction_integration.py::test_upload_corrupt_pdf_reports_extraction_failure PASSED [ 60%]
+backend/tests/test_extraction_service.py::test_extract_txt_preserves_text_and_source_page PASSED [ 61%]
+backend/tests/test_extraction_service.py::test_extract_markdown PASSED   [ 62%]
+backend/tests/test_extraction_service.py::test_extract_pdf_preserves_page_numbers PASSED [ 63%]
+backend/tests/test_extraction_service.py::test_reject_corrupt_pdf PASSED [ 64%]
+backend/tests/test_extraction_service.py::test_reject_pdf_without_signature PASSED [ 65%]
+backend/tests/test_extraction_service.py::test_reject_empty_text PASSED  [ 67%]
+backend/tests/test_extraction_service.py::test_reject_invalid_utf8 PASSED [ 68%]
+backend/tests/test_extraction_service.py::test_reject_unsupported_extension PASSED [ 69%]
+backend/tests/test_extraction_service.py::test_reject_scanned_or_image_only_pdf PASSED [ 70%]
+backend/tests/test_extraction_service.py::test_reject_missing_filename PASSED [ 71%]
+backend/tests/test_health.py::test_root_endpoint_returns_service_information PASSED [ 72%]
+backend/tests/test_health.py::test_health_endpoint_reports_ok PASSED     [ 74%]
+backend/tests/test_health.py::test_openapi_schema_contains_system_endpoints PASSED [ 75%]
+backend/tests/test_health.py::test_unknown_endpoint_returns_404 PASSED   [ 76%]
+backend/tests/test_rag_qa.py::test_ask_endpoint_is_in_openapi PASSED     [ 77%]
+backend/tests/test_rag_qa.py::test_ask_rejects_blank_query_without_calling_models PASSED [ 78%]
+backend/tests/test_rag_qa.py::test_ask_rejects_invalid_top_k PASSED      [ 80%]
+backend/tests/test_rag_qa.py::test_ask_rejects_invalid_similarity_threshold PASSED [ 81%]
+backend/tests/test_reliability.py::test_duplicate_txt_upload_preserves_original_extraction PASSED [ 82%]
+backend/tests/test_reliability.py::test_corrupt_pdf_failure_is_persisted_and_repeatable PASSED [ 83%]
+backend/tests/test_reliability.py::test_unknown_extraction_id_returns_404_without_crashing PASSED [ 84%]
+backend/tests/test_vector_search.py::test_embedding_endpoint_persists_normalized_vector_metadata PASSED [ 85%]
+backend/tests/test_vector_search.py::test_semantic_search_ranks_matching_source_first PASSED [ 87%]
+backend/tests/test_vector_search.py::test_unknown_document_embedding_endpoint_returns_404 PASSED [ 88%]
+backend/tests/test_vector_search.py::test_unknown_document_embedding_metadata_returns_404 PASSED [ 89%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_queries[payload0] PASSED [ 90%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_queries[payload1] PASSED [ 91%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_queries[payload2] PASSED [ 92%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_queries[payload3] PASSED [ 94%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_top_k[0] PASSED [ 95%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_top_k[-1] PASSED [ 96%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_top_k[51] PASSED [ 97%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_top_k[True] PASSED [ 98%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_top_k[3] PASSED [100%]
+
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 85 passed, 1 warning in 2.80s ========================
+
+--- PIP CHECK ---
+No broken requirements found.
+
+--- PART 3 LIVE API REGRESSION ---
+PASS: Real Uvicorn server starts and /health responds HTTP 200
+PASS: Root endpoint responds HTTP 200
+PASS: Live OpenAPI schema is reachable
+PASS: Live TXT upload responds HTTP 200
+PASS: TXT upload returns a document ID
+PASS: TXT upload triggers successful extraction
+PASS: Stored extraction endpoint responds HTTP 200
+PASS: Extracted text persists and can be read back
+PASS: Repeated TXT upload is handled
+PASS: Repeated identical content is identified as duplicate
+PASS: Duplicate upload reuses the original document ID
+PASS: Live PDF upload responds HTTP 200
+PASS: PDF upload returns a document ID
+PASS: Live PDF text extraction succeeds
+PASS: PDF extraction is readable through API
+PASS: PDF extraction preserves source page numbers
+PASS: Text from both PDF pages is preserved
+PASS: Document listing responds HTTP 200
+PASS: Uploaded documents appear in the document listing
+
+Evidence written to: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-03b-live-api-verification.txt
+
+--- REAL OLLAMA RAG INTEGRATION ---
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+  from starlette.testclient import TestClient as TestClient  # noqa
+PASS: Embedded document: finance.txt
+PASS: Embedded document: hiring.txt
+PASS: Multi-document corpus retrieval returned both sources.
+PASS: Finance answer generated with matching source citation.
+ANSWER: Project Orion' extrude revenue was 42 million dollars in Q3 [S1].
+PASS: Hiring answer generated with matching source citation.
+ANSWER: The hiring team plans to recruit six junior Python engineers in November [S1].
+PASS: Insufficient evidence caused an abstention with no citations.
+PART 4E REAL MULTI-DOCUMENT RAG RESULT: PASS
+
+PART 4E SCOPE:
+Two real documents uploaded and embedded using Ollama.
+Search tested against a corpus containing both documents.
+Local chat model generated answers from retrieved evidence.
+Answers returned source filename, page and evidence text as citations.
+High similarity threshold exercised the insufficient-evidence abstention path.
+
+LIMITATIONS:
+This is local integration verification, not a guarantee that all LLM answers are factually correct.
+Scanned PDF OCR, production-scale vector indexing, and advanced citation entailment are not verified by this run.
+
+FINAL RAG RERUN
+Time: 2026-10-23T16:29:37.6699575+05:30
+Result: PASS
+Evidence: Two documents embedded; multi-document retrieval, finance answer, hiring answer, source citations and insufficient-evidence abstention all passed.
+Prior verification in the same code state: 85 pytest tests passed; pip check passed; existing live API regression passed.
+Limitation: LLM wording and citation entailment require further quality evaluation.
+
+--- part-04-pdf-rag-uvicorn.log ---
+INFO:     Started server process [2648]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:62609 (Press CTRL+C to quit)
+INFO:     127.0.0.1:61366 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61366 - "POST /documents/upload HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61366 - "GET /documents/2d5f2c7c-d4cd-4bab-882f-b848cb966b71/extraction HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61366 - "GET /documents/2d5f2c7c-d4cd-4bab-882f-b848cb966b71/chunks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61366 - "POST /documents/2d5f2c7c-d4cd-4bab-882f-b848cb966b71/embed HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61366 - "POST /ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61366 - "POST /ask HTTP/1.1" 200 OK
+
+--- part-04-pdf-rag-verification.txt ---
+PASS: Live Uvicorn health endpoint returns HTTP 200
+PASS: PDF upload succeeds: {"document":{"document_id":"2d5f2c7c-d4cd-4bab-882f-b848cb966b71","filename":"pdf-page-proof.pdf","extension":".pdf","content_type":"application/pdf","size_bytes":1334,"sha256":"551e1fb897c4db626ff1e0d0c3653b13e12e0f1f3ec4b7cfc85b5cfdc609d959","uploaded_at":"2026-10-23T14:53:34.796271+00:00"},"duplicate":false,"extraction":{"status":"text_extracted","page_count":2,"error":null},"message":"Document
+PASS: PDF extraction reports text_extracted
+PASS: PDF extraction identifies both pages
+PASS: Persisted PDF extraction is readable through the API
+PASS: PDF preserves one-based page numbers: [1, 2]
+PASS: Unique evidence is extracted from actual PDF page 2
+PASS: PDF chunks are available
+PASS: Chunking preserves page 2 and its unique evidence
+PASS: Live Ollama embedding succeeds: {"document_id":"2d5f2c7c-d4cd-4bab-882f-b848cb966b71","model":"nomic-embed-text:latest","embedding_count":2,"dimension":768}
+PASS: PDF chunk embeddings are persisted
+PASS: PDF RAG question returns HTTP 200: {"answer":"The reserved test budget for Project Cedar is 73,500 credits for the October simulation [S1].","abstained":false,"citations":[{"source_id":"S1","filename":"pdf-page-proof.pdf","page_number":2,"text":"Project Cedar verification fact: the reserved test budget is 73,500 credits for the October simulation.","similarity":0.8510801286320968}],"model":"phi3.5:3.8b"}
+PASS: PDF RAG answers the supported question
+PASS: Answer preserves the exact supported amount and unit
+PASS: PDF RAG answer includes citations
+PASS: Citation identifies the uploaded PDF filename
+PASS: Citation points to the correct PDF page 2
+PASS: Page 2 citation passage contains the exact supporting evidence
+PASS: Each returned citation ID is referenced in the answer
+PASS: Unsupported PDF question returns HTTP 200
+PASS: Unsupported PDF question is explicitly abstained
+PASS: Unsupported PDF question returns no citations
+LIVE PDF-TO-RAG VERIFICATION: PASS
+
+--- part-04a-chunking-verification.txt ---
+AEGISCORE AI - PART 4A CHUNKING VERIFICATION
+UTC timestamp: 2026-10-23T10:33:17.430453+00:00
+
+Checks performed:
+PASS: Chunking service and tests created
+PASS: Python compilation
+PASS: Full automated test suite
+PASS: pip check
+PASS: Existing live API regression
+
+Final pytest rerun:
+................................................                         [100%]
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+48 passed, 1 warning in 1.91s
+
+
+Dependency check:
+No broken requirements found.
+
+
+FINAL RESULT: PASS
+
+--- part-04b-chunk-storage-verification.txt ---
+AEGISCORE AI - PART 4B PERSISTENT CHUNK STORAGE
+UTC timestamp: 2026-10-23T10:36:27.996213+00:00
+
+Verification steps:
+PASS: Persistent chunk storage and upload integration created
+PASS: Compilation
+PASS: Full automated test suite
+PASS: pip check
+PASS: Existing real-server API regression
+
+Final automated test rerun:
+....................................................                     [100%]
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+52 passed, 1 warning in 2.18s
+
+
+Dependency consistency:
+No broken requirements found.
+
+
+FINAL RESULT: PASS
+
+--- part-04c-embedding-verification.txt ---
+AEGISCORE AI - PART 4C EMBEDDING GENERATION
+UTC timestamp: 2026-10-23T10:38:43.745035+00:00
+
+Verification steps:
+PASS: Embedding service and deterministic validation tests created
+PASS: Compilation
+PASS: Full automated test suite
+PASS: pip check
+PASS: Existing real-server API regression
+
+SentenceTransformers package installed: False
+Note: automated model-loading test uses a deterministic fake model. Real pretrained-model inference is not claimed by this report.
+
+Final automated test rerun:
+....................................................................     [100%]
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+68 passed, 1 warning in 2.68s
+
+
+Dependency consistency:
+No broken requirements found.
+
+
+FINAL RESULT: PASS
+
+--- part-04d-ollama-vector-search-verification.txt ---
+AEGISCORE AI - PART 4D OLLAMA VECTOR SEARCH
+Verification time: 2026-10-23T16:20:38.0517582+05:30
+
+RESULTS:
+PASS: Python compilation.
+PASS: Full automated test suite.
+PASS: pip check.
+PASS: Existing live API regression.
+PASS: nomic-embed-text:latest is available.
+PASS: Real Ollama embeddings, persistence and semantic search.
+
+EXECUTION LOG:
+
+--- PYTHON COMPILATION ---
+
+--- FULL AUTOMATED TEST SUITE ---
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.1.1, pluggy-1.7.0 -- C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI
+configfile: pyproject.toml
+testpaths: backend/tests
+plugins: anyio-4.15.1
+collecting ... collected 81 items
+
+backend/tests/test_chunk_storage.py::test_txt_upload_persists_chunks_with_source_metadata PASSED [  1%]
+backend/tests/test_chunk_storage.py::test_pdf_upload_preserves_page_numbers_in_saved_chunks PASSED [  2%]
+backend/tests/test_chunk_storage.py::test_duplicate_upload_keeps_same_chunk_ids PASSED [  3%]
+backend/tests/test_chunk_storage.py::test_corrupt_pdf_has_no_chunks_and_unknown_document_is_404 PASSED [  4%]
+backend/tests/test_chunking_service.py::test_short_page_preserves_text_and_source_metadata PASSED [  6%]
+backend/tests/test_chunking_service.py::test_long_text_is_split_with_configured_maximum_size PASSED [  7%]
+backend/tests/test_chunking_service.py::test_adjacent_chunks_preserve_configured_overlap PASSED [  8%]
+backend/tests/test_chunking_service.py::test_pages_keep_independent_source_numbers PASSED [  9%]
+backend/tests/test_chunking_service.py::test_blank_pages_are_skipped_without_empty_chunks PASSED [ 11%]
+backend/tests/test_chunking_service.py::test_chunk_ids_are_stable_and_unique_for_distinct_chunks PASSED [ 12%]
+backend/tests/test_chunking_service.py::test_invalid_chunk_settings_are_rejected[0-0] PASSED [ 13%]
+backend/tests/test_chunking_service.py::test_invalid_chunk_settings_are_rejected[-1-0] PASSED [ 14%]
+backend/tests/test_chunking_service.py::test_invalid_chunk_settings_are_rejected[10-10] PASSED [ 16%]
+backend/tests/test_chunking_service.py::test_invalid_chunk_settings_are_rejected[10-11] PASSED [ 17%]
+backend/tests/test_chunking_service.py::test_invalid_chunk_settings_are_rejected[10--1] PASSED [ 18%]
+backend/tests/test_chunking_service.py::test_invalid_source_metadata_is_rejected[-a.txt-pages0] PASSED [ 19%]
+backend/tests/test_chunking_service.py::test_invalid_source_metadata_is_rejected[doc--pages1] PASSED [ 20%]
+backend/tests/test_chunking_service.py::test_invalid_source_metadata_is_rejected[doc-a.txt-pages2] PASSED [ 22%]
+backend/tests/test_chunking_service.py::test_invalid_source_metadata_is_rejected[doc-a.txt-pages3] PASSED [ 23%]
+backend/tests/test_document_upload.py::test_upload_valid_txt PASSED      [ 24%]
+backend/tests/test_document_upload.py::test_upload_valid_markdown PASSED [ 25%]
+backend/tests/test_document_upload.py::test_upload_pdf_with_signature PASSED [ 27%]
+backend/tests/test_document_upload.py::test_unsupported_extension_is_rejected PASSED [ 28%]
+backend/tests/test_document_upload.py::test_empty_file_is_rejected PASSED [ 29%]
+backend/tests/test_document_upload.py::test_whitespace_only_text_is_rejected PASSED [ 30%]
+backend/tests/test_document_upload.py::test_invalid_pdf_signature_is_rejected PASSED [ 32%]
+backend/tests/test_document_upload.py::test_invalid_utf8_text_is_rejected PASSED [ 33%]
+backend/tests/test_document_upload.py::test_oversized_upload_is_rejected PASSED [ 34%]
+backend/tests/test_document_upload.py::test_duplicate_content_is_not_stored_twice PASSED [ 35%]
+backend/tests/test_document_upload.py::test_list_documents_returns_registered_metadata PASSED [ 37%]
+backend/tests/test_document_upload.py::test_document_upload_routes_are_in_openapi PASSED [ 38%]
+backend/tests/test_embedding_service.py::test_embedding_is_normalized_and_source_metadata_is_preserved PASSED [ 39%]
+backend/tests/test_embedding_service.py::test_multiple_chunks_keep_their_own_vectors_and_order PASSED [ 40%]
+backend/tests/test_embedding_service.py::test_empty_input_returns_without_loading_a_model PASSED [ 41%]
+backend/tests/test_embedding_service.py::test_missing_or_blank_chunk_text_is_rejected[bad_chunk0] PASSED [ 43%]
+backend/tests/test_embedding_service.py::test_missing_or_blank_chunk_text_is_rejected[bad_chunk1] PASSED [ 44%]
+backend/tests/test_embedding_service.py::test_missing_or_blank_chunk_text_is_rejected[bad_chunk2] PASSED [ 45%]
+backend/tests/test_embedding_service.py::test_missing_or_blank_chunk_text_is_rejected[bad_chunk3] PASSED [ 46%]
+backend/tests/test_embedding_service.py::test_invalid_batch_size_is_rejected[0] PASSED [ 48%]
+backend/tests/test_embedding_service.py::test_invalid_batch_size_is_rejected[-1] PASSED [ 49%]
+backend/tests/test_embedding_service.py::test_invalid_batch_size_is_rejected[True] PASSED [ 50%]
+backend/tests/test_embedding_service.py::test_encoder_must_return_one_vector_per_chunk PASSED [ 51%]
+backend/tests/test_embedding_service.py::test_zero_vector_is_rejected PASSED [ 53%]
+backend/tests/test_embedding_service.py::test_non_finite_vector_values_are_rejected[bad_vector0] PASSED [ 54%]
+backend/tests/test_embedding_service.py::test_non_finite_vector_values_are_rejected[bad_vector1] PASSED [ 55%]
+backend/tests/test_embedding_service.py::test_inconsistent_embedding_dimensions_are_rejected PASSED [ 56%]
+backend/tests/test_embedding_service.py::test_default_encoder_loads_configured_model_lazily PASSED [ 58%]
+backend/tests/test_extraction_integration.py::test_upload_txt_triggers_extraction_and_persists_text PASSED [ 59%]
+backend/tests/test_extraction_integration.py::test_upload_pdf_persists_page_citations PASSED [ 60%]
+backend/tests/test_extraction_integration.py::test_extraction_endpoint_returns_404_for_unknown_id PASSED [ 61%]
+backend/tests/test_extraction_integration.py::test_upload_corrupt_pdf_reports_extraction_failure PASSED [ 62%]
+backend/tests/test_extraction_service.py::test_extract_txt_preserves_text_and_source_page PASSED [ 64%]
+backend/tests/test_extraction_service.py::test_extract_markdown PASSED   [ 65%]
+backend/tests/test_extraction_service.py::test_extract_pdf_preserves_page_numbers PASSED [ 66%]
+backend/tests/test_extraction_service.py::test_reject_corrupt_pdf PASSED [ 67%]
+backend/tests/test_extraction_service.py::test_reject_pdf_without_signature PASSED [ 69%]
+backend/tests/test_extraction_service.py::test_reject_empty_text PASSED  [ 70%]
+backend/tests/test_extraction_service.py::test_reject_invalid_utf8 PASSED [ 71%]
+backend/tests/test_extraction_service.py::test_reject_unsupported_extension PASSED [ 72%]
+backend/tests/test_extraction_service.py::test_reject_scanned_or_image_only_pdf PASSED [ 74%]
+backend/tests/test_extraction_service.py::test_reject_missing_filename PASSED [ 75%]
+backend/tests/test_health.py::test_root_endpoint_returns_service_information PASSED [ 76%]
+backend/tests/test_health.py::test_health_endpoint_reports_ok PASSED     [ 77%]
+backend/tests/test_health.py::test_openapi_schema_contains_system_endpoints PASSED [ 79%]
+backend/tests/test_health.py::test_unknown_endpoint_returns_404 PASSED   [ 80%]
+backend/tests/test_reliability.py::test_duplicate_txt_upload_preserves_original_extraction PASSED [ 81%]
+backend/tests/test_reliability.py::test_corrupt_pdf_failure_is_persisted_and_repeatable PASSED [ 82%]
+backend/tests/test_reliability.py::test_unknown_extraction_id_returns_404_without_crashing PASSED [ 83%]
+backend/tests/test_vector_search.py::test_embedding_endpoint_persists_normalized_vector_metadata PASSED [ 85%]
+backend/tests/test_vector_search.py::test_semantic_search_ranks_matching_source_first PASSED [ 86%]
+backend/tests/test_vector_search.py::test_unknown_document_embedding_endpoint_returns_404 PASSED [ 87%]
+backend/tests/test_vector_search.py::test_unknown_document_embedding_metadata_returns_404 PASSED [ 88%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_queries[payload0] PASSED [ 90%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_queries[payload1] PASSED [ 91%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_queries[payload2] PASSED [ 92%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_queries[payload3] PASSED [ 93%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_top_k[0] PASSED [ 95%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_top_k[-1] PASSED [ 96%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_top_k[51] PASSED [ 97%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_top_k[True] PASSED [ 98%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_top_k[3] PASSED [100%]
+
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 81 passed, 1 warning in 3.31s ========================
+
+--- DEPENDENCY CHECK ---
+No broken requirements found.
+
+--- LIVE API REGRESSION ---
+PASS: Real Uvicorn server starts and /health responds HTTP 200
+PASS: Root endpoint responds HTTP 200
+PASS: Live OpenAPI schema is reachable
+PASS: Live TXT upload responds HTTP 200
+PASS: TXT upload returns a document ID
+PASS: TXT upload triggers successful extraction
+PASS: Stored extraction endpoint responds HTTP 200
+PASS: Extracted text persists and can be read back
+PASS: Repeated TXT upload is handled
+PASS: Repeated identical content is identified as duplicate
+PASS: Duplicate upload reuses the original document ID
+PASS: Live PDF upload responds HTTP 200
+PASS: PDF upload returns a document ID
+PASS: Live PDF text extraction succeeds
+PASS: PDF extraction is readable through API
+PASS: PDF extraction preserves source page numbers
+PASS: Text from both PDF pages is preserved
+PASS: Document listing responds HTTP 200
+PASS: Uploaded documents appear in the document listing
+
+Evidence written to: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-03b-live-api-verification.txt
+
+--- REAL OLLAMA END-TO-END TEST ---
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+  from starlette.testclient import TestClient as TestClient  # noqa
+PASS: Real Ollama embeddings: 1 vector(s), 768 dimensions.
+PASS: Persisted vectors and normalized vector norms verified.
+PASS: Semantic search returned expected source: live_revenue_report.txt | page: 1 | similarity: 0.75868
+PART 4D REAL OLLAMA END-TO-END RESULT: PASS
+
+MODEL: nomic-embed-text:latest
+REAL MODEL TEST: PASS
+Scope: Embedding generation, vector persistence, normalized vector metadata, semantic search and source metadata.
+Not yet verified: LLM-generated cited question answering.
+
+--- part-04f-live-rag-api-verification.txt ---
+PASS: Real Uvicorn server starts and health returns HTTP 200
+PASS: Live upload succeeds: finance-live.txt
+PASS: Text extraction succeeds: finance-live.txt
+PASS: Upload returns document ID: finance-live.txt
+PASS: Live Ollama embedding succeeds: finance-live.txt; response={"document_id":"d1879440-3f84-4ff8-b050-1d3fb317923c","model":"nomic-embed-text:latest","embedding_count":1,"dimension":768}
+PASS: Persisted embeddings exist: finance-live.txt
+PASS: Live upload succeeds: hiring-live.txt
+PASS: Text extraction succeeds: hiring-live.txt
+PASS: Upload returns document ID: hiring-live.txt
+PASS: Live Ollama embedding succeeds: hiring-live.txt; response={"document_id":"e597008e-ae65-424a-8f71-6ac7f4e4d1fc","model":"nomic-embed-text:latest","embedding_count":1,"dimension":768}
+PASS: Persisted embeddings exist: hiring-live.txt
+PASS: Two distinct documents are ready for RAG
+PASS: Live finance /ask returns HTTP 200: {"answer":"Project Orion's revenue in Q3 was 42 million dollars [S1].","abstained":false,"citations":[{"source_id":"S1","filename":"finance-live.txt","page_number":1,"text":"Project Orion revenue was 42 million dollars in Q3. The finance report identifies this as quarterly revenue.","similarity":1.0
+PASS: Finance question receives a non-abstained answer
+PASS: Finance answer includes the supported number and unit
+PASS: Finance answer includes citations
+PASS: Finance citation identifies the correct source file
+PASS: Returned finance citation ID appears in answer
+PASS: Finance citation contains source evidence
+PASS: Live hiring /ask returns HTTP 200: {"answer":"The team plans to recruit six junior Python engineers. [S1]","abstained":false,"citations":[{"source_id":"S1","filename":"hiring-live.txt","page_number":1,"text":"The hiring team plans to recruit six junior Python engineers. The planned hiring total is six engineers.","similarity":1.0}],"
+PASS: Hiring question receives a non-abstained answer
+PASS: Hiring answer includes the supported hiring total
+PASS: Hiring answer includes citations
+PASS: Hiring citation identifies the correct source file
+PASS: Returned hiring citation ID appears in answer
+PASS: Hiring citation contains source evidence
+PASS: Unsupported question /ask returns HTTP 200: {"answer":"I don't have enough evidence in the uploaded documents to answer that question.","abstained":true,"citations":[],"model":null}
+PASS: Unsupported question is explicitly abstained
+PASS: Unsupported question returns no citations
+PART 4F LIVE RAG API VERIFICATION: PASS
+
+--- part-04f-uvicorn.log ---
+INFO:     Started server process [10416]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:52453 (Press CTRL+C to quit)
+INFO:     127.0.0.1:52490 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52490 - "POST /documents/upload HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52490 - "POST /documents/d1879440-3f84-4ff8-b050-1d3fb317923c/embed HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52490 - "POST /documents/upload HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52490 - "POST /documents/e597008e-ae65-424a-8f71-6ac7f4e4d1fc/embed HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52490 - "POST /ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52490 - "POST /ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52490 - "POST /ask HTTP/1.1" 200 OK
+
+===== 4. IMPLEMENTED SOURCE FILES =====
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunking_service.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunk_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\document_service.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\extraction_service.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\extraction_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_analysis.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py.part5-backup
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py.part5-email-backup
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\ollama_embedding.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\sparse_search.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\vector_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__init__.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\chunking_service.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\chunk_storage.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\document_service.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\embedding_service.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\extraction_service.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\extraction_storage.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\job_analysis.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\job_email.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\job_email_storage.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\main.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\ollama_embedding.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\sparse_search.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\vector_storage.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\__init__.cpython-311.pyc
+
+===== 5. TEST FILES =====
+
+
+===== 6. PHASE 1-5 TEST EXECUTION =====
+
+
+===== 7. DEPENDENCIES =====
+
+
+===== 8. VERIFICATION SCRIPTS =====
+Name
+----
+test_chunking_service.py
+test_chunk_storage.py
+test_document_upload.py
+test_embedding_service.py
+test_extraction_integration.py
+test_extraction_service.py
+test_health.py
+test_job_analysis.py
+test_job_analysis_api.py
+test_job_email.py
+test_job_email_approval_api.py
+test_job_email_approval_storage.py
+test_job_email_attachment_api.py
+test_job_email_review_api.py
+test_job_email_storage.py
+test_part4_citation_integrity.py
+test_part4_edge_security.py
+test_part4_multi_document.py
+test_part4_restart_recovery.py
+test_rag_qa.py
+test_rag_qa.py.part4f-backup
+test_reliability.py
+test_resume_attachment.py
+test_sparse_retrieval.py
+test_vector_search.py
+verify_backend_foundation.ps1
+verify_live_api.py
+verify_part03b_live_api.py
+verify_part04d_ollama_vectors.py
+verify_part04e_rag_qa.py
+verify_part04f_live_rag_api.py
+verify_part04_pdf_rag.py
+
+===== DEVELOPMENT AUDIT COMPLETE =====
+**********************
+Windows PowerShell transcript end
+End time: 20261031193859
+**********************

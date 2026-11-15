@@ -1,0 +1,71 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261103093434
+Username: DESKTOP-9E29O09\shiva
+RunAs User: DESKTOP-9E29O09\shiva
+Configuration Name: 
+Machine: DESKTOP-9E29O09 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -command try { . "c:\Users\shiva\AppData\Local\Programs\Microsoft VS Code\e646868227\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1" } catch {}
+Process ID: 5148
+PSVersion: 5.1.26100.9711
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9711
+BuildVersion: 10.0.26100.9711
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\MASTER_FINAL_20261103_093434.txt
+
+========== AEGISCORE FINAL MASTER COMMAND 16 ==========
+
+[1] FULL TEST SUITE
+
+Test exit: 0
+
+[2] PROXY HANDLER AUDIT
+
+
+[3] BACKEND START
+
+status service   
+------ -------   
+ok     aegisco...
+Backend already running.
+
+[4] FRONTEND START
+Security Warning: Script Execution Risk
+Invoke-WebRequest parses the content of the web page. Script code in the web page might be run when the page is parsed.
+      RECOMMENDED ACTION:
+      Use the -UseBasicParsing switch to avoid script code execution.
+
+      Do you want to continue?
+&Yes  Yes to &All  &No  No to A&ll  &Suspend
+N
+>> TerminatingError(Invoke-WebRequest): "Operation cancelled due to security concerns. Use -UseBasicParsing parameter for safe HTML parsing without script execution."
+Security Warning: Script Execution Risk
+Invoke-WebRequest parses the content of the web page. Script code in the web page might be run when the page is parsed.
+      RECOMMENDED ACTION:
+      Use the -UseBasicParsing switch to avoid script code execution.
+
+      Do you want to continue?
+&Yes  Yes to &All  &No  No to A&ll  &Suspend
+N
+>> TerminatingError(Invoke-WebRequest): "Operation cancelled due to security concerns. Use -UseBasicParsing parameter for safe HTML parsing without script execution."
+Frontend check failed: Operation cancelled due to security concerns. Use -UseBasicParsing parameter for safe HTML parsing without script execution.
+
+========== FINAL STATUS ==========
+Backend health: True
+Frontend HTTP: False
+Full tests exit: 0
+
+[5] GIT STATUS - NO COMMIT/PUSH
+
+
+Report: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\MASTER_FINAL_20261103_093434.txt
+No email sent. No Git commit or push performed.
+**********************
+Windows PowerShell transcript end
+End time: 20261103093606
+**********************

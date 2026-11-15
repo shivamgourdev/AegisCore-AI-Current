@@ -1,0 +1,57 @@
+[PASS] Health endpoint OK
+[PASS] Root endpoint OK
+[PASS] Resume PDF upload: 200
+[PASS] Resume is not a duplicate
+[PASS] Resume text extracted
+[PASS] Extraction endpoint OK
+[PASS] Resume text contains name
+[PASS] Resume text contains skills
+[PASS] Resume has 2 pages
+[PASS] Chunks endpoint OK
+[PASS] Chunks exist
+[PASS] Embedding OK: 200
+[PASS] Embeddings created
+[PASS] Dense search OK
+[PASS] Dense mode returned
+[PASS] Search results exist
+[PASS] Sparse search OK
+[PASS] Sparse mode returned
+[PASS] Hybrid search OK
+[PASS] Hybrid mode returned
+[PASS] RAG QA OK: 200
+[PASS] RAG QA not abstained
+[PASS] RAG QA has citations
+[PASS] Answer mentions Python
+[PASS] Job analysis OK: 200
+[PASS] Python matched
+[PASS] ML missing
+[PASS] Match percentage 75%
+[PASS] Draft creation OK: 200
+[PASS] Draft is pending
+[PASS] Requires approval
+[PASS] Not sent
+[PASS] Draft binds resume attachment
+[PASS] Draft has correct filename
+[PASS] Get draft OK
+[PASS] Draft ID matches
+[PASS] Draft update OK: 200
+[PASS] Recipient updated
+[PASS] Still pending after update
+[PASS] Still requires approval after update
+[PASS] Draft approval OK: 200
+[PASS] Draft is approved
+[PASS] No longer requires approval
+[PASS] Email not sent
+[PASS] Message confirms no email sent
+[PASS] Approved draft cannot be updated
+[PASS] Modified approval rejected
+[PASS] Approval without confirm rejected
+[PASS] Unknown resume rejected for draft
+[PASS] Non-PDF resume rejected for draft
+[PASS] Unsupported extension rejected
+[PASS] Oversized upload rejected
+[PASS] List documents OK
+[PASS] Multiple documents listed
+[PASS] Unknown document returns 404
+
+=== END-TO-END VERIFICATION: ALL CHECKS PASSED ===

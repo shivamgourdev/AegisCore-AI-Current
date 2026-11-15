@@ -1,0 +1,30 @@
+PASS: Real Uvicorn server starts and health returns HTTP 200
+PASS: Live upload succeeds: finance-live.txt
+PASS: Text extraction succeeds: finance-live.txt
+PASS: Upload returns document ID: finance-live.txt
+PASS: Live Ollama embedding succeeds: finance-live.txt; response={"document_id":"d1879440-3f84-4ff8-b050-1d3fb317923c","model":"nomic-embed-text:latest","embedding_count":1,"dimension":768}
+PASS: Persisted embeddings exist: finance-live.txt
+PASS: Live upload succeeds: hiring-live.txt
+PASS: Text extraction succeeds: hiring-live.txt
+PASS: Upload returns document ID: hiring-live.txt
+PASS: Live Ollama embedding succeeds: hiring-live.txt; response={"document_id":"e597008e-ae65-424a-8f71-6ac7f4e4d1fc","model":"nomic-embed-text:latest","embedding_count":1,"dimension":768}
+PASS: Persisted embeddings exist: hiring-live.txt
+PASS: Two distinct documents are ready for RAG
+PASS: Live finance /ask returns HTTP 200: {"answer":"Project Orion's revenue in Q3 was 42 million dollars [S1].","abstained":false,"citations":[{"source_id":"S1","filename":"finance-live.txt","page_number":1,"text":"Project Orion revenue was 42 million dollars in Q3. The finance report identifies this as quarterly revenue.","similarity":1.0
+PASS: Finance question receives a non-abstained answer
+PASS: Finance answer includes the supported number and unit
+PASS: Finance answer includes citations
+PASS: Finance citation identifies the correct source file
+PASS: Returned finance citation ID appears in answer
+PASS: Finance citation contains source evidence
+PASS: Live hiring /ask returns HTTP 200: {"answer":"The team plans to recruit six junior Python engineers. [S1]","abstained":false,"citations":[{"source_id":"S1","filename":"hiring-live.txt","page_number":1,"text":"The hiring team plans to recruit six junior Python engineers. The planned hiring total is six engineers.","similarity":1.0}],"
+PASS: Hiring question receives a non-abstained answer
+PASS: Hiring answer includes the supported hiring total
+PASS: Hiring answer includes citations
+PASS: Hiring citation identifies the correct source file
+PASS: Returned hiring citation ID appears in answer
+PASS: Hiring citation contains source evidence
+PASS: Unsupported question /ask returns HTTP 200: {"answer":"I don't have enough evidence in the uploaded documents to answer that question.","abstained":true,"citations":[],"model":null}
+PASS: Unsupported question is explicitly abstained
+PASS: Unsupported question returns no citations
+PART 4F LIVE RAG API VERIFICATION: PASS

@@ -1,0 +1,259 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AegisCore AI | Job Application Sandbox</title>
+<style>
+:root{font-family:Inter,Segoe UI,Arial,sans-serif;color:#e9edf7;background:#0b1020}
+*{box-sizing:border-box}body{margin:0}header{padding:26px max(20px,calc((100% - 1080px)/2));border-bottom:1px solid #29314a;background:#11182b}
+h1{font-size:26px;margin:0 0 8px}header p,.muted{color:#aab5cd;font-size:14px;line-height:1.6;margin:0}
+main{max-width:1080px;margin:24px auto;padding:0 18px 48px;display:grid;gap:18px}
+.card{background:#131b30;border:1px solid #2b3652;border-radius:14px;padding:22px}
+h2{font-size:18px;margin:0 0 8px}label{display:block;font-size:13px;color:#bdc8df;margin:14px 0 7px}
+input,textarea{display:block;width:100%;border:1px solid #394765;background:#0d1426;color:#f3f6ff;padding:11px 12px;border-radius:8px;font:inherit}
+textarea{resize:vertical;min-height:100px}input:focus,textarea:focus{outline:2px solid #768df9;border-color:transparent}
+button{border:0;border-radius:8px;padding:11px 15px;background:#7488f5;color:#0b1020;font-weight:700;cursor:pointer;margin-top:12px}
+button.secondary{background:#263550;color:#e9edf7}button:disabled{opacity:.5;cursor:not-allowed}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}.status{padding:12px;border-radius:8px;background:#0d1426;color:#bdc8df;white-space:pre-wrap;overflow-wrap:anywhere;margin-top:12px}
+.status.error{border:1px solid #a64f65;color:#ffc5d0}.status.ok{border:1px solid #397e69;color:#aaf0d4}
+.pill{display:inline-block;border:1px solid #465477;border-radius:99px;padding:5px 9px;color:#bdc8df;font-size:12px;margin:5px 5px 0 0}
+.check{display:flex;gap:10px;align-items:flex-start;line-height:1.5}.check input{width:auto;margin-top:4px}
+small{color:#aab5cd;line-height:1.5;display:block;margin-top:8px}
+@media(max-width:650px){.row{grid-template-columns:1fr}.card{padding:16px}header{padding:22px 18px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>AegisCore AI</h1>
+  <p>Job Application Sandbox · Resume analysis · Draft review · Explicit approval</p>
+</header>
+<main>
+<section class="card">
+  <h2>1. Resume</h2>
+  <p class="muted">Upload a PDF to bind it as the email attachment. Paste resume text below for skill analysis; extraction is attempted automatically when available.</p>
+  <label for="resumeFile">Resume PDF</label>
+  <input id="resumeFile" type="file" accept=".pdf,application/pdf">
+  <button id="uploadBtn">Upload PDF</button>
+  <div id="uploadStatus" class="status">No resume uploaded yet.</div>
+  <label for="resumeText">Resume text for analysis</label>
+  <textarea id="resumeText" placeholder="Paste your resume text here..."></textarea>
+</section>
+
+<section class="card">
+  <h2>2. Job description and skill match</h2>
+  <label for="jobDescription">Job description</label>
+  <textarea id="jobDescription" placeholder="Paste the full job description here..."></textarea>
+  <button id="analyzeBtn">Analyze skill match</button>
+  <div id="analysisStatus" class="status">Analysis not run yet.</div>
+  <div id="skills"></div>
+  <small>The percentage measures detected skill overlap. It is not a prediction of hiring or selection.</small>
+</section>
+
+<section class="card">
+  <h2>3. Generate an application email draft</h2>
+  <div class="row">
+    <div><label for="candidate">Your name</label><input id="candidate" placeholder="Your full name"></div>
+    <div><label for="recipient">Recruiter email</label><input id="recipient" type="email" placeholder="hr@company.com"></div>
+    <div><label for="jobTitle">Job title</label><input id="jobTitle" placeholder="Python Developer"></div>
+    <div><label for="company">Company</label><input id="company" placeholder="Company name"></div>
+  </div>
+  <label for="summary">Resume summary / relevant experience</label>
+  <textarea id="summary" placeholder="Briefly describe your relevant skills and projects..."></textarea>
+  <button id="draftBtn">Generate and save draft</button>
+  <div id="draftStatus" class="status">No draft created.</div>
+</section>
+
+<section class="card">
+  <h2>4. Review and approve</h2>
+  <p class="muted">Check the exact recipient, subject, body and PDF attachment before approval. These fields are read-only in this initial UI; if you need different wording, generate a new draft after changing the details above.</p>
+  <label for="reviewTo">Recipient</label><input id="reviewTo" readonly>
+  <label for="reviewSubject">Subject</label><input id="reviewSubject" readonly>
+  <label for="reviewBody">Email body</label><textarea id="reviewBody" readonly></textarea>
+  <label>Attachment</label><div id="reviewAttachment" class="status">No attachment selected.</div>
+  <label class="check"><input type="checkbox" id="confirm">
+    <span>I have reviewed and explicitly approve this exact recipient, email content and resume attachment.</span>
+  </label>
+  <button id="approveBtn" disabled>Approve this draft</button>
+  <div id="approvalStatus" class="status">Approval pending.</div>
+  <small>Important: approval does not send an email. Actual email delivery is not implemented in this version.</small>
+</section>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+let uploadedDocument = null;
+let currentDraft = null;
+let analysisResult = null;
+
+async function api(path, options={}) {
+  const response = await fetch(path, options);
+  const raw = await response.text();
+  let data;
+  try { data = raw ? JSON.parse(raw) : {}; }
+  catch { data = {detail: raw || "Unexpected server response"}; }
+  if (!response.ok) {
+    const detail = typeof data.detail === "string" ? data.detail : JSON.stringify(data.detail || data);
+    throw new Error(`HTTP ${response.status}: ${detail}`);
+  }
+  return data;
+}
+function show(id, message, type="") {
+  $(id).textContent = message;
+  $(id).className = "status" + (type ? " " + type : "");
+}
+function deepFind(obj, keys) {
+  if (!obj || typeof obj !== "object") return null;
+  for (const key of keys) {
+    if (typeof obj[key] === "string" && obj[key].trim()) return obj[key];
+  }
+  for (const value of Object.values(obj)) {
+    const found = deepFind(value, keys);
+    if (found) return found;
+  }
+  return null;
+}
+function deepFindDocumentId(obj) {
+  if (!obj || typeof obj !== "object") return null;
+  if (typeof obj.document_id === "string" && obj.document_id) return obj.document_id;
+  for (const value of Object.values(obj)) {
+    const found = deepFindDocumentId(value);
+    if (found) return found;
+  }
+  return null;
+}
+function invalidateDraft() {
+  currentDraft = null;
+  $("approveBtn").disabled = true;
+  $("confirm").checked = false;
+  show("approvalStatus", "Details changed or new draft required. Generate and review a draft first.");
+}
+$("confirm").addEventListener("change", () => {
+  $("approveBtn").disabled = !$("confirm").checked || !currentDraft || currentDraft.status !== "pending";
+});
+["candidate","recipient","jobTitle","company","summary"].forEach(id => {
+  $(id).addEventListener("input", invalidateDraft);
+});
+
+$("uploadBtn").addEventListener("click", async () => {
+  const file = $("resumeFile").files[0];
+  if (!file) return show("uploadStatus", "Choose a PDF first.", "error");
+  if (!file.name.toLowerCase().endsWith(".pdf")) return show("uploadStatus", "Only PDF resumes are supported.", "error");
+  const form = new FormData();
+  form.append("file", file);
+  $("uploadBtn").disabled = true;
+  show("uploadStatus", "Uploading and validating PDF...");
+  try {
+    const data = await api("/api/documents/upload", {method:"POST", body:form});
+    const id = deepFindDocumentId(data);
+    if (!id) throw new Error("Upload response did not contain document_id. API response: " + JSON.stringify(data));
+    uploadedDocument = {document_id:id, filename:file.name};
+    show("uploadStatus", `PDF uploaded.\nDocument ID: ${id}\nFilename: ${file.name}`, "ok");
+    show("reviewAttachment", `${file.name}\nDocument ID: ${id}`);
+    try {
+      const extracted = await api("/api/documents/" + encodeURIComponent(id) + "/extraction");
+      const text = deepFind(extracted, ["extracted_text","full_text","document_text","text","content"]);
+      if (text && !$("resumeText").value.trim()) $("resumeText").value = text;
+      if (text) show("uploadStatus", `PDF uploaded; text extraction found.\nDocument ID: ${id}`, "ok");
+      else show("uploadStatus", `PDF uploaded. Automatic text extraction wasn't found in the response; paste resume text manually.\nDocument ID: ${id}`, "ok");
+    } catch {
+      show("uploadStatus", `PDF uploaded. Paste resume text manually if it wasn't extracted.\nDocument ID: ${id}`, "ok");
+    }
+    invalidateDraft();
+  } catch (e) {
+    show("uploadStatus", e.message, "error");
+  } finally {
+    $("uploadBtn").disabled = false;
+  }
+});
+
+$("analyzeBtn").addEventListener("click", async () => {
+  const resume_text = $("resumeText").value.trim();
+  const job_description = $("jobDescription").value.trim();
+  if (!resume_text || !job_description) return show("analysisStatus", "Paste both resume text and job description.", "error");
+  $("analyzeBtn").disabled = true;
+  show("analysisStatus", "Analyzing skills...");
+  try {
+    analysisResult = await api("/api/jobs/analyze", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({resume_text, job_description})
+    });
+    show("analysisStatus", `Skill match: ${analysisResult.match_percentage}%\n${analysisResult.interpretation || analysisResult.match_basis || ""}`, "ok");
+    $("skills").replaceChildren();
+    for (const [title, values] of [["Matched skills",analysisResult.matched_skills],["Skills to strengthen",analysisResult.missing_skills]]) {
+      const heading = document.createElement("p");
+      heading.className = "muted";
+      heading.textContent = title;
+      $("skills").appendChild(heading);
+      for (const value of (values || [])) {
+        const span = document.createElement("span");
+        span.className = "pill";
+        span.textContent = value;
+        $("skills").appendChild(span);
+      }
+    }
+  } catch (e) {
+    show("analysisStatus", e.message, "error");
+  } finally {
+    $("analyzeBtn").disabled = false;
+  }
+});
+
+$("draftBtn").addEventListener("click", async () => {
+  if (!uploadedDocument) return show("draftStatus", "Upload the PDF resume first so the draft can reference the exact attachment.", "error");
+  const payload = {
+    candidate_name:$("candidate").value.trim(),
+    recipient_email:$("recipient").value.trim(),
+    job_title:$("jobTitle").value.trim(),
+    company_name:$("company").value.trim(),
+    resume_summary:$("summary").value.trim() || $("resumeText").value.trim().slice(0,1200),
+    resume_document_id:uploadedDocument.document_id
+  };
+  if (Object.values(payload).some(v => !v)) return show("draftStatus", "Complete all fields, including a resume summary.", "error");
+  $("draftBtn").disabled = true;
+  show("draftStatus", "Generating and saving draft...");
+  try {
+    currentDraft = await api("/api/jobs/email-draft", {
+      method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload)
+    });
+    $("reviewTo").value = currentDraft.recipient_email;
+    $("reviewSubject").value = currentDraft.subject;
+    $("reviewBody").value = currentDraft.body;
+    $("reviewAttachment").textContent = `${currentDraft.attachment_filename}\nDocument ID: ${currentDraft.attachment_document_id}\nSHA-256: ${currentDraft.attachment_sha256}`;
+    $("confirm").checked = false;
+    $("approveBtn").disabled = true;
+    show("draftStatus", `Draft saved.\nDraft ID: ${currentDraft.draft_id}\nStatus: ${currentDraft.status}\nNothing has been sent.`, "ok");
+    show("approvalStatus", "Review every field and attachment above. Tick the approval checkbox to enable approval.");
+  } catch (e) {
+    currentDraft = null;
+    show("draftStatus", e.message, "error");
+  } finally {
+    $("draftBtn").disabled = false;
+  }
+});
+
+$("approveBtn").addEventListener("click", async () => {
+  if (!currentDraft || !$("confirm").checked) return;
+  $("approveBtn").disabled = true;
+  show("approvalStatus", "Verifying exact reviewed content and attachment...");
+  try {
+    const payload = {
+      recipient_email:$("reviewTo").value,
+      subject:$("reviewSubject").value,
+      body:$("reviewBody").value,
+      attachment_document_id:currentDraft.attachment_document_id,
+      attachment_sha256:currentDraft.attachment_sha256,
+      confirm:true
+    };
+    const result = await api("/api/jobs/email-drafts/" + encodeURIComponent(currentDraft.draft_id) + "/approve", {
+      method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload)
+    });
+    currentDraft = result;
+    show("approvalStatus", `Draft approved successfully.\nStatus: ${result.status}\n${result.message || "No email has been sent."}`, "ok");
+  } catch (e) {
+    show("approvalStatus", e.message, "error");
+    $("approveBtn").disabled = false;
+  }
+});
+</script>
+</body>
+</html>

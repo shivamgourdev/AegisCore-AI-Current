@@ -1,0 +1,1428 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261103092304
+Username: DESKTOP-9E29O09\shiva
+RunAs User: DESKTOP-9E29O09\shiva
+Configuration Name: 
+Machine: DESKTOP-9E29O09 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -command try { . "c:\Users\shiva\AppData\Local\Programs\Microsoft VS Code\e646868227\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1" } catch {}
+Process ID: 5148
+PSVersion: 5.1.26100.9711
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9711
+BuildVersion: 10.0.26100.9711
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\MASTER_DIAGNOSTIC_20261103_092304.txt
+
+========== 1. GIT STATUS ==========
+ M backend/app/aegiscore/document_service.py
+ M backend/app/aegiscore/main.py
+?? AEGISCORE_DEVELOPMENT_AUDIT.txt
+?? AEGISCORE_FINAL_AUDIT.txt
+?? AEGISCORE_IMPLEMENTATION_SOURCE_PACK.txt
+?? MASTER_AUDIT_20261103_092113.txt
+?? MASTER_DIAGNOSTIC_20261103_092304.txt
+?? backend/app/aegiscore/job_analysis.py
+?? backend/app/aegiscore/job_email.py
+?? backend/app/aegiscore/job_email_storage.py
+?? backend/app/aegiscore/job_email_storage.py.part5-backup
+?? backend/app/aegiscore/job_email_storage.py.phase5-review-backup
+?? backend/app/aegiscore/main.py.part5-email-backup
+?? backend/app/aegiscore/main.py.phase5-review-backup
+?? backend/tests/test_job_analysis.py
+?? backend/tests/test_job_analysis_api.py
+?? backend/tests/test_job_email.py
+?? backend/tests/test_job_email_approval_api.py
+?? backend/tests/test_job_email_approval_storage.py
+?? backend/tests/test_job_email_attachment_api.py
+?? backend/tests/test_job_email_review_api.py
+?? backend/tests/test_job_email_storage.py
+?? backend/tests/test_job_email_update_api.py
+?? backend/tests/test_rag_qa.py.part4f-backup
+?? backend/tests/test_resume_attachment.py
+?? evidence/MASTER-AUDIT-20261102-205051.txt
+?? evidence/parts-1-2-3-combined-verification.txt
+?? frontend/
+?? master_audit_report.txt
+checkpoint/phase4-verified-phase5-wip
+d652e7e feat(rag): complete and verify Part 4
+
+========== 2. PYTHON DETAILS ==========
+Python executable: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Scripts\python.exe
+Python 3.11.9
+Executable: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Scripts\python.exe
+Version: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+
+========== 3. PYTHON SYNTAX AUDIT ==========
+Python files scanned: 39
+Syntax errors: 0
+Syntax audit exit code: 0
+
+========== 4. FULL BACKEND TEST SUITE ==========
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.1.1, pluggy-1.7.0 -- C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI
+configfile: pyproject.toml
+plugins: anyio-4.15.1
+collecting ... collected 191 items
+
+backend/tests/test_chunk_storage.py::test_txt_upload_persists_chunks_with_source_metadata PASSED [  0%]
+backend/tests/test_chunk_storage.py::test_pdf_upload_preserves_page_numbers_in_saved_chunks PASSED [  1%]
+backend/tests/test_chunk_storage.py::test_duplicate_upload_keeps_same_chunk_ids PASSED [  1%]
+backend/tests/test_chunk_storage.py::test_corrupt_pdf_has_no_chunks_and_unknown_document_is_404 PASSED [  2%]
+backend/tests/test_chunking_service.py::test_short_page_preserves_text_and_source_metadata PASSED [  2%]
+backend/tests/test_chunking_service.py::test_long_text_is_split_with_configured_maximum_size PASSED [  3%]
+backend/tests/test_chunking_service.py::test_adjacent_chunks_preserve_configured_overlap PASSED [  3%]
+backend/tests/test_chunking_service.py::test_pages_keep_independent_source_numbers PASSED [  4%]
+backend/tests/test_chunking_service.py::test_blank_pages_are_skipped_without_empty_chunks PASSED [  4%]
+backend/tests/test_chunking_service.py::test_chunk_ids_are_stable_and_unique_for_distinct_chunks PASSED [  5%]
+backend/tests/test_chunking_service.py::test_invalid_chunk_settings_are_rejected[0-0] PASSED [  5%]
+backend/tests/test_chunking_service.py::test_invalid_chunk_settings_are_rejected[-1-0] PASSED [  6%]
+backend/tests/test_chunking_service.py::test_invalid_chunk_settings_are_rejected[10-10] PASSED [  6%]
+backend/tests/test_chunking_service.py::test_invalid_chunk_settings_are_rejected[10-11] PASSED [  7%]
+backend/tests/test_chunking_service.py::test_invalid_chunk_settings_are_rejected[10--1] PASSED [  7%]
+backend/tests/test_chunking_service.py::test_invalid_source_metadata_is_rejected[-a.txt-pages0] PASSED [  8%]
+backend/tests/test_chunking_service.py::test_invalid_source_metadata_is_rejected[doc--pages1] PASSED [  8%]
+backend/tests/test_chunking_service.py::test_invalid_source_metadata_is_rejected[doc-a.txt-pages2] PASSED [  9%]
+backend/tests/test_chunking_service.py::test_invalid_source_metadata_is_rejected[doc-a.txt-pages3] PASSED [  9%]
+backend/tests/test_document_upload.py::test_upload_valid_txt PASSED      [ 10%]
+backend/tests/test_document_upload.py::test_upload_valid_markdown PASSED [ 10%]
+backend/tests/test_document_upload.py::test_upload_pdf_with_signature PASSED [ 11%]
+backend/tests/test_document_upload.py::test_unsupported_extension_is_rejected PASSED [ 12%]
+backend/tests/test_document_upload.py::test_empty_file_is_rejected PASSED [ 12%]
+backend/tests/test_document_upload.py::test_whitespace_only_text_is_rejected PASSED [ 13%]
+backend/tests/test_document_upload.py::test_invalid_pdf_signature_is_rejected PASSED [ 13%]
+backend/tests/test_document_upload.py::test_invalid_utf8_text_is_rejected PASSED [ 14%]
+backend/tests/test_document_upload.py::test_oversized_upload_is_rejected PASSED [ 14%]
+backend/tests/test_document_upload.py::test_duplicate_content_is_not_stored_twice PASSED [ 15%]
+backend/tests/test_document_upload.py::test_list_documents_returns_registered_metadata PASSED [ 15%]
+backend/tests/test_document_upload.py::test_document_upload_routes_are_in_openapi PASSED [ 16%]
+backend/tests/test_embedding_service.py::test_embedding_is_normalized_and_source_metadata_is_preserved PASSED [ 16%]
+backend/tests/test_embedding_service.py::test_multiple_chunks_keep_their_own_vectors_and_order PASSED [ 17%]
+backend/tests/test_embedding_service.py::test_empty_input_returns_without_loading_a_model PASSED [ 17%]
+backend/tests/test_embedding_service.py::test_missing_or_blank_chunk_text_is_rejected[bad_chunk0] PASSED [ 18%]
+backend/tests/test_embedding_service.py::test_missing_or_blank_chunk_text_is_rejected[bad_chunk1] PASSED [ 18%]
+backend/tests/test_embedding_service.py::test_missing_or_blank_chunk_text_is_rejected[bad_chunk2] PASSED [ 19%]
+backend/tests/test_embedding_service.py::test_missing_or_blank_chunk_text_is_rejected[bad_chunk3] PASSED [ 19%]
+backend/tests/test_embedding_service.py::test_invalid_batch_size_is_rejected[0] PASSED [ 20%]
+backend/tests/test_embedding_service.py::test_invalid_batch_size_is_rejected[-1] PASSED [ 20%]
+backend/tests/test_embedding_service.py::test_invalid_batch_size_is_rejected[True] PASSED [ 21%]
+backend/tests/test_embedding_service.py::test_encoder_must_return_one_vector_per_chunk PASSED [ 21%]
+backend/tests/test_embedding_service.py::test_zero_vector_is_rejected PASSED [ 22%]
+backend/tests/test_embedding_service.py::test_non_finite_vector_values_are_rejected[bad_vector0] PASSED [ 23%]
+backend/tests/test_embedding_service.py::test_non_finite_vector_values_are_rejected[bad_vector1] PASSED [ 23%]
+backend/tests/test_embedding_service.py::test_inconsistent_embedding_dimensions_are_rejected PASSED [ 24%]
+backend/tests/test_embedding_service.py::test_default_encoder_loads_configured_model_lazily PASSED [ 24%]
+backend/tests/test_extraction_integration.py::test_upload_txt_triggers_extraction_and_persists_text PASSED [ 25%]
+backend/tests/test_extraction_integration.py::test_upload_pdf_persists_page_citations PASSED [ 25%]
+backend/tests/test_extraction_integration.py::test_extraction_endpoint_returns_404_for_unknown_id PASSED [ 26%]
+backend/tests/test_extraction_integration.py::test_upload_corrupt_pdf_reports_extraction_failure PASSED [ 26%]
+backend/tests/test_extraction_service.py::test_extract_txt_preserves_text_and_source_page PASSED [ 27%]
+backend/tests/test_extraction_service.py::test_extract_markdown PASSED   [ 27%]
+backend/tests/test_extraction_service.py::test_extract_pdf_preserves_page_numbers PASSED [ 28%]
+backend/tests/test_extraction_service.py::test_reject_corrupt_pdf PASSED [ 28%]
+backend/tests/test_extraction_service.py::test_reject_pdf_without_signature PASSED [ 29%]
+backend/tests/test_extraction_service.py::test_reject_empty_text PASSED  [ 29%]
+backend/tests/test_extraction_service.py::test_reject_invalid_utf8 PASSED [ 30%]
+backend/tests/test_extraction_service.py::test_reject_unsupported_extension PASSED [ 30%]
+backend/tests/test_extraction_service.py::test_reject_scanned_or_image_only_pdf PASSED [ 31%]
+backend/tests/test_extraction_service.py::test_reject_missing_filename PASSED [ 31%]
+backend/tests/test_health.py::test_root_endpoint_returns_service_information PASSED [ 32%]
+backend/tests/test_health.py::test_health_endpoint_reports_ok PASSED     [ 32%]
+backend/tests/test_health.py::test_openapi_schema_contains_system_endpoints PASSED [ 33%]
+backend/tests/test_health.py::test_unknown_endpoint_returns_404 PASSED   [ 34%]
+backend/tests/test_job_analysis.py::test_extracts_skills_case_insensitively PASSED [ 34%]
+backend/tests/test_job_analysis.py::test_does_not_match_skill_inside_larger_word PASSED [ 35%]
+backend/tests/test_job_analysis.py::test_match_percentage_and_missing_skills PASSED [ 35%]
+backend/tests/test_job_analysis.py::test_no_detected_job_skills_returns_zero PASSED [ 36%]
+backend/tests/test_job_analysis.py::test_rejects_empty_inputs[-Python required] PASSED [ 36%]
+backend/tests/test_job_analysis.py::test_rejects_empty_inputs[Python required-] PASSED [ 37%]
+backend/tests/test_job_analysis.py::test_rejects_empty_inputs[   -Python required] PASSED [ 37%]
+backend/tests/test_job_analysis.py::test_rejects_non_string_input PASSED [ 38%]
+backend/tests/test_job_analysis.py::test_rejects_oversized_input PASSED  [ 38%]
+backend/tests/test_job_analysis.py::test_analysis_is_deterministic PASSED [ 39%]
+backend/tests/test_job_analysis_api.py::test_job_analysis_api_returns_skill_matches PASSED [ 39%]
+backend/tests/test_job_analysis_api.py::test_job_analysis_api_rejects_invalid_input[payload0] PASSED [ 40%]
+backend/tests/test_job_analysis_api.py::test_job_analysis_api_rejects_invalid_input[payload1] PASSED [ 40%]
+backend/tests/test_job_analysis_api.py::test_job_analysis_api_rejects_invalid_input[payload2] PASSED [ 41%]
+backend/tests/test_job_analysis_api.py::test_job_analysis_api_rejects_invalid_input[payload3] PASSED [ 41%]
+backend/tests/test_job_analysis_api.py::test_job_analysis_api_rejects_missing_fields PASSED [ 42%]
+backend/tests/test_job_email.py::test_generates_reviewable_email_without_sending PASSED [ 42%]
+backend/tests/test_job_email.py::test_rejects_invalid_recipient[invalid] PASSED [ 43%]
+backend/tests/test_job_email.py::test_rejects_invalid_recipient[hr@] PASSED [ 43%]
+backend/tests/test_job_email.py::test_rejects_invalid_recipient[@example.com] PASSED [ 44%]
+backend/tests/test_job_email.py::test_rejects_invalid_recipient[hr example.com] PASSED [ 45%]
+backend/tests/test_job_email.py::test_rejects_newline_in_single_line_fields[candidate_name] PASSED [ 45%]
+backend/tests/test_job_email.py::test_rejects_newline_in_single_line_fields[job_title] PASSED [ 46%]
+backend/tests/test_job_email.py::test_rejects_newline_in_single_line_fields[company_name] PASSED [ 46%]
+backend/tests/test_job_email.py::test_rejects_empty_required_field PASSED [ 47%]
+backend/tests/test_job_email.py::test_rejects_oversized_field PASSED     [ 47%]
+backend/tests/test_job_email_approval_api.py::test_exact_reviewed_draft_can_be_approved PASSED [ 48%]
+backend/tests/test_job_email_approval_api.py::test_modified_body_is_rejected PASSED [ 48%]
+backend/tests/test_job_email_approval_api.py::test_approval_requires_explicit_confirmation PASSED [ 49%]
+backend/tests/test_job_email_approval_api.py::test_unknown_resume_is_rejected PASSED [ 49%]
+backend/tests/test_job_email_approval_storage.py::test_exact_reviewed_draft_can_be_approved PASSED [ 50%]
+backend/tests/test_job_email_approval_storage.py::test_modified_email_body_is_rejected PASSED [ 50%]
+backend/tests/test_job_email_approval_storage.py::test_unknown_draft_returns_none PASSED [ 51%]
+backend/tests/test_job_email_approval_storage.py::test_already_approved_draft_cannot_be_approved_again PASSED [ 51%]
+backend/tests/test_job_email_attachment_api.py::test_email_draft_binds_verified_pdf PASSED [ 52%]
+backend/tests/test_job_email_attachment_api.py::test_email_draft_rejects_unknown_resume PASSED [ 52%]
+backend/tests/test_job_email_attachment_api.py::test_email_draft_rejects_non_pdf_resume PASSED [ 53%]
+backend/tests/test_job_email_review_api.py::test_get_saved_draft_endpoint PASSED [ 53%]
+backend/tests/test_job_email_storage.py::test_create_draft_starts_pending PASSED [ 54%]
+backend/tests/test_job_email_storage.py::test_created_draft_can_be_retrieved PASSED [ 54%]
+backend/tests/test_job_email_storage.py::test_unknown_draft_returns_none PASSED [ 55%]
+backend/tests/test_job_email_update_api.py::test_pending_draft_can_be_updated_without_changing_attachment PASSED [ 56%]
+backend/tests/test_job_email_update_api.py::test_approved_draft_cannot_be_updated PASSED [ 56%]
+backend/tests/test_job_email_update_api.py::test_invalid_recipient_email_is_rejected PASSED [ 57%]
+backend/tests/test_part4_citation_integrity.py::TestInvalidCitationIDs::test_nonexistent_citation_id_abstains PASSED [ 57%]
+backend/tests/test_part4_citation_integrity.py::TestInvalidCitationIDs::test_invalid_citation_claim_not_silently_retained PASSED [ 58%]
+backend/tests/test_part4_citation_integrity.py::TestInvalidCitationIDs::test_mixed_valid_and_invalid_citations_abstains PASSED [ 58%]
+backend/tests/test_part4_citation_integrity.py::TestInvalidCitationIDs::test_zero_citation_is_invalid PASSED [ 59%]
+backend/tests/test_part4_citation_integrity.py::TestMissingCitations::test_factual_answer_without_citations_abstains PASSED [ 59%]
+backend/tests/test_part4_citation_integrity.py::TestMissingCitations::test_answer_with_only_narrative_no_facts_no_citations PASSED [ 60%]
+backend/tests/test_part4_citation_integrity.py::TestMalformedModelOutput::test_empty_answer_raises_502 PASSED [ 60%]
+backend/tests/test_part4_citation_integrity.py::TestMalformedModelOutput::test_whitespace_only_answer_raises_502 PASSED [ 61%]
+backend/tests/test_part4_citation_integrity.py::TestCitationsWithMissingMetadata::test_citation_with_missing_filename_still_valid PASSED [ 61%]
+backend/tests/test_part4_citation_integrity.py::TestMultipleClaimsDifferentDocuments::test_two_claims_two_documents_both_cited PASSED [ 62%]
+backend/tests/test_part4_citation_integrity.py::TestContradictoryPassages::test_contradictory_sources_both_available_for_citation PASSED [ 62%]
+backend/tests/test_part4_citation_integrity.py::TestUnsupportedQuestions::test_unsupported_question_abstains_no_citations PASSED [ 63%]
+backend/tests/test_part4_citation_integrity.py::TestLowConfidenceRetrieval::test_below_threshold_results_are_filtered PASSED [ 63%]
+backend/tests/test_part4_citation_integrity.py::TestLowConfidenceRetrieval::test_low_similarity_still_retrieves_when_threshold_lowered PASSED [ 64%]
+backend/tests/test_part4_citation_integrity.py::TestCitationIDAppearsInAnswer::test_each_returned_citation_id_is_referenced PASSED [ 64%]
+backend/tests/test_part4_edge_security.py::TestUnicodeAndWhitespace::test_unicode_text_upload_and_chunking PASSED [ 65%]
+backend/tests/test_part4_edge_security.py::TestUnicodeAndWhitespace::test_unusual_whitespace_preserved PASSED [ 65%]
+backend/tests/test_part4_edge_security.py::TestUnicodeAndWhitespace::test_pdf_with_unicode_text PASSED [ 66%]
+backend/tests/test_part4_edge_security.py::TestPathTraversalAndUnsafeFilenames::test_path_traversal_filename_is_rejected PASSED [ 67%]
+backend/tests/test_part4_edge_security.py::TestPathTraversalAndUnsafeFilenames::test_backslash_path_traversal_is_rejected PASSED [ 67%]
+backend/tests/test_part4_edge_security.py::TestPathTraversalAndUnsafeFilenames::test_dot_dot_filename_is_rejected PASSED [ 68%]
+backend/tests/test_part4_edge_security.py::TestPathTraversalAndUnsafeFilenames::test_validate_upload_rejects_unsafe_names PASSED [ 68%]
+backend/tests/test_part4_edge_security.py::TestOllamaUnavailability::test_embedding_endpoint_returns_503_when_ollama_down PASSED [ 69%]
+backend/tests/test_part4_edge_security.py::TestMalformedAPIRequests::test_ask_rejects_non_dict_payload PASSED [ 69%]
+backend/tests/test_part4_edge_security.py::TestMalformedAPIRequests::test_ask_rejects_query_as_number PASSED [ 70%]
+backend/tests/test_part4_edge_security.py::TestMalformedAPIRequests::test_search_rejects_missing_query PASSED [ 70%]
+backend/tests/test_part4_edge_security.py::TestMalformedAPIRequests::test_search_rejects_query_as_list PASSED [ 71%]
+backend/tests/test_part4_edge_security.py::TestNoSecretsInLogs::test_upload_response_d_not_expose_storage_path PASSED [ 71%]
+backend/tests/test_part4_edge_security.py::TestChunkBoundariesAndEmptyChunks::test_empty_chunks_not_created_for_blank_pages PASSED [ 72%]
+backend/tests/test_part4_multi_document.py::test_multi_document_single_answer_cites_both_sources PASSED [ 72%]
+backend/tests/test_part4_multi_document.py::test_multi_document_no_unsupported_fact PASSED [ 73%]
+backend/tests/test_part4_multi_document.py::test_multi_document_abstention_when_no_evidence PASSED [ 73%]
+backend/tests/test_part4_multi_document.py::test_multi_document_invalid_citation_fails_closed PASSED [ 74%]
+backend/tests/test_part4_multi_document.py::test_multi_document_live_ollama PASSED [ 74%]
+backend/tests/test_part4_restart_recovery.py::TestRestartPersistence::test_documents_chunks_embeddings_survive_restart PASSED [ 75%]
+backend/tests/test_part4_restart_recovery.py::TestRestartPersistence::test_interrupted_processing_safe_recovery PASSED [ 75%]
+backend/tests/test_rag_qa.py::test_ask_endpoint_is_in_openapi PASSED     [ 76%]
+backend/tests/test_rag_qa.py::test_ask_rejects_blank_query_without_calling_models PASSED [ 76%]
+backend/tests/test_rag_qa.py::test_ask_rejects_invalid_top_k PASSED      [ 77%]
+backend/tests/test_rag_qa.py::test_ask_rejects_invalid_similarity_threshold PASSED [ 78%]
+backend/tests/test_rag_qa.py::test_part4f_invalid_only_citation_does_not_attach_all_sources PASSED [ 78%]
+backend/tests/test_rag_qa.py::test_part4f_uncited_answer_is_not_returned_as_verified PASSED [ 79%]
+backend/tests/test_rag_qa.py::test_part4f_valid_citation_is_preserved PASSED [ 79%]
+backend/tests/test_rag_qa.py::test_part4f_invalid_citation_is_not_silently_removed_from_claim PASSED [ 80%]
+backend/tests/test_reliability.py::test_duplicate_txt_upload_preserves_original_extraction PASSED [ 80%]
+backend/tests/test_reliability.py::test_corrupt_pdf_failure_is_persisted_and_repeatable PASSED [ 81%]
+backend/tests/test_reliability.py::test_unknown_extraction_id_returns_404_without_crashing PASSED [ 81%]
+backend/tests/test_resume_attachment.py::test_retrieves_stored_pdf_resume PASSED [ 82%]
+backend/tests/test_resume_attachment.py::test_rejects_unknown_document_id PASSED [ 82%]
+backend/tests/test_resume_attachment.py::test_rejects_non_pdf_document PASSED [ 83%]
+backend/tests/test_resume_attachment.py::test_rejects_missing_stored_file PASSED [ 83%]
+backend/tests/test_resume_attachment.py::test_rejects_modified_file_size PASSED [ 84%]
+backend/tests/test_resume_attachment.py::test_rejects_same_size_tampered_file PASSED [ 84%]
+backend/tests/test_sparse_retrieval.py::TestTokenize::test_lowercases_and_splits_alphanumeric PASSED [ 85%]
+backend/tests/test_sparse_retrieval.py::TestTokenize::test_ignores_punctuation PASSED [ 85%]
+backend/tests/test_sparse_retrieval.py::TestTokenize::test_empty_string PASSED [ 86%]
+backend/tests/test_sparse_retrieval.py::TestBM25Score::test_returns_zero_for_empty_query PASSED [ 86%]
+backend/tests/test_sparse_retrieval.py::TestBM25Score::test_returns_zero_for_empty_document PASSED [ 87%]
+backend/tests/test_sparse_retrieval.py::TestBM25Score::test_scores_matching_term_higher PASSED [ 87%]
+backend/tests/test_sparse_retrieval.py::TestBM25Score::test_idf_penalizes_common_terms PASSED [ 88%]
+backend/tests/test_sparse_retrieval.py::TestSearchSparseChunks::test_rejects_empty_query PASSED [ 89%]
+backend/tests/test_sparse_retrieval.py::TestSearchSparseChunks::test_rejects_invalid_top_k PASSED [ 89%]
+backend/tests/test_sparse_retrieval.py::TestSearchSparseChunks::test_returns_empty_when_no_chunks PASSED [ 90%]
+backend/tests/test_sparse_retrieval.py::TestSearchSparseChunks::test_returns_chunks_with_source_metadata PASSED [ 90%]
+backend/tests/test_sparse_retrieval.py::TestSearchSparseChunks::test_exact_identifier_ranks_above_distractor PASSED [ 91%]
+backend/tests/test_sparse_retrieval.py::TestHybridSearch::test_rejects_empty_query PASSED [ 91%]
+backend/tests/test_sparse_retrieval.py::TestHybridSearch::test_rejects_invalid_top_k PASSED [ 92%]
+backend/tests/test_sparse_retrieval.py::TestHybridSearch::test_deduplicates_dense_and_sparse_overlap PASSED [ 92%]
+backend/tests/test_sparse_retrieval.py::TestHybridSearch::test_ranks_fused_results_by_rrf_score PASSED [ 93%]
+backend/tests/test_vector_search.py::test_embedding_endpoint_persists_normalized_vector_metadata PASSED [ 93%]
+backend/tests/test_vector_search.py::test_semantic_search_ranks_matching_source_first PASSED [ 94%]
+backend/tests/test_vector_search.py::test_unknown_document_embedding_endpoint_returns_404 PASSED [ 94%]
+backend/tests/test_vector_search.py::test_unknown_document_embedding_metadata_returns_404 PASSED [ 95%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_queries[payload0] PASSED [ 95%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_queries[payload1] PASSED [ 96%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_queries[payload2] PASSED [ 96%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_queries[payload3] PASSED [ 97%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_top_k[0] PASSED [ 97%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_top_k[-1] PASSED [ 98%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_top_k[51] PASSED [ 98%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_top_k[True] PASSED [ 99%]
+backend/tests/test_vector_search.py::test_search_rejects_invalid_top_k[3] PASSED [100%]
+
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 191 passed, 1 warning in 35.20s =======================
+FULL TEST EXIT CODE: 0
+
+========== 5. REQUIREMENTS FILES ==========
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\pyproject.toml
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\requirements.txt
+
+========== 6. COMPLETE FRONTEND SERVER ==========
+from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+from urllib.error import HTTPError, URLError
+from urllib.request import Request, urlopen
+import os
+
+ROOT = Path(__file__).resolve().parent
+BACKEND = "http://127.0.0.1:8000"
+
+class Handler(SimpleHTTPRequestHandler):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, directory=str(ROOT), **kwargs)
+
+    def log_message(self, fmt, *args):
+        print("[sandbox]", fmt % args)
+
+    def _proxy(self):
+        path = self.path
+        if not path.startswith("/api/"):
+            self.send_error(404, "Unknown API route")
+            return
+        target = BACKEND + path[4:]
+        length = int(self.headers.get("Content-Length", "0"))
+        body = self.rfile.read(length) if length else None
+        headers = {}
+        for key in ("Content-Type", "Accept"):
+            if self.headers.get(key):
+                headers[key] = self.headers[key]
+        request = Request(target, data=body, headers=headers, method=self.command)
+        try:
+            with urlopen(request, timeout=120) as response:
+                content = response.read()
+                status = response.status
+                content_type = response.headers.get("Content-Type", "application/json")
+        except HTTPError as exc:
+            content = exc.read()
+            status = exc.code
+            content_type = exc.headers.get("Content-Type", "application/json")
+        except (URLError, TimeoutError, OSError) as exc:
+            content = ('{"detail":"Cannot reach backend at ' + BACKEND +
+                       '. Start the FastAPI backend first. Details: ' +
+                       str(exc).replace('"', "'") + '"}').encode("utf-8")
+            status = 502
+            content_type = "application/json"
+        self.send_response(status)
+        self.send_header("Content-Type", content_type)
+        self.send_header("Content-Length", str(len(content)))
+        self.send_header("Cache-Control", "no-store")
+        self.end_headers()
+        self.wfile.write(content)
+
+    def do_GET(self):
+        if self.path.startswith("/api/"):
+            return self._proxy()
+        if self.path == "/":
+            self.path = "/index.html"
+        return super().do_GET()
+
+    def do_POST(self):
+        return self._proxy()
+
+if __name__ == "__main__":
+    os.chdir(ROOT)
+    print("AegisCore AI Sandbox: http://127.0.0.1:5500")
+    print("Backend proxy target: " + BACKEND)
+    print("Keep this terminal open while using the sandbox.")
+    ThreadingHTTPServer(("127.0.0.1", 5500), Handler).serve_forever()
+
+========== 7. FRONTEND PUT REQUEST ==========
+
+  frontend\index.
+html:12:.card{bac
+kground:#131b30;b
+order:1px solid #
+2b3652;border-rad
+ius:14px;padding:
+22px}
+  frontend\index.
+html:13:h2{font-s
+ize:18px;margin:0
+ 0 8px}label{disp
+lay:block;font-si
+ze:13px;color:#bd
+c8df;margin:14px
+0 7px}
+> frontend\index.
+html:14:input,tex
+tarea{display:blo
+ck;width:100%;bor
+der:1px solid #39
+4765;background:#
+0d1426;color:#f3f
+6ff;padding:11px
+12px;border-radiu
+s:8px;font:inheri
+t}
+> frontend\index.
+html:15:textarea{
+resize:vertical;m
+in-height:100px}i
+nput:focus,textar
+ea:focus{outline:
+2px solid #768df9
+;border-color:tra
+nsparent}
+  frontend\index.
+html:16:button{bo
+rder:0;border-rad
+ius:8px;padding:1
+1px 15px;backgrou
+nd:#7488f5;color:
+#0b1020;font-weig
+ht:700;cursor:poi
+nter;margin-top:1
+2px}
+  frontend\index.
+html:17:button.se
+condary{backgroun
+d:#263550;color:#
+e9edf7}button:dis
+abled{opacity:.5;
+cursor:not-allowe
+d}
+  frontend\index.
+html:18:.row{disp
+lay:grid;grid-tem
+plate-columns:1fr
+ 1fr;gap:14px}.st
+atus{padding:12px
+;border-radius:8p
+x;background:#0d1
+426;color:#bdc8df
+;white-space:pre-
+wrap;overflow-wra
+p:anywhere;margin
+-top:12px}
+  frontend\index.
+html:19:.status.e
+rror{border:1px
+solid #a64f65;col
+or:#ffc5d0}.statu
+s.ok{border:1px
+solid #397e69;col
+or:#aaf0d4}
+  frontend\index.
+html:20:.pill{dis
+play:inline-block
+;border:1px
+solid #465477;bor
+der-radius:99px;p
+adding:5px 9px;co
+lor:#bdc8df;font-
+size:12px;margin:
+5px 5px 0 0}
+> frontend\index.
+html:21:.check{di
+splay:flex;gap:10
+px;align-items:fl
+ex-start;line-hei
+ght:1.5}.check in
+put{width:auto;ma
+rgin-top:4px}
+  frontend\index.
+html:22:small{col
+or:#aab5cd;line-h
+eight:1.5;display
+:block;margin-top
+:8px}
+  frontend\index.
+html:23:@media(ma
+x-width:650px){.r
+ow{grid-template-
+columns:1fr}.card
+{padding:16px}hea
+der{padding:22px
+18px}}
+  frontend\index.
+html:24:</style>
+  frontend\index.
+html:34:  <p clas
+s="muted">Upload
+a PDF to bind it
+as the email
+attachment.
+Paste resume
+text below for
+skill analysis;
+extraction is
+attempted
+automatically
+when
+available.</p>
+  frontend\index.
+html:35:  <label
+for="resumeFile">
+Resume
+PDF</label>
+> frontend\index.
+html:36:  <input
+id="resumeFile"
+type="file" accep
+t=".pdf,applicati
+on/pdf">
+  frontend\index.
+html:37:
+<button id="uploa
+dBtn">Upload
+PDF</button>
+  frontend\index.
+html:38:  <div id
+="uploadStatus" c
+lass="status">No
+resume uploaded
+yet.</div>
+  frontend\index.
+html:39:  <label
+for="resumeText">
+Resume text for
+analysis</label>
+  frontend\index.
+html:54:  <h2>3.
+Generate an
+application
+email draft</h2>
+  frontend\index.
+html:55:  <div
+class="row">
+> frontend\index.
+html:56:
+<div><label for="
+candidate">Your n
+ame</label><input
+ id="candidate" p
+laceholder="Your
+full name"></div>
+> frontend\index.
+html:57:
+<div><label for="
+recipient">Recrui
+ter email</label>
+<input
+id="recipient"
+type="email" plac
+eholder="hr@compa
+ny.com"></div>
+> frontend\index.
+html:58:
+<div><label for="
+jobTitle">Job tit
+le</label><input
+id="jobTitle" pla
+ceholder="Python
+Developer"></div>
+> frontend\index.
+html:59:
+<div><label for="
+company">Company<
+/label><input
+id="company" plac
+eholder="Company
+name"></div>
+  frontend\index.
+html:60:  </div>
+  frontend\index.
+html:61:  <label
+for="summary">Res
+ume summary /
+relevant experien
+ce</label>
+  frontend\index.
+html:62:
+<textarea
+id="summary" plac
+eholder="Briefly
+describe your
+relevant skills
+and projects...">
+</textarea>
+> frontend\index.
+html:63:
+<button id="draft
+Btn">Generate
+and save
+draft</button>
+  frontend\index.
+html:64:  <div
+id="draftStatus"
+class="status">No
+ draft
+created.</div>
+  frontend\index.
+html:65:</section
+>
+  frontend\index.
+html:66:
+  frontend\index.
+html:67:<section
+class="card">
+  frontend\index.
+html:68:  <h2>4.
+Review and
+approve</h2>
+> frontend\index.
+html:69:  <p clas
+s="muted">Review
+and edit the
+recipient,
+subject and
+email body. Save
+your changes
+before
+explicitly
+approving the
+exact content
+and
+attachment.</p>
+> frontend\index.
+html:70:  <label
+for="reviewTo">Re
+cipient</label><i
+nput
+id="reviewTo"
+type="email" auto
+complete="email">
+> frontend\index.
+html:71:  <label
+for="reviewSubjec
+t">Subject</label
+><input id="revie
+wSubject">
+  frontend\index.
+html:72:  <label
+for="reviewBody">
+Email body</label
+><textarea id="re
+viewBody"></texta
+rea>
+  frontend\index.
+html:73:  <label>
+Attachment</label
+><div id="reviewA
+ttachment" class=
+"status">No
+attachment
+selected.</div>
+> frontend\index.
+html:74:  <label
+class="check"><in
+put
+type="checkbox"
+id="confirm">
+  frontend\index.
+html:75:
+<span>I have
+reviewed and
+explicitly
+approve this
+exact recipient,
+email content
+and resume attach
+ment.</span>
+  frontend\index.
+html:76:
+</label>
+> frontend\index.
+html:77:
+<button id="saveD
+raftBtn"
+disabled>Save
+Changes</button>
+  frontend\index.
+html:78:
+<button
+id="approveBtn"
+disabled>Approve
+this
+draft</button>
+  frontend\index.
+html:79:  <div id
+="approvalStatus"
+ class="status">A
+pproval
+pending.</div>
+  frontend\index.
+html:80:  <small>
+Important:
+approval does
+not send an
+email. Actual
+email delivery
+is not
+implemented in
+this
+version.</small>
+  frontend\index.
+html:88:
+  frontend\index.
+html:89:async
+function
+api(path,
+options={}) {
+> frontend\index.
+html:90:  const
+response = await
+fetch(path,
+options);
+  frontend\index.
+html:91:  const
+raw = await
+response.text();
+  frontend\index.
+html:92:  let
+data;
+  frontend\index.
+html:93:  try {
+data = raw ?
+JSON.parse(raw)
+: {}; }
+  frontend\index.
+html:134:
+!currentDraft ||
+  frontend\index.
+html:135:    curr
+entDraft.status
+!== "pending" ||
+> frontend\index.
+html:136:    !dra
+ftSavedForApprova
+l;
+  frontend\index.
+html:137:});
+  frontend\index.
+html:138:["candid
+ate","recipient",
+"jobTitle","compa
+ny","summary"].fo
+rEach(id => {
+> frontend\index.
+html:139:  $(id).
+addEventListener(
+"input",
+invalidateDraft);
+  frontend\index.
+html:140:});
+  frontend\index.
+html:141:
+  frontend\index.
+html:142:$("uploa
+dBtn").addEventLi
+stener("click",
+async () => {
+  frontend\index.
+html:149:  show("
+uploadStatus",
+"Uploading and
+validating
+PDF...");
+  frontend\index.
+html:150:  try {
+> frontend\index.
+html:151:
+const data =
+await api("/api/d
+ocuments/upload",
+ {method:"POST",
+body:form});
+  frontend\index.
+html:152:
+const id = deepFi
+ndDocumentId(data
+);
+  frontend\index.
+html:153:    if
+(!id) throw new
+Error("Upload
+response did not
+contain
+document_id. API
+response: " + JSO
+N.stringify(data)
+);
+  frontend\index.
+html:154:
+uploadedDocument
+=
+{document_id:id,
+filename:file.nam
+e};
+  frontend\index.
+html:180:  try {
+  frontend\index.
+html:181:
+analysisResult =
+await api("/api/j
+obs/analyze", {
+> frontend\index.
+html:182:
+method:"POST", he
+aders:{"Content-T
+ype":"application
+/json"},
+  frontend\index.
+html:183:      bo
+dy:JSON.stringify
+({resume_text,
+job_description})
+  frontend\index.
+html:184:    });
+  frontend\index.
+html:185:    show
+("analysisStatus"
+, `Skill match: $
+{analysisResult.m
+atch_percentage}%
+\n${analysisResul
+t.interpretation
+|| analysisResult
+.match_basis ||
+""}`, "ok");
+  frontend\index.
+html:219:  try {
+  frontend\index.
+html:220:
+currentDraft =
+await api("/api/j
+obs/email-draft",
+ {
+> frontend\index.
+html:221:
+method:"POST", he
+aders:{"Content-T
+ype":"application
+/json"}, body:JSO
+N.stringify(paylo
+ad)
+  frontend\index.
+html:222:    });
+  frontend\index.
+html:223:    $("r
+eviewTo").disable
+d = false;
+  frontend\index.
+html:224:    $("r
+eviewSubject").di
+sabled = false;
+  frontend\index.
+html:230:    $("r
+eviewAttachment")
+.textContent = `$
+{currentDraft.att
+achment_filename}
+\nDocument ID: ${
+currentDraft.atta
+chment_document_i
+d}\nSHA-256: ${cu
+rrentDraft.attach
+ment_sha256}`;
+  frontend\index.
+html:231:    $("c
+onfirm").checked
+= false;
+> frontend\index.
+html:232:    draf
+tSavedForApproval
+ = true;
+> frontend\index.
+html:233:    $("s
+aveDraftBtn").dis
+abled = true;
+  frontend\index.
+html:234:    $("a
+pproveBtn").disab
+led = true;
+> frontend\index.
+html:235:    show
+("draftStatus",
+`Draft
+saved.\nDraft
+ID: ${currentDraf
+t.draft_id}\nStat
+us: ${currentDraf
+t.status}\nNothin
+g has been
+sent.`, "ok");
+  frontend\index.
+html:236:    show
+("approvalStatus"
+, "Review every
+field and
+attachment
+above. Tick the
+approval
+checkbox to
+enable
+approval.");
+  frontend\index.
+html:237:  }
+catch (e) {
+  frontend\index.
+html:238:
+currentDraft =
+null;
+  frontend\index.
+html:244:
+  frontend\index.
+html:245:
+> frontend\index.
+html:246:let draf
+tSavedForApproval
+ = false;
+  frontend\index.
+html:247:
+  frontend\index.
+html:248:function
+ reviewValuesChan
+ged() {
+  frontend\index.
+html:249:  if
+(!currentDraft
+|| currentDraft.s
+tatus !==
+"pending")
+return;
+  frontend\index.
+html:254:    $("r
+eviewBody").value
+ !== currentDraft
+.body;
+  frontend\index.
+html:255:
+> frontend\index.
+html:256:  draftS
+avedForApproval
+= !changed;
+  frontend\index.
+html:257:  $("con
+firm").checked =
+false;
+  frontend\index.
+html:258:  $("app
+roveBtn").disable
+d = true;
+> frontend\index.
+html:259:  $("sav
+eDraftBtn").disab
+led = !changed;
+  frontend\index.
+html:260:
+  frontend\index.
+html:261:  show(
+  frontend\index.
+html:262:
+"approvalStatus",
+  frontend\index.
+html:263:
+changed
+> frontend\index.
+html:264:      ?
+"Unsaved edits
+detected. Save
+Changes before
+approval."
+> frontend\index.
+html:265:      :
+"Saved draft
+restored. Review
+it and tick the
+approval
+checkbox."
+  frontend\index.
+html:266:  );
+  frontend\index.
+html:267:}
+  frontend\index.
+html:268:
+  frontend\index.
+html:269:["review
+To",
+"reviewSubject",
+"reviewBody"].for
+Each(id => {
+> frontend\index.
+html:270:  $(id).
+addEventListener(
+"input", reviewVa
+luesChanged);
+  frontend\index.
+html:271:});
+  frontend\index.
+html:272:
+> frontend\index.
+html:273:$("saveD
+raftBtn").addEven
+tListener("click"
+, async () => {
+  frontend\index.
+html:274:  if
+(!currentDraft
+|| currentDraft.s
+tatus !==
+"pending")
+return;
+  frontend\index.
+html:275:
+  frontend\index.
+html:276:  const
+payload = {
+  frontend\index.
+html:280:  };
+  frontend\index.
+html:281:
+> frontend\index.
+html:282:  $("sav
+eDraftBtn").disab
+led = true;
+  frontend\index.
+html:283:  $("app
+roveBtn").disable
+d = true;
+  frontend\index.
+html:284:  $("con
+firm").checked =
+false;
+  frontend\index.
+html:285:  show("
+approvalStatus",
+"Saving your
+reviewed
+changes...");
+  frontend\index.
+html:287:  try {
+  frontend\index.
+html:288:
+const updated =
+await api(
+> frontend\index.
+html:289:      "/
+api/jobs/email-dr
+afts/" + encodeUR
+IComponent(curren
+tDraft.draft_id),
+  frontend\index.
+html:290:      {
+> frontend\index.
+html:291:
+method: "PUT",
+  frontend\index.
+html:292:
+headers:
+{"Content-Type":
+"application/json
+"},
+  frontend\index.
+html:293:
+body: JSON.string
+ify(payload)
+  frontend\index.
+html:294:      }
+  frontend\index.
+html:300:    $("r
+eviewBody").value
+ = updated.body;
+  frontend\index.
+html:301:
+> frontend\index.
+html:302:    draf
+tSavedForApproval
+ = true;
+  frontend\index.
+html:303:    $("c
+onfirm").checked
+= false;
+> frontend\index.
+html:304:    $("s
+aveDraftBtn").dis
+abled = true;
+  frontend\index.
+html:305:    $("a
+pproveBtn").disab
+led = true;
+  frontend\index.
+html:306:
+  frontend\index.
+html:307:
+show(
+  frontend\index.
+html:308:
+"approvalStatus",
+> frontend\index.
+html:309:
+"Changes saved.
+Please review
+the exact
+content again
+and tick the
+approval
+checkbox."
+  frontend\index.
+html:310:    );
+  frontend\index.
+html:311:  }
+catch (e) {
+> frontend\index.
+html:312:    draf
+tSavedForApproval
+ = false;
+> frontend\index.
+html:313:    $("s
+aveDraftBtn").dis
+abled = false;
+> frontend\index.
+html:314:    show
+("approvalStatus"
+, e.message ||
+"Could not save
+changes.");
+  frontend\index.
+html:315:  }
+  frontend\index.
+html:316:});
+  frontend\index.
+html:317:
+  frontend\index.
+html:329:
+confirm:true
+  frontend\index.
+html:330:    };
+> frontend\index.
+html:331:
+const result =
+await api("/api/j
+obs/email-drafts/
+" + encodeURIComp
+onent(currentDraf
+t.draft_id) +
+"/approve", {
+> frontend\index.
+html:332:
+method:"POST", he
+aders:{"Content-T
+ype":"application
+/json"}, body:JSO
+N.stringify(paylo
+ad)
+  frontend\index.
+html:333:    });
+  frontend\index.
+html:334:
+currentDraft =
+result;
+> frontend\index.
+html:335:    draf
+tSavedForApproval
+ = false;
+  frontend\index.
+html:336:    $("r
+eviewTo").disable
+d = true;
+  frontend\index.
+html:337:    $("r
+eviewSubject").di
+sabled = true;
+  frontend\index.
+html:338:    $("r
+eviewBody").disab
+led = true;
+> frontend\index.
+html:339:    $("s
+aveDraftBtn").dis
+abled = true;
+  frontend\index.
+html:340:    $("c
+onfirm").disabled
+ = true;
+  frontend\index.
+html:341:    $("a
+pproveBtn").disab
+led = true;
+  frontend\index.
+html:342:    show
+("approvalStatus"
+, `Draft
+approved successf
+ully.\nStatus: ${
+result.status}\n$
+{result.message
+|| "No email has
+been sent."}`,
+"ok");
+
+========== 8. BACKEND PUT ROUTE ==========
+  backend\app\aeg
+iscore\main.py:9:
+
+approve_draft,
+  backend\app\aeg
+iscore\main.py:10
+:
+create_draft,
+  backend\app\aeg
+iscore\main.py:11
+:    get_draft,
+> backend\app\aeg
+iscore\main.py:12
+:    update_pendi
+ng_draft,
+  backend\app\aeg
+iscore\main.py:13
+:)
+  backend\app\aeg
+iscore\main.py:14
+:from aegiscore.d
+ocument_service
+import get_resume
+_attachment
+  backend\app\aeg
+iscore\main.py:15
+:
+  backend\app\aeg
+iscore\main.py:16
+:from aegiscore
+import
+__version__
+  backend\app\aeg
+iscore\main.py:17
+:from aegiscore.d
+ocument_service
+import (
+  backend\app\aeg
+iscore\main.py:18
+:
+MAX_FILE_SIZE,
+  backend\app\aeg
+iscore\main.py:19
+:    DocumentUplo
+adError,
+  backend\app\aeg
+iscore\main.py:47
+8:    attachment_
+sha256: str
+  backend\app\aeg
+iscore\main.py:47
+9:
+  backend\app\aeg
+iscore\main.py:48
+0:
+> backend\app\aeg
+iscore\main.py:48
+1:@app.get("/jobs
+/email-drafts/{dr
+aft_id}",
+tags=["jobs"])
+  backend\app\aeg
+iscore\main.py:48
+2:def get_job_ema
+il_draft(draft_id
+: str) -> dict:
+  backend\app\aeg
+iscore\main.py:48
+3:
+"""Retrieve a
+saved email
+draft for user
+review; never
+sends email."""
+  backend\app\aeg
+iscore\main.py:48
+4:    stored = ge
+t_draft(draft_id)
+  backend\app\aeg
+iscore\main.py:48
+5:    if stored
+is None:
+  backend\app\aeg
+iscore\main.py:48
+6:        raise H
+TTPException(stat
+us_code=404,
+detail="Email
+draft not
+found.")
+  backend\app\aeg
+iscore\main.py:48
+7:
+  backend\app\aeg
+iscore\main.py:48
+8:    return {
+  backend\app\aeg
+iscore\main.py:49
+3:    }
+  backend\app\aeg
+iscore\main.py:49
+4:
+  backend\app\aeg
+iscore\main.py:49
+5:
+> backend\app\aeg
+iscore\main.py:49
+6:@app.put("/jobs
+/email-drafts/{dr
+aft_id}",
+tags=["jobs"])
+  backend\app\aeg
+iscore\main.py:49
+7:def update_job_
+email_draft(
+  backend\app\aeg
+iscore\main.py:49
+8:    draft_id:
+str,
+  backend\app\aeg
+iscore\main.py:49
+9:    payload: Jo
+bEmailDraftUpdate
+Request,
+  backend\app\aeg
+iscore\main.py:50
+0:) -> dict:
+  backend\app\aeg
+iscore\main.py:50
+1:    """Save
+user edits to a
+pending draft;
+never sends
+email."""
+  backend\app\aeg
+iscore\main.py:50
+2:    stored = ge
+t_draft(draft_id)
+  backend\app\aeg
+iscore\main.py:50
+3:    if stored
+is None:
+  backend\app\aeg
+iscore\main.py:52
+6:        )
+  backend\app\aeg
+iscore\main.py:52
+7:
+  backend\app\aeg
+iscore\main.py:52
+8:    try:
+> backend\app\aeg
+iscore\main.py:52
+9:
+updated = update_
+pending_draft(
+  backend\app\aeg
+iscore\main.py:53
+0:
+draft_id,
+  backend\app\aeg
+iscore\main.py:53
+1:            {
+  backend\app\aeg
+iscore\main.py:53
+2:
+ "recipient_email
+": payload.recipi
+ent_email,
+  backend\app\aeg
+iscore\main.py:53
+3:
+ "subject":
+payload.subject,
+  backend\app\aeg
+iscore\main.py:53
+4:
+ "body":
+payload.body,
+  backend\app\aeg
+iscore\main.py:53
+5:            },
+  backend\app\aeg
+iscore\main.py:53
+6:        )
+  backend\app\aeg
+iscore\main.py:54
+9:    }
+  backend\app\aeg
+iscore\main.py:55
+0:
+  backend\app\aeg
+iscore\main.py:55
+1:
+> backend\app\aeg
+iscore\main.py:55
+2:@app.post("/job
+s/email-drafts/{d
+raft_id}/approve"
+, tags=["jobs"])
+  backend\app\aeg
+iscore\main.py:55
+3:def approve_job
+_email_draft(
+  backend\app\aeg
+iscore\main.py:55
+4:    draft_id:
+str,
+  backend\app\aeg
+iscore\main.py:55
+5:    payload: Jo
+bEmailApprovalReq
+uest,
+  backend\app\aeg
+iscore\main.py:55
+6:) -> dict:
+  backend\app\aeg
+iscore\main.py:55
+7:    """Approve
+the exact
+reviewed draft
+and verified
+resume; never
+sends email."""
+  backend\app\aeg
+iscore\main.py:55
+8:    if
+payload.confirm
+is not True:
+  backend\app\aeg
+iscore\main.py:55
+9:        raise H
+TTPException(stat
+us_code=400,
+detail="Explicit
+approval is
+required.")
+
+========== 9. INSTALLED CORE DEPENDENCIES ==========
+fastapi INSTALLED
+uvicorn INSTALLED
+httpx INSTALLED
+pytest INSTALLED
+multipart INSTALLED
+fitz INSTALLED
+chromadb MISSING
+sentence_transformers MISSING
+rank_bm25 MISSING
+
+========== 10. FINAL SUMMARY ==========
+Test exit code: 0
+Diagnostic report: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\MASTER_DIAGNOSTIC_20261103_092304.txt
+No source code was modified.
+No Git commit or push was performed.
+**********************
+Windows PowerShell transcript end
+End time: 20261103092345
+**********************

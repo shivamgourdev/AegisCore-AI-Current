@@ -1,0 +1,21 @@
+[PASS] Backend health OK
+[PASS] Path traversal rejected: 415
+[PASS] Dot-dot filename rejected: 400
+[PASS] Backslash path traversal rejected: 415
+[PASS] EXE extension rejected: 415
+[PASS] BAT extension rejected: 415
+[PASS] Invalid PDF signature rejected: 400
+[PASS] Oversized upload rejected: 413
+[PASS] Empty file rejected: 400
+[PASS] Invalid UTF-8 rejected: 400
+[PASS] Binary as text rejected: 400
+[PASS] Invalid document ID returns 404: 404
+[PASS] Unknown document ID returns 404: 404
+[PASS] Error doesn't expose upload path
+[PASS] Error doesn't expose storage_key
+[PASS] Error doesn't expose data directory
+[PASS] Error doesn't expose database name
+[PASS] Secure PDF upload OK
+[PASS] Upload response includes SHA-256
+
+=== SECURITY VERIFICATION: ALL CHECKS PASSED ===

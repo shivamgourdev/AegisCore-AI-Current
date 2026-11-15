@@ -1,0 +1,41 @@
+[PASS] Health endpoint OK
+[PASS] TXT upload OK: 200
+[PASS] TXT embed OK: 200
+[PASS] PDF upload OK: 200
+[PASS] PDF embed OK: 200
+[PASS] TXT status OK: 200
+[PASS] TXT status document_id matches
+[PASS] TXT status filename matches
+[PASS] TXT status extension matches
+[PASS] TXT status is text_extracted
+[PASS] TXT page_count >= 1
+[PASS] TXT chunk_count >= 1
+[PASS] TXT embedding_count >= 1
+[PASS] TXT embedding_model set
+[PASS] PDF status OK: 200
+[PASS] PDF status document_id matches
+[PASS] PDF status filename matches
+[PASS] PDF status extension matches
+[PASS] PDF status is text_extracted
+[PASS] PDF page_count >= 1
+[PASS] PDF chunk_count >= 1
+[PASS] PDF embedding_count >= 1
+[PASS] Unknown document status returns 404
+[PASS] Plain upload OK
+[PASS] Plain status OK
+[PASS] Plain has chunks
+[PASS] Plain has zero embeddings
+[PASS] Plain delete OK: 200
+[PASS] Plain deleted flag true
+[PASS] Plain status 404 after delete
+[PASS] PDF delete OK: 200
+[PASS] PDF deleted flag true
+[PASS] PDF status 404 after delete
+[PASS] PDF chunks 404 after delete
+[PASS] PDF embeddings 404 after delete
+[PASS] Unknown document delete returns 404
+[PASS] TXT doc still exists after other deletes
+[PASS] TXT embeddings still available
+[PASS] Final TXT delete OK
+
+=== DOCUMENT STATUS AND DELETE VERIFICATION: ALL CHECKS PASSED ===

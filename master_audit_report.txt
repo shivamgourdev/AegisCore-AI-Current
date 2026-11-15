@@ -1,0 +1,1224 @@
+
+==========================================================================================
+AEGISCORE AI - MASTER INTEGRATION AUDIT
+==========================================================================================
+Project root: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI
+Mode: READ ONLY
+No source files will be modified.
+
+==========================================================================================
+1. PROJECT STRUCTURE
+==========================================================================================
+
+[backend/app/aegiscore]
+backend\app\aegiscore\__init__.py
+backend\app\aegiscore\chunk_storage.py
+backend\app\aegiscore\chunking_service.py
+backend\app\aegiscore\document_service.py
+backend\app\aegiscore\embedding_service.py
+backend\app\aegiscore\extraction_service.py
+backend\app\aegiscore\extraction_storage.py
+backend\app\aegiscore\job_analysis.py
+backend\app\aegiscore\job_email.py
+backend\app\aegiscore\job_email_storage.py
+backend\app\aegiscore\job_email_storage.py.part5-backup
+backend\app\aegiscore\job_email_storage.py.phase5-review-backup
+backend\app\aegiscore\main.py
+backend\app\aegiscore\main.py.part5-email-backup
+backend\app\aegiscore\main.py.phase5-review-backup
+backend\app\aegiscore\ollama_embedding.py
+backend\app\aegiscore\sparse_search.py
+backend\app\aegiscore\vector_storage.py
+
+[backend/tests]
+backend\tests\test_chunk_storage.py
+backend\tests\test_chunking_service.py
+backend\tests\test_document_upload.py
+backend\tests\test_embedding_service.py
+backend\tests\test_extraction_integration.py
+backend\tests\test_extraction_service.py
+backend\tests\test_health.py
+backend\tests\test_job_analysis.py
+backend\tests\test_job_analysis_api.py
+backend\tests\test_job_email.py
+backend\tests\test_job_email_approval_api.py
+backend\tests\test_job_email_approval_storage.py
+backend\tests\test_job_email_attachment_api.py
+backend\tests\test_job_email_review_api.py
+backend\tests\test_job_email_storage.py
+backend\tests\test_job_email_update_api.py
+backend\tests\test_part4_citation_integrity.py
+backend\tests\test_part4_edge_security.py
+backend\tests\test_part4_multi_document.py
+backend\tests\test_part4_restart_recovery.py
+backend\tests\test_rag_qa.py
+backend\tests\test_rag_qa.py.part4f-backup
+backend\tests\test_reliability.py
+backend\tests\test_resume_attachment.py
+backend\tests\test_sparse_retrieval.py
+backend\tests\test_vector_search.py
+
+[frontend]
+frontend\index.html
+frontend\index.html.phase5-review-backup
+frontend\server.py
+
+==========================================================================================
+2. BACKEND API ROUTES
+==========================================================================================
+
+--- main.py:48 ---
+0048: @app.get("/", tags=["system"])
+0049: def read_root() -> dict[str, str]:
+0050:     return {
+0051:         "service": SERVICE_NAME,
+0052:         "message": "AegisCore AI API is running",
+0053:         "docs": "/docs",
+0054:     }
+0055: 
+0056: 
+
+--- main.py:57 ---
+0057: @app.get("/health", tags=["system"])
+0058: def health_check() -> dict[str, str]:
+0059:     return {"status": "ok", "service": SERVICE_NAME, "version": __version__}
+0060: 
+0061: 
+0062: @app.post("/documents/upload", tags=["documents"])
+0063: async def upload_document(file: UploadFile = File(...)) -> dict:
+0064:     """Validate, store and extract one PDF, TXT or Markdown document."""
+0065:     try:
+
+--- main.py:62 ---
+0062: @app.post("/documents/upload", tags=["documents"])
+0063: async def upload_document(file: UploadFile = File(...)) -> dict:
+0064:     """Validate, store and extract one PDF, TXT or Markdown document."""
+0065:     try:
+0066:         content = await file.read(MAX_FILE_SIZE + 1)
+0067:         document, duplicate = save_document(file.filename, content)
+0068: 
+0069:         # Reuse previously persisted extraction when content was deduplicated.
+0070:         extraction = get_extraction(document["document_id"])
+
+--- main.py:114 ---
+0114: @app.get("/documents/{document_id}/chunks", tags=["documents"])
+0115: def read_document_chunks(document_id: str) -> dict:
+0116:     """Return persisted chunks with source metadata."""
+0117:     chunks = get_document_chunks(document_id)
+0118:     if chunks is None:
+0119:         raise HTTPException(status_code=404, detail="Document not found.")
+0120:     return {"document_id": document_id, "chunks": chunks, "chunk_count": len(chunks)}
+0121: 
+0122: 
+
+--- main.py:124 ---
+0124: @app.post("/documents/{document_id}/embed", tags=["embeddings"])
+0125: def embed_document_chunks(document_id: str) -> dict:
+0126:     """Generate and persist local Ollama embeddings for a document's chunks."""
+0127:     chunks = get_document_chunks(document_id)
+0128:     if chunks is None:
+0129:         raise HTTPException(status_code=404, detail="Document not found.")
+0130:     if not chunks:
+0131:         raise HTTPException(status_code=400, detail="Document has no text chunks to embed.")
+0132: 
+
+--- main.py:154 ---
+0154: @app.get("/documents/{document_id}/embeddings", tags=["embeddings"])
+0155: def read_document_embeddings(document_id: str) -> dict:
+0156:     """Inspect stored embedding metadata without returning vector arrays."""
+0157:     embeddings = get_document_embeddings(document_id)
+0158:     if embeddings is None:
+0159:         raise HTTPException(status_code=404, detail="Document not found.")
+0160:     return {
+0161:         "document_id": document_id,
+0162:         "embedding_count": len(embeddings),
+
+--- main.py:167 ---
+0167: @app.post("/search", tags=["retrieval"])
+0168: def search_documents(payload: dict) -> dict:
+0169:     """Search chunks using dense, sparse, or hybrid retrieval.
+0170: 
+0171:     Modes:
+0172:       - dense:  vector similarity search (default, existing behavior)
+0173:       - sparse: BM25 lexical search
+0174:       - hybrid: Reciprocal Rank Fusion of dense + sparse results
+0175:     """
+
+--- main.py:259 ---
+0259: @app.get("/documents", tags=["documents"])
+0260: def get_documents() -> dict:
+0261:     return {"documents": list_documents()}
+0262: 
+0263: 
+0264: @app.get("/documents/{document_id}/extraction", tags=["documents"])
+0265: def read_document_extraction(document_id: str) -> dict:
+0266:     """Return extracted text and page-level source metadata."""
+0267:     result = get_extraction(document_id)
+
+--- main.py:264 ---
+0264: @app.get("/documents/{document_id}/extraction", tags=["documents"])
+0265: def read_document_extraction(document_id: str) -> dict:
+0266:     """Return extracted text and page-level source metadata."""
+0267:     result = get_extraction(document_id)
+0268:     if result is None:
+0269:         raise HTTPException(
+0270:             status_code=404,
+0271:             detail="Document or extraction result not found.",
+0272:         )
+
+--- main.py:282 ---
+0282: @app.post("/ask")
+0283: async def ask_documents(payload: dict):
+0284:     query = payload.get("query", "")
+0285:     if not isinstance(query, str) or not query.strip():
+0286:         raise _RAGHTTPException(status_code=400, detail="A non-empty query is required.")
+0287:     query = query.strip()
+0288: 
+0289:     top_k = payload.get("top_k", 5)
+0290:     if isinstance(top_k, bool) or not isinstance(top_k, int) or not 1 <= top_k <= 10:
+
+--- main.py:430 ---
+0430: @app.post(
+0431:     "/jobs/analyze",
+0432:     tags=["jobs"],
+0433:     response_model=JobAnalysisResponse,
+0434: )
+0435: def analyze_job_application(payload: JobAnalysisRequest) -> dict:
+0436:     """Compare resume skills with skills detected in a job description."""
+0437:     try:
+0438:         return analyze_resume(payload.resume_text, payload.job_description)
+
+--- main.py:481 ---
+0481: @app.get("/jobs/email-drafts/{draft_id}", tags=["jobs"])
+0482: def get_job_email_draft(draft_id: str) -> dict:
+0483:     """Retrieve a saved email draft for user review; never sends email."""
+0484:     stored = get_draft(draft_id)
+0485:     if stored is None:
+0486:         raise HTTPException(status_code=404, detail="Email draft not found.")
+0487: 
+0488:     return {
+0489:         **stored,
+
+--- main.py:496 ---
+0496: @app.put("/jobs/email-drafts/{draft_id}", tags=["jobs"])
+0497: def update_job_email_draft(
+0498:     draft_id: str,
+0499:     payload: JobEmailDraftUpdateRequest,
+0500: ) -> dict:
+0501:     """Save user edits to a pending draft; never sends email."""
+0502:     stored = get_draft(draft_id)
+0503:     if stored is None:
+0504:         raise HTTPException(status_code=404, detail="Email draft not found.")
+
+--- main.py:552 ---
+0552: @app.post("/jobs/email-drafts/{draft_id}/approve", tags=["jobs"])
+0553: def approve_job_email_draft(
+0554:     draft_id: str,
+0555:     payload: JobEmailApprovalRequest,
+0556: ) -> dict:
+0557:     """Approve the exact reviewed draft and verified resume; never sends email."""
+0558:     if payload.confirm is not True:
+0559:         raise HTTPException(status_code=400, detail="Explicit approval is required.")
+0560: 
+
+--- main.py:603 ---
+0603: @app.post(
+0604:     "/jobs/email-draft",
+0605:     tags=["jobs"],
+0606:     response_model=JobEmailDraftResponse,
+0607: )
+0608: def create_job_email_draft(payload: JobEmailDraftRequest) -> dict:
+0609:     """Generate a draft bound to a verified PDF; never sends email."""
+0610:     try:
+0611:         metadata, _attachment_path = get_resume_attachment(
+
+==========================================================================================
+3. FRONTEND HTML - STRUCTURE AND API CALLS
+==========================================================================================
+File size: 15608 characters
+
+HTML sections/headings:
+0028: <h1>AegisCore AI</h1>
+0032: <section class="card">
+0033: <h2>1. Resume</h2>
+0036: <input id="resumeFile" type="file" accept=".pdf,application/pdf">
+0037: <button id="uploadBtn">Upload PDF</button>
+0040: <textarea id="resumeText" placeholder="Paste your resume text here..."></textarea>
+0043: <section class="card">
+0044: <h2>2. Job description and skill match</h2>
+0046: <textarea id="jobDescription" placeholder="Paste the full job description here..."></textarea>
+0047: <button id="analyzeBtn">Analyze skill match</button>
+0053: <section class="card">
+0054: <h2>3. Generate an application email draft</h2>
+0056: <div><label for="candidate">Your name</label><input id="candidate" placeholder="Your full name"></div>
+0057: <div><label for="recipient">Recruiter email</label><input id="recipient" type="email" placeholder="hr@company.com"></div>
+0058: <div><label for="jobTitle">Job title</label><input id="jobTitle" placeholder="Python Developer"></div>
+0059: <div><label for="company">Company</label><input id="company" placeholder="Company name"></div>
+0062: <textarea id="summary" placeholder="Briefly describe your relevant skills and projects..."></textarea>
+0063: <button id="draftBtn">Generate and save draft</button>
+0067: <section class="card">
+0068: <h2>4. Review and approve</h2>
+0070: <label for="reviewTo">Recipient</label><input id="reviewTo" type="email" autocomplete="email">
+0071: <label for="reviewSubject">Subject</label><input id="reviewSubject">
+0072: <label for="reviewBody">Email body</label><textarea id="reviewBody"></textarea>
+0074: <label class="check"><input type="checkbox" id="confirm">
+0077: <button id="saveDraftBtn" disabled>Save Changes</button>
+0078: <button id="approveBtn" disabled>Approve this draft</button>
+0090: const response = await fetch(path, options);
+0151: const data = await api("/api/documents/upload", {method:"POST", body:form});
+0158: const extracted = await api("/api/documents/" + encodeURIComponent(id) + "/extraction");
+0181: analysisResult = await api("/api/jobs/analyze", {
+0220: currentDraft = await api("/api/jobs/email-draft", {
+0289: "/api/jobs/email-drafts/" + encodeURIComponent(currentDraft.draft_id),
+0331: const result = await api("/api/jobs/email-drafts/" + encodeURIComponent(currentDraft.draft_id) + "/approve", {
+
+==========================================================================================
+4. FRONTEND SERVER
+==========================================================================================
+0008: BACKEND = "http://127.0.0.1:8000"
+0017:     def _proxy(self):
+0019:         if not path.startswith("/api/"):
+0020:             self.send_error(404, "Unknown API route")
+0041:                        '. Start the FastAPI backend first. Details: ' +
+0052:     def do_GET(self):
+0053:         if self.path.startswith("/api/"):
+0054:             return self._proxy()
+0057:         return super().do_GET()
+0059:     def do_POST(self):
+0060:         return self._proxy()
+0064:     print("AegisCore AI Sandbox: http://127.0.0.1:5500")
+0065:     print("Backend proxy target: " + BACKEND)
+0067:     ThreadingHTTPServer(("127.0.0.1", 5500), Handler).serve_forever()
+
+==========================================================================================
+5. JOB APPLICATION MODULES
+==========================================================================================
+
+--- backend\app\aegiscore\__init__.py ---
+
+--- backend\app\aegiscore\document_service.py ---
+0003: import hashlib
+0004: import os
+0005: import sqlite3
+0006: import uuid
+0007: from datetime import datetime, timezone
+0008: from pathlib import Path
+0020: class DocumentUploadError(Exception):
+0026: def get_data_dir() -> Path:
+0036: def _database_connection():
+0061: def _public_document(row):
+0074: def validate_upload(filename: str | None, content: bytes) -> tuple[str, str]:
+0132: def save_document(filename: str | None, content: bytes) -> tuple[dict, bool]:
+0208: def list_documents() -> list[dict]:
+0219: def get_resume_attachment(document_id: str) -> tuple[dict, Path]:
+0220:     """Resolve a stored PDF resume by ID without exposing its path publicly."""
+0234:         raise DocumentUploadError("Resume document was not found.", 404)
+0237:         raise DocumentUploadError("The selected resume must be a PDF.", 415)
+0243:         raise DocumentUploadError("Invalid resume storage reference.", 400)
+0246:         raise DocumentUploadError("Stored resume file is missing.", 404)
+0249:         raise DocumentUploadError("Stored resume file failed integrity checks.", 409)
+0253:         raise DocumentUploadError("Stored resume file failed integrity checks.", 409)
+
+--- backend\app\aegiscore\extraction_service.py ---
+0003: from dataclasses import dataclass
+0004: from pathlib import Path
+0006: import pymupdf
+0010: class ExtractedPage:
+0016: class ExtractionResult:
+0027: class DocumentExtractionError(ValueError):
+0031: def extract_document(filename: str, content: bytes) -> ExtractionResult:
+0086:                     "No selectable text found. This may be a scanned or image-only PDF; OCR is not available in this phase."
+
+--- backend\app\aegiscore\job_analysis.py ---
+0001: """Deterministic resume and job-description skill matching."""
+0003: import re
+0053: def _validate_text(value: str, field_name: str) -> str:
+0066: def extract_skills(text: str) -> list[str]:
+0083: def analyze_resume(resume_text: str, job_description: str) -> dict:
+0085:     resume_text = _validate_text(resume_text, "resume_text")
+0086:     job_description = _validate_text(job_description, "job_description")
+0088:     resume_skills = extract_skills(resume_text)
+0089:     job_skills = extract_skills(job_description)
+0091:     resume_set = set(resume_skills)
+0092:     job_set = set(job_skills)
+0094:     matched = [skill for skill in job_skills if skill in resume_set]
+0095:     missing = [skill for skill in job_skills if skill not in resume_set]
+0097:     percentage = round((len(matched) / len(job_skills)) * 100) if job_skills else 0
+0100:         "resume_skills": resume_skills,
+0101:         "job_description_skills": job_skills,
+0105:         "match_basis": "matched detected job-description skills / all detected job-description skills",
+
+--- backend\app\aegiscore\job_email.py ---
+0001: """Generate professional job-application email drafts without sending email."""
+0003: import re
+0009: def _clean_field(value: str, field_name: str) -> str:
+0026: def _safe_subject(value: str) -> str:
+0027:     """Prevent control characters and multiline email subjects."""
+0034: def generate_job_email(
+0036:     recipient_email: str,
+0037:     job_title: str,
+0039:     resume_summary: str,
+0041:     """Create a reviewable draft; this function never sends email."""
+0043:     recipient_email = _clean_field(recipient_email, "recipient_email")
+0044:     job_title = _clean_field(job_title, "job_title")
+0046:     resume_summary = _clean_field(resume_summary, "resume_summary")
+0048:     if not re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", recipient_email):
+0049:         raise ValueError("recipient_email must be a valid email address.")
+0054:     if any(char in job_title for char in "\r\n"):
+0055:         raise ValueError("job_title must be a single line.")
+0061:         f"Application for {job_title} - {candidate_name}"
+0066:         f"I am writing to express my interest in the {job_title} position "
+0068:         f"My relevant background includes: {resume_summary}\n\n"
+0071:         "my resume for your review.\n\n"
+0077:         "recipient_email": recipient_email,
+0080:         "attachment_required": True,
+
+--- backend\app\aegiscore\job_email_storage.py ---
+0001: """Persistent storage for reviewable job-application email drafts."""
+0003: import json
+0004: import sqlite3
+0005: import uuid
+0006: from datetime import datetime, timezone
+0008: from aegiscore.document_service import get_data_dir
+0011: def _connect():
+0022:         CREATE TABLE IF NOT EXISTS job_email_drafts (
+0023:             draft_id TEXT PRIMARY KEY,
+0024:             recipient_email TEXT NOT NULL,
+0027:             attachment_document_id TEXT NOT NULL,
+0028:             attachment_filename TEXT NOT NULL,
+0029:             attachment_sha256 TEXT NOT NULL,
+0031:                 status IN ('pending', 'approved', 'rejected', 'sent')
+0034:             approved_at TEXT,
+0043: def create_draft(draft: dict) -> dict:
+0044:     """Persist a new draft as pending; never sends email."""
+0046:         "recipient_email",
+0049:         "attachment_document_id",
+0050:         "attachment_filename",
+0051:         "attachment_sha256",
+0054:         if not isinstance(draft.get(key), str) or not draft[key].strip():
+0055:             raise ValueError(f"Missing or invalid draft field: {key}")
+0057:     draft_id = str(uuid.uuid4())
+0064:             INSERT INTO job_email_drafts (
+0065:                 draft_id, recipient_email, subject, body,
+0066:                 attachment_document_id, attachment_filename,
+0067:                 attachment_sha256, status, created_at
+0071:                 draft_id,
+0072:                 draft["recipient_email"],
+0073:                 draft["subject"],
+0074:                 draft["body"],
+0075:                 draft["attachment_document_id"],
+0076:                 draft["attachment_filename"],
+0077:                 draft["attachment_sha256"],
+0085:     return get_draft(draft_id)
+0088: def get_draft(draft_id: str) -> dict | None:
+0089:     """Retrieve a stored draft without exposing internal database details."""
+0093:             "SELECT * FROM job_email_drafts WHERE draft_id = ?",
+0094:             (draft_id,),
+0101: def approve_draft(
+0102:     draft_id: str,
+0105:     """Approve only if the exact saved email and attachment were reviewed."""
+0107:         "recipient_email",
+0110:         "attachment_document_id",
+0111:         "attachment_sha256",
+0117:     approved_at = datetime.now(timezone.utc).isoformat()
+0123:             SELECT recipient_email, subject, body,
+0124:                    attachment_document_id, attachment_sha256, status
+0125:             FROM job_email_drafts
+0126:             WHERE draft_id = ?
+0128:             (draft_id,),
+0137:             raise ValueError("Only pending drafts can be approved.")
+0143:                     f"Reviewed {key} does not match the saved draft."
+0148:             UPDATE job_email_drafts
+0149:             SET status = 'approved', approved_at = ?
+0150:             WHERE draft_id = ? AND status = 'pending'
+0152:             (approved_at, draft_id),
+0158:     return get_draft(draft_id)
+0162: def update_pending_draft(draft_id: str, reviewed: dict) -> dict | None:
+0163:     """Update editable email fields only while a draft is pending."""
+0164:     required = ("recipient_email", "subject", "body")
+0169:             raise ValueError(f"Missing or invalid draft field: {key}")
+0171:     if len(reviewed["recipient_email"]) > 500:
+0172:         raise ValueError("Recipient email is too long.")
+0174:         raise ValueError("Email subject is too long.")
+0176:         raise ValueError("Email body is too long.")
+0183:             "SELECT status FROM job_email_drafts WHERE draft_id = ?",
+0184:             (draft_id,),
+0193:             raise ValueError("Only pending drafts can be edited.")
+0197:             UPDATE job_email_drafts
+0198:             SET recipient_email = ?, subject = ?, body = ?
+0199:             WHERE draft_id = ? AND status = 'pending'
+0202:                 reviewed["recipient_email"].strip(),
+0205:                 draft_id,
+0212:     return get_draft(draft_id)
+
+--- backend\app\aegiscore\main.py ---
+0001: import re
+0004: from fastapi import FastAPI, File, HTTPException, UploadFile
+0005: from pydantic import BaseModel, Field
+0006: from aegiscore.job_analysis import analyze_resume
+0007: from aegiscore.job_email import generate_job_email
+0008: from aegiscore.job_email_storage import (
+0009:     approve_draft,
+0010:     create_draft,
+0011:     get_draft,
+0012:     update_pending_draft,
+0014: from aegiscore.document_service import get_resume_attachment
+0016: from aegiscore import __version__
+0017: from aegiscore.document_service import (
+0024: from aegiscore.extraction_service import DocumentExtractionError
+0025: from aegiscore.extraction_storage import extract_and_store, get_extraction
+0026: from aegiscore.chunk_storage import get_document_chunks, store_document_chunks
+0027: from aegiscore.embedding_service import EmbeddingGenerationError, embed_chunks
+0028: from aegiscore.ollama_embedding import OllamaEmbeddingEncoder, OLLAMA_EMBEDDING_MODEL
+0029: from aegiscore.sparse_search import hybrid_search, search_sparse_chunks
+0030: from aegiscore.vector_storage import (
+0043:         "and user-approved job application workflows."
+0048: @app.get("/", tags=["system"])
+0049: def read_root() -> dict[str, str]:
+0057: @app.get("/health", tags=["system"])
+0058: def health_check() -> dict[str, str]:
+0062: @app.post("/documents/upload", tags=["documents"])
+0063: async def upload_document(file: UploadFile = File(...)) -> dict:
+0114: @app.get("/documents/{document_id}/chunks", tags=["documents"])
+0115: def read_document_chunks(document_id: str) -> dict:
+0124: @app.post("/documents/{document_id}/embed", tags=["embeddings"])
+0125: def embed_document_chunks(document_id: str) -> dict:
+0154: @app.get("/documents/{document_id}/embeddings", tags=["embeddings"])
+0155: def read_document_embeddings(document_id: str) -> dict:
+0167: @app.post("/search", tags=["retrieval"])
+0168: def search_documents(payload: dict) -> dict:
+0259: @app.get("/documents", tags=["documents"])
+0260: def get_documents() -> dict:
+0264: @app.get("/documents/{document_id}/extraction", tags=["documents"])
+0265: def read_document_extraction(document_id: str) -> dict:
+0277: import os as _rag_os
+0278: import re as _rag_re
+0279: import httpx as _rag_httpx
+0280: from fastapi import HTTPException as _RAGHTTPException
+0282: @app.post("/ask")
+0283: async def ask_documents(payload: dict):
+0415: class JobAnalysisRequest(BaseModel):
+0416:     resume_text: str = Field(min_length=1, max_length=50000)
+0417:     job_description: str = Field(min_length=1, max_length=50000)
+0420: class JobAnalysisResponse(BaseModel):
+0421:     resume_skills: list[str]
+0422:     job_description_skills: list[str]
+0430: @app.post(
+0431:     "/jobs/analyze",
+0432:     tags=["jobs"],
+0433:     response_model=JobAnalysisResponse,
+0435: def analyze_job_application(payload: JobAnalysisRequest) -> dict:
+0436:     """Compare resume skills with skills detected in a job description."""
+0438:         return analyze_resume(payload.resume_text, payload.job_description)
+0443: class JobEmailDraftRequest(BaseModel):
+0445:     recipient_email: str = Field(min_length=1, max_length=5000)
+0446:     job_title: str = Field(min_length=1, max_length=5000)
+0448:     resume_summary: str = Field(min_length=1, max_length=5000)
+0449:     resume_document_id: str = Field(min_length=1, max_length=100)
+0452: class JobEmailApprovalRequest(BaseModel):
+0453:     recipient_email: str = Field(min_length=1, max_length=500)
+0456:     attachment_document_id: str = Field(min_length=1, max_length=100)
+0457:     attachment_sha256: str = Field(min_length=64, max_length=64)
+0461: class JobEmailDraftUpdateRequest(BaseModel):
+0462:     recipient_email: str = Field(min_length=1, max_length=500)
+0467: class JobEmailDraftResponse(BaseModel):
+0468:     draft_id: str
+0470:     recipient_email: str
+0473:     attachment_required: bool
+0476:     attachment_document_id: str
+0477:     attachment_filename: str
+0478:     attachment_sha256: str
+0481: @app.get("/jobs/email-drafts/{draft_id}", tags=["jobs"])
+0482: def get_job_email_draft(draft_id: str) -> dict:
+0483:     """Retrieve a saved email draft for user review; never sends email."""
+0484:     stored = get_draft(draft_id)
+0486:         raise HTTPException(status_code=404, detail="Email draft not found.")
+0490:         "attachment_required": True,
+0491:         "requires_user_approval": stored["status"] != "approved",
+0496: @app.put("/jobs/email-drafts/{draft_id}", tags=["jobs"])
+0497: def update_job_email_draft(
+0498:     draft_id: str,
+0499:     payload: JobEmailDraftUpdateRequest,
+0501:     """Save user edits to a pending draft; never sends email."""
+0502:     stored = get_draft(draft_id)
+0504:         raise HTTPException(status_code=404, detail="Email draft not found.")
+0506:     if not re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", payload.recipient_email.strip()):
+0507:         raise HTTPException(status_code=422, detail="Invalid recipient email address.")
+0510:         metadata, _attachment_path = get_resume_attachment(
+0511:             stored["attachment_document_id"]
+0520:         metadata["document_id"] != stored["attachment_document_id"]
+0521:         or metadata["sha256"] != stored["attachment_sha256"]
+0525:             detail="Resume attachment integrity check failed.",
+0529:         updated = update_pending_draft(
+0530:             draft_id,
+0532:                 "recipient_email": payload.recipient_email,
+0541:         raise HTTPException(status_code=404, detail="Email draft not found.")
+0545:         "attachment_required": True,
+0548:         "message": "Draft updated. Review and explicitly approve it before sending.",
+0552: @app.post("/jobs/email-drafts/{draft_id}/approve", tags=["jobs"])
+0553: def approve_job_email_draft(
+0554:     draft_id: str,
+0555:     payload: JobEmailApprovalRequest,
+0557:     """Approve the exact reviewed draft and verified resume; never sends email."""
+0561:     stored = get_draft(draft_id)
+0563:         raise HTTPException(status_code=404, detail="Email draft not found.")
+0566:         metadata, _attachment_path = get_resume_attachment(
+0567:             payload.attachment_document_id
+0572:     if metadata["sha256"] != payload.attachment_sha256:
+0573:         raise HTTPException(status_code=409, detail="Resume attachment integrity check failed.")
+0574:     if metadata["document_id"] != stored["attachment_document_id"]:
+0575:         raise HTTPException(status_code=409, detail="Attachment does not match the saved draft.")
+0578:         approved = approve_draft(
+0579:             draft_id,
+0581:                 "recipient_email": payload.recipient_email,
+0584:                 "attachment_document_id": payload.attachment_document_id,
+0585:                 "attachment_sha256": payload.attachment_sha256,
+0591:     if approved is None:
+0592:         raise HTTPException(status_code=404, detail="Email draft not found.")
+0595:         **approved,
+0596:         "attachment_required": True,
+0599:         "message": "Draft approved. No email has been sent.",
+0603: @app.post(
+0604:     "/jobs/email-draft",
+0605:     tags=["jobs"],
+0606:     response_model=JobEmailDraftResponse,
+0608: def create_job_email_draft(payload: JobEmailDraftRequest) -> dict:
+0609:     """Generate a draft bound to a verified PDF; never sends email."""
+0611:         metadata, _attachment_path = get_resume_attachment(
+0612:             payload.resume_document_id
+0614:         draft = generate_job_email(
+0616:             recipient_email=payload.recipient_email,
+0617:             job_title=payload.job_title,
+0619:             resume_summary=payload.resume_summary,
+0621:         draft["attachment_document_id"] = metadata["document_id"]
+0622:         draft["attachment_filename"] = metadata["filename"]
+0623:         draft["attachment_sha256"] = metadata["sha256"]
+0625:         stored_draft = create_draft(draft)
+0626:         stored_draft["attachment_required"] = draft["attachment_required"]
+0627:         stored_draft["requires_user_approval"] = True
+0628:         stored_draft["sent"] = False
+0629:         return stored_draft
+
+--- backend\app\aegiscore\ollama_embedding.py ---
+0004: import json
+0005: import os
+0006: from urllib.error import HTTPError, URLError
+0007: from urllib.request import Request, urlopen
+0015: class OllamaEmbeddingEncoder:
+
+==========================================================================================
+6. RAG MODULES AND CONTRACTS
+==========================================================================================
+
+--- backend\app\aegiscore\chunk_storage.py ---
+0005: import sqlite3
+0006: from typing import Any, Iterable
+0008: from aegiscore.chunking_service import chunk_document
+0009: from aegiscore.document_service import _database_connection
+0012: def _ensure_chunk_table(connection: sqlite3.Connection) -> None:
+0017:             document_id TEXT NOT NULL,
+0018:             filename TEXT NOT NULL,
+0019:             page_number INTEGER NOT NULL,
+0024:             UNIQUE(document_id, page_number, chunk_index),
+0025:             FOREIGN KEY(document_id) REFERENCES documents(document_id)
+0031: def store_document_chunks(
+0032:     document_id: str,
+0033:     filename: str,
+0037:     chunks = chunk_document(document_id, filename, pages)
+0044:             "DELETE FROM document_chunks WHERE document_id = ?",
+0045:             (document_id,),
+0050:                 chunk_id, document_id, filename, page_number,
+0057:                     item["document_id"],
+0058:                     item["filename"],
+0059:                     item["page_number"],
+0077: def get_document_chunks(document_id: str) -> list[dict[str, Any]] | None:
+0084:             "SELECT document_id FROM documents WHERE document_id = ?",
+0085:             (document_id,),
+0093:             SELECT chunk_id, document_id, filename, page_number,
+0096:             WHERE document_id = ?
+0097:             ORDER BY page_number, chunk_index
+0099:             (document_id,),
+
+--- backend\app\aegiscore\chunking_service.py ---
+0005: from __future__ import annotations
+0007: import hashlib
+0008: import uuid
+0009: from collections.abc import Mapping, Iterable
+0010: from typing import Any
+0013: def _field(page: Any, name: str) -> Any:
+0019: def _split_text(text: str, chunk_size: int, overlap: int) -> list[str]:
+0057: def chunk_document(
+0058:     document_id: str,
+0059:     filename: str,
+0066:     Each page must expose ``page_number`` and ``text`` fields, either
+0070:     if not isinstance(document_id, str) or not document_id.strip():
+0071:         raise ValueError("document_id must be a non-empty string")
+0072:     if not isinstance(filename, str) or not filename.strip():
+0073:         raise ValueError("filename must be a non-empty string")
+0084:         page_number = _field(page, "page_number")
+0087:         if isinstance(page_number, bool) or not isinstance(page_number, int) or page_number < 1:
+0088:             raise ValueError("Each page must have a positive one-based page_number")
+0097:                 f"aegiscore:{document_id}:{filename}:{page_number}:"
+0104:                 "document_id": document_id,
+0105:                 "filename": filename,
+0106:                 "page_number": page_number,
+
+--- backend\app\aegiscore\document_service.py ---
+0003: import hashlib
+0004: import os
+0005: import sqlite3
+0006: import uuid
+0007: from datetime import datetime, timezone
+0008: from pathlib import Path
+0020: class DocumentUploadError(Exception):
+0026: def get_data_dir() -> Path:
+0036: def _database_connection():
+0046:             document_id TEXT PRIMARY KEY,
+0047:             filename TEXT NOT NULL,
+0061: def _public_document(row):
+0064:         "document_id": row["document_id"],
+0065:         "filename": row["filename"],
+0074: def validate_upload(filename: str | None, content: bytes) -> tuple[str, str]:
+0076:     if not filename or not filename.strip():
+0077:         raise DocumentUploadError("A filename is required.", 400)
+0080:     safe_name = filename.replace("\\", "/").rsplit("/", 1)[-1].strip()
+0083:         raise DocumentUploadError("The filename is invalid.", 400)
+0132: def save_document(filename: str | None, content: bytes) -> tuple[dict, bool]:
+0134:     safe_name, extension = validate_upload(filename, content)
+0158:         document_id = str(uuid.uuid4())
+0159:         storage_key = document_id + extension
+0172:                     document_id, filename, extension, content_type,
+0177:                     document_id,
+0198:             "SELECT * FROM documents WHERE document_id = ?",
+0199:             (document_id,),
+0208: def list_documents() -> list[dict]:
+0219: def get_resume_attachment(document_id: str) -> tuple[dict, Path]:
+0221:     if not isinstance(document_id, str) or not document_id.strip():
+0227:             "SELECT * FROM documents WHERE document_id = ?",
+0228:             (document_id.strip(),),
+
+--- backend\app\aegiscore\embedding_service.py ---
+0005: import math
+0006: from typing import Any, Iterable, Mapping
+0011: class EmbeddingGenerationError(ValueError):
+0015: def embed_chunks(
+
+--- backend\app\aegiscore\extraction_service.py ---
+0003: from dataclasses import dataclass
+0004: from pathlib import Path
+0006: import pymupdf
+0010: class ExtractedPage:
+0011:     page_number: int
+0016: class ExtractionResult:
+0017:     filename: str
+0027: class DocumentExtractionError(ValueError):
+0031: def extract_document(filename: str, content: bytes) -> ExtractionResult:
+0032:     if not filename or not filename.strip():
+0033:         raise DocumentExtractionError("A filename is required.")
+0038:     extension = Path(filename).suffix.lower()
+0055:             filename=Path(filename).name,
+0057:             pages=(ExtractedPage(page_number=1, text=text.strip()),),
+0081:                         ExtractedPage(page_number=index, text=page_text)
+0090:                 filename=Path(filename).name,
+
+--- backend\app\aegiscore\extraction_storage.py ---
+0003: import json
+0004: import sqlite3
+0006: from aegiscore.document_service import _database_connection, get_data_dir
+0007: from aegiscore.extraction_service import extract_document
+0010: def extract_and_store(document: dict, content: bytes) -> dict:
+0013:         result = extract_document(document["filename"], content)
+0017:             {"page_number": page.page_number, "text": page.text}
+0032:                 document_id TEXT PRIMARY KEY,
+0037:                 FOREIGN KEY(document_id) REFERENCES documents(document_id)
+0044:                 (document_id, status, full_text, pages_json, error)
+0046:             ON CONFLICT(document_id) DO UPDATE SET
+0053:                 document["document_id"],
+0065:         "document_id": document["document_id"],
+0073: def get_extraction(document_id: str) -> dict | None:
+0080:                 document_id TEXT PRIMARY KEY,
+0085:                 FOREIGN KEY(document_id) REFERENCES documents(document_id)
+0091:             SELECT document_id, status, full_text, pages_json, error
+0092:             FROM document_extractions WHERE document_id = ?
+0094:             (document_id,),
+0099:             "document_id": row["document_id"],
+
+--- backend\app\aegiscore\job_analysis.py ---
+0003: import re
+0053: def _validate_text(value: str, field_name: str) -> str:
+0066: def extract_skills(text: str) -> list[str]:
+0083: def analyze_resume(resume_text: str, job_description: str) -> dict:
+
+--- backend\app\aegiscore\job_email_storage.py ---
+0003: import json
+0004: import sqlite3
+0005: import uuid
+0006: from datetime import datetime, timezone
+0008: from aegiscore.document_service import get_data_dir
+0011: def _connect():
+0027:             attachment_document_id TEXT NOT NULL,
+0028:             attachment_filename TEXT NOT NULL,
+0043: def create_draft(draft: dict) -> dict:
+0049:         "attachment_document_id",
+0050:         "attachment_filename",
+0066:                 attachment_document_id, attachment_filename,
+0075:                 draft["attachment_document_id"],
+0076:                 draft["attachment_filename"],
+0088: def get_draft(draft_id: str) -> dict | None:
+0101: def approve_draft(
+0110:         "attachment_document_id",
+0124:                    attachment_document_id, attachment_sha256, status
+0162: def update_pending_draft(draft_id: str, reviewed: dict) -> dict | None:
+
+--- backend\app\aegiscore\main.py ---
+0001: import re
+0004: from fastapi import FastAPI, File, HTTPException, UploadFile
+0005: from pydantic import BaseModel, Field
+0006: from aegiscore.job_analysis import analyze_resume
+0007: from aegiscore.job_email import generate_job_email
+0008: from aegiscore.job_email_storage import (
+0014: from aegiscore.document_service import get_resume_attachment
+0016: from aegiscore import __version__
+0017: from aegiscore.document_service import (
+0024: from aegiscore.extraction_service import DocumentExtractionError
+0025: from aegiscore.extraction_storage import extract_and_store, get_extraction
+0026: from aegiscore.chunk_storage import get_document_chunks, store_document_chunks
+0027: from aegiscore.embedding_service import EmbeddingGenerationError, embed_chunks
+0028: from aegiscore.ollama_embedding import OllamaEmbeddingEncoder, OLLAMA_EMBEDDING_MODEL
+0029: from aegiscore.sparse_search import hybrid_search, search_sparse_chunks
+0030: from aegiscore.vector_storage import (
+0048: @app.get("/", tags=["system"])
+0049: def read_root() -> dict[str, str]:
+0057: @app.get("/health", tags=["system"])
+0058: def health_check() -> dict[str, str]:
+0062: @app.post("/documents/upload", tags=["documents"])
+0063: async def upload_document(file: UploadFile = File(...)) -> dict:
+0067:         document, duplicate = save_document(file.filename, content)
+0070:         extraction = get_extraction(document["document_id"])
+0082:             stored_extraction = get_extraction(document["document_id"])
+0085:                     document["document_id"],
+0086:                     document["filename"],
+0114: @app.get("/documents/{document_id}/chunks", tags=["documents"])
+0115: def read_document_chunks(document_id: str) -> dict:
+0117:     chunks = get_document_chunks(document_id)
+0120:     return {"document_id": document_id, "chunks": chunks, "chunk_count": len(chunks)}
+0124: @app.post("/documents/{document_id}/embed", tags=["embeddings"])
+0125: def embed_document_chunks(document_id: str) -> dict:
+0127:     chunks = get_document_chunks(document_id)
+0139:         count = store_chunk_embeddings(document_id, embedded, OLLAMA_EMBEDDING_MODEL)
+0147:         "document_id": document_id,
+0154: @app.get("/documents/{document_id}/embeddings", tags=["embeddings"])
+0155: def read_document_embeddings(document_id: str) -> dict:
+0157:     embeddings = get_document_embeddings(document_id)
+0161:         "document_id": document_id,
+0167: @app.post("/search", tags=["retrieval"])
+0168: def search_documents(payload: dict) -> dict:
+0172:       - dense:  vector similarity search (default, existing behavior)
+0259: @app.get("/documents", tags=["documents"])
+0260: def get_documents() -> dict:
+0264: @app.get("/documents/{document_id}/extraction", tags=["documents"])
+0265: def read_document_extraction(document_id: str) -> dict:
+0267:     result = get_extraction(document_id)
+0277: import os as _rag_os
+0278: import re as _rag_re
+0279: import httpx as _rag_httpx
+0280: from fastapi import HTTPException as _RAGHTTPException
+0282: @app.post("/ask")
+0283: async def ask_documents(payload: dict):
+0293:     threshold = payload.get("min_similarity", 0.45)
+0295:         raise _RAGHTTPException(status_code=400, detail="min_similarity must be between 0 and 1.")
+0324:         and float(item.get("similarity", 0.0)) >= float(threshold)
+0337:         filename = item.get("filename")
+0340:             "filename": str(filename) if filename is not None else "unknown",
+0341:             "page_number": item.get("page_number"),
+0343:             "similarity": float(item.get("similarity", 0.0)),
+0347:         f"[{s['source_id']}] File: {s['filename']}; page: {s['page_number']}\n"
+0415: class JobAnalysisRequest(BaseModel):
+0420: class JobAnalysisResponse(BaseModel):
+0430: @app.post(
+0435: def analyze_job_application(payload: JobAnalysisRequest) -> dict:
+0443: class JobEmailDraftRequest(BaseModel):
+0449:     resume_document_id: str = Field(min_length=1, max_length=100)
+0452: class JobEmailApprovalRequest(BaseModel):
+0456:     attachment_document_id: str = Field(min_length=1, max_length=100)
+0461: class JobEmailDraftUpdateRequest(BaseModel):
+0467: class JobEmailDraftResponse(BaseModel):
+0476:     attachment_document_id: str
+0477:     attachment_filename: str
+0481: @app.get("/jobs/email-drafts/{draft_id}", tags=["jobs"])
+0482: def get_job_email_draft(draft_id: str) -> dict:
+0496: @app.put("/jobs/email-drafts/{draft_id}", tags=["jobs"])
+0497: def update_job_email_draft(
+0511:             stored["attachment_document_id"]
+0520:         metadata["document_id"] != stored["attachment_document_id"]
+0552: @app.post("/jobs/email-drafts/{draft_id}/approve", tags=["jobs"])
+0553: def approve_job_email_draft(
+0567:             payload.attachment_document_id
+0574:     if metadata["document_id"] != stored["attachment_document_id"]:
+0584:                 "attachment_document_id": payload.attachment_document_id,
+0603: @app.post(
+0608: def create_job_email_draft(payload: JobEmailDraftRequest) -> dict:
+0612:             payload.resume_document_id
+0621:         draft["attachment_document_id"] = metadata["document_id"]
+0622:         draft["attachment_filename"] = metadata["filename"]
+
+--- backend\app\aegiscore\ollama_embedding.py ---
+0004: import json
+0005: import os
+0006: from urllib.error import HTTPError, URLError
+0007: from urllib.request import Request, urlopen
+0015: class OllamaEmbeddingEncoder:
+
+--- backend\app\aegiscore\sparse_search.py ---
+0005: import math
+0006: import re
+0007: import sqlite3
+0008: from collections import Counter
+0009: from typing import Any
+0011: from aegiscore.document_service import _database_connection
+0014: def _tokenize(text: str) -> list[str]:
+0019: def _bm25_score(
+0055: def search_sparse_chunks(
+0063:     source metadata and a ``similarity`` field holding the BM25 score.
+0076:                 document_id TEXT NOT NULL,
+0077:                 filename TEXT NOT NULL,
+0078:                 page_number INTEGER NOT NULL,
+0083:                 UNIQUE(document_id, page_number, chunk_index),
+0084:                 FOREIGN KEY(document_id) REFERENCES documents(document_id)
+0091:                 SELECT c.chunk_id, c.document_id, c.filename, c.page_number,
+0094:                 ORDER BY c.page_number, c.chunk_index
+0098:                 SELECT c.chunk_id, c.document_id, c.filename, c.page_number,
+0101:                 ORDER BY c.page_number, c.chunk_index
+0118:                     "document_id": row["document_id"],
+0119:                     "filename": row["filename"],
+0120:                     "page_number": row["page_number"],
+0124:                     "similarity": float(score),
+0128:         scored.sort(key=lambda item: item["similarity"], reverse=True)
+0134: def hybrid_search(
+0182:         # Normalize RRF score to a 0-1 scale comparable to cosine similarity.
+0186:         fused[chunk_id]["similarity"] = normalized
+
+--- backend\app\aegiscore\vector_storage.py ---
+0002: Persistent normalized vectors and cosine-similarity search using SQLite.
+0004: import json
+0005: import math
+0006: import sqlite3
+0007: from typing import Any
+0009: from aegiscore.document_service import _database_connection
+0012: def _ensure_vector_table(connection: sqlite3.Connection) -> None:
+0024: def store_chunk_embeddings(
+0025:     document_id: str,
+0061:             "SELECT document_id FROM documents WHERE document_id = ?",
+0062:             (document_id,),
+0068:             "SELECT chunk_id FROM document_chunks WHERE document_id = ?",
+0069:             (document_id,),
+0078:                 SELECT chunk_id FROM document_chunks WHERE document_id = ?
+0080:         """, (document_id,))
+0097: def get_document_embeddings(document_id: str):
+0103:             "SELECT document_id FROM documents WHERE document_id = ?",
+0104:             (document_id,),
+0110:             SELECT c.chunk_id, c.filename, c.page_number, c.chunk_index,
+0114:             WHERE c.document_id = ?
+0115:             ORDER BY c.page_number, c.chunk_index
+0116:         """, (document_id,)).fetchall()
+0124:                 "filename": row["filename"],
+0125:                 "page_number": row["page_number"],
+0136: def search_similar_chunks(
+0141:     """Rank persisted chunks by cosine similarity; vectors are normalized."""
+0159:                 SELECT c.chunk_id, c.document_id, c.filename, c.page_number,
+0168:                 SELECT c.chunk_id, c.document_id, c.filename, c.page_number,
+0182:                 "document_id": row["document_id"],
+0183:                 "filename": row["filename"],
+0184:                 "page_number": row["page_number"],
+0188:                 "similarity": float(score),
+0191:         ranked.sort(key=lambda item: item["similarity"], reverse=True)
+
+==========================================================================================
+7. OCR AND FILE EXTRACTION DEPENDENCIES
+==========================================================================================
+
+--- requirements.txt ---
+0001: fastapi>=0.115,<1.0
+0005: python-multipart>=0.0.20,<1.0
+0007: PyMuPDF>=1.24,<2.0
+
+--- pyproject.toml ---
+0006:     "integration: marks tests requiring live Ollama or external services",
+
+==========================================================================================
+8. TEST INVENTORY
+==========================================================================================
+
+backend\tests\test_chunk_storage.py
+0021: def test_txt_upload_persists_chunks_with_source_metadata(tmp_path, monkeypatch):
+0046: def test_pdf_upload_preserves_page_numbers_in_saved_chunks(tmp_path, monkeypatch):
+0070: def test_duplicate_upload_keeps_same_chunk_ids(tmp_path, monkeypatch):
+0093: def test_corrupt_pdf_has_no_chunks_and_unknown_document_is_404(
+
+backend\tests\test_chunking_service.py
+0011: def test_short_page_preserves_text_and_source_metadata():
+0030: def test_long_text_is_split_with_configured_maximum_size():
+0042: def test_adjacent_chunks_preserve_configured_overlap():
+0054: def test_pages_keep_independent_source_numbers():
+0068: def test_blank_pages_are_skipped_without_empty_chunks():
+0082: def test_chunk_ids_are_stable_and_unique_for_distinct_chunks():
+0091: @pytest.mark.parametrize(
+0095: def test_invalid_chunk_settings_are_rejected(size, overlap):
+0104: @pytest.mark.parametrize(
+0113: def test_invalid_source_metadata_is_rejected(document_id, filename, pages):
+
+backend\tests\test_document_upload.py
+0018: def test_upload_valid_txt():
+0033: def test_upload_valid_markdown():
+0043: def test_upload_pdf_with_signature():
+0054: def test_unsupported_extension_is_rejected():
+0063: def test_empty_file_is_rejected():
+0072: def test_whitespace_only_text_is_rejected():
+0081: def test_invalid_pdf_signature_is_rejected():
+0090: def test_invalid_utf8_text_is_rejected():
+0099: def test_oversized_upload_is_rejected():
+0109: def test_duplicate_content_is_not_stored_twice():
+0132: def test_list_documents_returns_registered_metadata():
+0145: def test_document_upload_routes_are_in_openapi():
+
+backend\tests\test_embedding_service.py
+0044: def test_embedding_is_normalized_and_source_metadata_is_preserved():
+0064: def test_multiple_chunks_keep_their_own_vectors_and_order():
+0080: def test_empty_input_returns_without_loading_a_model():
+0084: @pytest.mark.parametrize("bad_chunk", [
+0090: def test_missing_or_blank_chunk_text_is_rejected(bad_chunk):
+0095: @pytest.mark.parametrize("bad_batch_size", [0, -1, True])
+0096: def test_invalid_batch_size_is_rejected(bad_batch_size):
+0105: def test_encoder_must_return_one_vector_per_chunk():
+0115: def test_zero_vector_is_rejected():
+0120: @pytest.mark.parametrize("bad_vector", [
+0124: def test_non_finite_vector_values_are_rejected(bad_vector):
+0129: def test_inconsistent_embedding_dimensions_are_rejected():
+0142: def test_default_encoder_loads_configured_model_lazily(monkeypatch):
+
+backend\tests\test_extraction_integration.py
+0018: def test_upload_txt_triggers_extraction_and_persists_text(tmp_path, monkeypatch):
+0039: def test_upload_pdf_persists_page_citations(tmp_path, monkeypatch):
+0065: def test_extraction_endpoint_returns_404_for_unknown_id(tmp_path, monkeypatch):
+0073: def test_upload_corrupt_pdf_reports_extraction_failure(tmp_path, monkeypatch):
+
+backend\tests\test_extraction_service.py
+0020: def test_extract_txt_preserves_text_and_source_page():
+0029: def test_extract_markdown():
+0036: def test_extract_pdf_preserves_page_numbers():
+0046: def test_reject_corrupt_pdf():
+0051: def test_reject_pdf_without_signature():
+0056: def test_reject_empty_text():
+0061: def test_reject_invalid_utf8():
+0066: def test_reject_unsupported_extension():
+0071: def test_reject_scanned_or_image_only_pdf():
+0081: def test_reject_missing_filename():
+
+backend\tests\test_health.py
+0009: def test_root_endpoint_returns_service_information():
+0020: def test_health_endpoint_reports_ok():
+0031: def test_openapi_schema_contains_system_endpoints():
+0041: def test_unknown_endpoint_returns_404():
+
+backend\tests\test_job_analysis.py
+0006: def test_extracts_skills_case_insensitively():
+0012: def test_does_not_match_skill_inside_larger_word():
+0016: def test_match_percentage_and_missing_skills():
+0026: def test_no_detected_job_skills_returns_zero():
+0037: @pytest.mark.parametrize(
+0045: def test_rejects_empty_inputs(resume, job):
+0050: def test_rejects_non_string_input():
+0055: def test_rejects_oversized_input():
+0060: def test_analysis_is_deterministic():
+
+backend\tests\test_job_analysis_api.py
+0008: def test_job_analysis_api_returns_skill_matches():
+0029: @pytest.mark.parametrize(
+0041: def test_job_analysis_api_rejects_invalid_input(payload):
+0046: def test_job_analysis_api_rejects_missing_fields():
+
+backend\tests\test_job_email.py
+0017: def test_generates_reviewable_email_without_sending():
+0025: @pytest.mark.parametrize(
+0029: def test_rejects_invalid_recipient(email):
+0034: @pytest.mark.parametrize(
+0038: def test_rejects_newline_in_single_line_fields(field):
+0043: def test_rejects_empty_required_field():
+0048: def test_rejects_oversized_field():
+
+backend\tests\test_job_email_approval_api.py
+0046: def test_exact_reviewed_draft_can_be_approved(approval_context):
+0061: def test_modified_body_is_rejected(approval_context):
+0075: def test_approval_requires_explicit_confirmation(approval_context):
+0088: def test_unknown_resume_is_rejected(approval_context):
+
+backend\tests\test_job_email_approval_storage.py
+0031: def test_exact_reviewed_draft_can_be_approved(isolated_database):
+0052: def test_modified_email_body_is_rejected(isolated_database):
+0072: def test_unknown_draft_returns_none(isolated_database):
+0079: def test_already_approved_draft_cannot_be_approved_again(isolated_database):
+
+backend\tests\test_job_email_attachment_api.py
+0028: def test_email_draft_binds_verified_pdf(isolated_storage):
+0049: def test_email_draft_rejects_unknown_resume(isolated_storage):
+0058: def test_email_draft_rejects_non_pdf_resume(isolated_storage):
+
+backend\tests\test_job_email_review_api.py
+0010: def test_get_saved_draft_endpoint():
+
+backend\tests\test_job_email_storage.py
+0017: def test_create_draft_starts_pending():
+0025: def test_created_draft_can_be_retrieved():
+0036: def test_unknown_draft_returns_none():
+
+backend\tests\test_job_email_update_api.py
+0042: def test_pending_draft_can_be_updated_without_changing_attachment(update_context):
+0062: def test_approved_draft_cannot_be_updated(update_context):
+0085: def test_invalid_recipient_email_is_rejected(update_context):
+
+backend\tests\test_part4_citation_integrity.py
+0070: def test_nonexistent_citation_id_abstains(self, monkeypatch):
+0075: def test_invalid_citation_claim_not_silently_retained(self, monkeypatch):
+0079: def test_mixed_valid_and_invalid_citations_abstains(self, monkeypatch):
+0087: def test_zero_citation_is_invalid(self, monkeypatch):
+0094: def test_factual_answer_without_citations_abstains(self, monkeypatch):
+0099: def test_answer_with_only_narrative_no_facts_no_citations(self, monkeypatch):
+0106: def test_empty_answer_raises_502(self, monkeypatch):
+0118: def test_whitespace_only_answer_raises_502(self, monkeypatch):
+0131: def test_citation_with_missing_filename_still_valid(self, monkeypatch):
+0149: def test_two_claims_two_documents_both_cited(self, monkeypatch):
+0177: def test_contradictory_sources_both_available_for_citation(self, monkeypatch):
+0203: def test_unsupported_question_abstains_no_citations(self, monkeypatch):
+0216: def test_below_threshold_results_are_filtered(self, monkeypatch):
+0233: def test_low_similarity_still_retrieves_when_threshold_lowered(self, monkeypatch):
+0255: def test_each_returned_citation_id_is_referenced(self, monkeypatch):
+
+backend\tests\test_part4_edge_security.py
+0017: def test_unicode_text_upload_and_chunking(self, tmp_path, monkeypatch):
+0035: def test_unusual_whitespace_preserved(self, tmp_path, monkeypatch):
+0054: def test_pdf_with_unicode_text(self, tmp_path, monkeypatch):
+0079: def test_path_traversal_filename_is_rejected(self, tmp_path, monkeypatch):
+0089: def test_backslash_path_traversal_is_rejected(self, tmp_path, monkeypatch):
+0099: def test_dot_dot_filename_is_rejected(self, tmp_path, monkeypatch):
+0109: def test_validate_upload_rejects_unsafe_names(self):
+0121: def test_embedding_endpoint_returns_503_when_ollama_down(self, tmp_path, monkeypatch):
+0153: def test_ask_rejects_non_dict_payload(self, tmp_path, monkeypatch):
+0161: def test_ask_rejects_query_as_number(self, tmp_path, monkeypatch):
+0168: def test_search_rejects_missing_query(self, tmp_path, monkeypatch):
+0175: def test_search_rejects_query_as_list(self, tmp_path, monkeypatch):
+0184: def test_upload_response_d_not_expose_storage_path(self, tmp_path, monkeypatch):
+0202: def test_empty_chunks_not_created_for_blank_pages(self, tmp_path, monkeypatch):
+
+backend\tests\test_part4_multi_document.py
+0075: def test_multi_document_single_answer_cites_both_sources(monkeypatch):
+0097: def test_multi_document_no_unsupported_fact(monkeypatch):
+0109: def test_multi_document_abstention_when_no_evidence(monkeypatch):
+0131: def test_multi_document_invalid_citation_fails_closed(monkeypatch):
+0142: @pytest.mark.integration
+0143: def test_multi_document_live_ollama(tmp_path, monkeypatch):
+
+backend\tests\test_part4_restart_recovery.py
+0058: def test_documents_chunks_embeddings_survive_restart(self, tmp_path):
+0209: def test_interrupted_processing_safe_recovery(self, tmp_path):
+
+backend\tests\test_rag_qa.py
+0006: def test_ask_endpoint_is_in_openapi():
+0009: def test_ask_rejects_blank_query_without_calling_models():
+0013: def test_ask_rejects_invalid_top_k():
+0017: def test_ask_rejects_invalid_similarity_threshold():
+0080: def test_part4f_invalid_only_citation_does_not_attach_all_sources(monkeypatch):
+0086: def test_part4f_uncited_answer_is_not_returned_as_verified(monkeypatch):
+0092: def test_part4f_valid_citation_is_preserved(monkeypatch):
+0100: def test_part4f_invalid_citation_is_not_silently_removed_from_claim(monkeypatch):
+
+backend\tests\test_reliability.py
+0015: def test_duplicate_txt_upload_preserves_original_extraction(client):
+0057: def test_corrupt_pdf_failure_is_persisted_and_repeatable(client):
+0093: def test_unknown_extraction_id_returns_404_without_crashing(client):
+
+backend\tests\test_resume_attachment.py
+0020: def test_retrieves_stored_pdf_resume(isolated_storage):
+0037: def test_rejects_unknown_document_id(isolated_storage):
+0044: def test_rejects_non_pdf_document(isolated_storage):
+0053: def test_rejects_missing_stored_file(isolated_storage):
+0066: def test_rejects_modified_file_size(isolated_storage):
+0078: def test_rejects_same_size_tampered_file(isolated_storage):
+
+backend\tests\test_sparse_retrieval.py
+0016: def test_lowercases_and_splits_alphanumeric(self):
+0019: def test_ignores_punctuation(self):
+0022: def test_empty_string(self):
+0028: def test_returns_zero_for_empty_query(self):
+0031: def test_returns_zero_for_empty_document(self):
+0034: def test_scores_matching_term_higher(self):
+0044: def test_idf_penalizes_common_terms(self):
+0058: def test_rejects_empty_query(self):
+0062: def test_rejects_invalid_top_k(self):
+0066: def test_returns_empty_when_no_chunks(self, tmp_path, monkeypatch):
+0072: def test_returns_chunks_with_source_metadata(self, tmp_path, monkeypatch):
+0099: def test_exact_identifier_ranks_above_distractor(self, tmp_path, monkeypatch):
+0123: def test_rejects_empty_query(self):
+0127: def test_rejects_invalid_top_k(self):
+0131: def test_deduplicates_dense_and_sparse_overlap(self):
+0148: def test_ranks_fused_results_by_rrf_score(self):
+
+backend\tests\test_vector_search.py
+0040: def test_embedding_endpoint_persists_normalized_vector_metadata(client):
+0060: def test_semantic_search_ranks_matching_source_first(client):
+0083: def test_unknown_document_embedding_endpoint_returns_404(client):
+0090: def test_unknown_document_embedding_metadata_returns_404(client):
+0097: @pytest.mark.parametrize("payload", [
+0103: def test_search_rejects_invalid_queries(client, payload):
+0108: @pytest.mark.parametrize("top_k", [0, -1, 51, True, "3"])
+0109: def test_search_rejects_invalid_top_k(client, top_k):
+
+==========================================================================================
+9. PYTHON SYNTAX CHECK
+==========================================================================================
+Python files checked: 14
+Syntax errors:
+NONE
+
+==========================================================================================
+10. GIT STATUS
+==========================================================================================
+## checkpoint/phase4-verified-phase5-wip
+ M backend/app/aegiscore/document_service.py
+ M backend/app/aegiscore/main.py
+?? AEGISCORE_DEVELOPMENT_AUDIT.txt
+?? AEGISCORE_FINAL_AUDIT.txt
+?? backend/app/aegiscore/job_analysis.py
+?? backend/app/aegiscore/job_email.py
+?? backend/app/aegiscore/job_email_storage.py
+?? backend/app/aegiscore/job_email_storage.py.part5-backup
+?? backend/app/aegiscore/job_email_storage.py.phase5-review-backup
+?? backend/app/aegiscore/main.py.part5-email-backup
+?? backend/app/aegiscore/main.py.phase5-review-backup
+?? backend/tests/test_job_analysis.py
+?? backend/tests/test_job_analysis_api.py
+?? backend/tests/test_job_email.py
+?? backend/tests/test_job_email_approval_api.py
+?? backend/tests/test_job_email_approval_storage.py
+?? backend/tests/test_job_email_attachment_api.py
+?? backend/tests/test_job_email_review_api.py
+?? backend/tests/test_job_email_storage.py
+?? backend/tests/test_job_email_update_api.py
+?? backend/tests/test_rag_qa.py.part4f-backup
+?? backend/tests/test_resume_attachment.py
+?? evidence/MASTER-AUDIT-20261102-205051.txt
+?? evidence/parts-1-2-3-combined-verification.txt
+?? frontend/
+
+
+==========================================================================================
+11. INSTALLED OCR PACKAGE CHECK
+==========================================================================================
+No matching package metadata returned.
+
+==========================================================================================
+12. FINAL AUDIT SUMMARY
+==========================================================================================
+This audit does not modify project source files.
+Actual image OCR support must be distinguished from PDF text extraction.
+Email delivery must be distinguished from draft creation and approval.
+RAG upload, embedding, retrieval and answer generation must be verified separately.

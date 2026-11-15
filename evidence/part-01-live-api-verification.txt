@@ -1,0 +1,24 @@
+AEGISCORE AI - LIVE API VERIFICATION
+Started: 2026-10-22 20:56:55
+Base URL: http://127.0.0.1:8765
+
+CHECK 1: Starting actual Uvicorn server
+PASS: Live server started and /health returned HTTP 200.
+
+CHECK 2: GET /
+PASS: Root endpoint returned HTTP 200.
+Response: {"docs": "/docs", "message": "AegisCore AI API is running", "service": "aegiscore-api"}
+
+CHECK 3: GET /health
+PASS: Health endpoint returned expected JSON.
+Response: {"service": "aegiscore-api", "status": "ok", "version": "0.1.0"}
+
+CHECK 4: GET /openapi.json
+PASS: Live OpenAPI schema contains expected endpoints.
+Documented paths: /, /health
+
+CHECK 5: Stopping verification server
+PASS: Verification server process has stopped.
+
+FINAL RESULT: PASS
+Finished: 2026-10-22 20:57:02

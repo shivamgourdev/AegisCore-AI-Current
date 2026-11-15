@@ -1,0 +1,19 @@
+﻿from fastapi.testclient import TestClient
+from aegiscore.main import app
+
+client = TestClient(app)
+
+def test_ask_endpoint_is_in_openapi():
+    assert "/ask" in app.openapi()["paths"]
+
+def test_ask_rejects_blank_query_without_calling_models():
+    response = client.post("/ask", json={"query": "   "})
+    assert response.status_code == 400
+
+def test_ask_rejects_invalid_top_k():
+    response = client.post("/ask", json={"query": "revenue", "top_k": 0})
+    assert response.status_code == 400
+
+def test_ask_rejects_invalid_similarity_threshold():
+    response = client.post("/ask", json={"query": "revenue", "min_similarity": 1.1})
+    assert response.status_code == 400

@@ -1,0 +1,29 @@
+[PASS] Backend health OK
+[PASS] Resume upload OK: 200
+[PASS] Extraction OK
+[PASS] Resume text extracted
+[PASS] Job analysis OK: 200
+[PASS] Python matched
+[PASS] FastAPI matched
+[PASS] SQL matched
+[PASS] Docker matched
+[PASS] ML missing
+[PASS] Match percentage is int
+[PASS] Match percentage > 0
+[PASS] Score explicitly stated as not predicting hiring success
+[PASS] Repeat analysis OK
+[PASS] Deterministic: same input = same score
+[PASS] Deterministic: same matched skills
+[PASS] Empty job description rejected: 422
+[PASS] Empty resume text rejected: 422
+[PASS] No-match analysis OK
+[PASS] Zero match when no skills overlap
+[PASS] No matched skills
+[PASS] All-match analysis OK
+[PASS] 100% match when all skills overlap
+[PASS] No missing skills
+[PASS] Oversized resume rejected: 422
+[PASS] Interpretation does not claim hiring probability
+[PASS] Match basis describes skill overlap
+
+=== JOB ANALYSIS SANDBOX VERIFICATION: ALL CHECKS PASSED ===

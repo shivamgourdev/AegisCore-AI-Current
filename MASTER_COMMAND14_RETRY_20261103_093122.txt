@@ -1,0 +1,61 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261103093122
+Username: DESKTOP-9E29O09\shiva
+RunAs User: DESKTOP-9E29O09\shiva
+Configuration Name: 
+Machine: DESKTOP-9E29O09 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -command try { . "c:\Users\shiva\AppData\Local\Programs\Microsoft VS Code\e646868227\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1" } catch {}
+Process ID: 5148
+PSVersion: 5.1.26100.9711
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9711
+BuildVersion: 10.0.26100.9711
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\MASTER_COMMAND14_RETRY_20261103_093122.txt
+
+[1] ORIGINAL FILE BACKUP CHECK
+Backup found: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backups\master14_20261103_093036
+
+[2] APPLY BOM-SAFE PUT PATCH
+
+
+[3] COMPILE CHECK
+
+
+[4] WRITE PROXY REGRESSION TEST
+
+[5] TARGETED TEST
+
+Targeted test exit: 0
+
+[6] FULL TEST SUITE
+
+Full test exit: 0
+
+[7] FINAL HANDLER EVIDENCE
+
+frontend\server.p
+y:52:    def
+do_GET(self):
+frontend\server.p
+y:59:    def
+do_POST(self):
+frontend\server.p
+y:62:    def
+do_PUT(self):
+
+========== SUMMARY ==========
+Targeted test exit: 0
+Full test exit: 0
+Backup folder: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backups\master14_20261103_093036
+Report: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\MASTER_COMMAND14_RETRY_20261103_093122.txt
+No Git commit/push. No email sent.
+**********************
+Windows PowerShell transcript end
+End time: 20261103093204
+**********************

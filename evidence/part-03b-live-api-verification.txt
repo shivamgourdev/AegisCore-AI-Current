@@ -1,0 +1,21 @@
+PASS: Real Uvicorn server starts and /health responds HTTP 200
+PASS: Root endpoint responds HTTP 200
+PASS: Live OpenAPI schema is reachable
+PASS: Live TXT upload responds HTTP 200
+PASS: TXT upload returns a document ID
+PASS: TXT upload triggers successful extraction
+PASS: Stored extraction endpoint responds HTTP 200
+PASS: Extracted text persists and can be read back
+PASS: Repeated TXT upload is handled
+PASS: Repeated identical content is identified as duplicate
+PASS: Duplicate upload reuses the original document ID
+PASS: Live PDF upload responds HTTP 200
+PASS: PDF upload returns a document ID
+PASS: Live PDF text extraction succeeds
+PASS: PDF extraction is readable through API
+PASS: PDF extraction preserves source page numbers
+PASS: Text from both PDF pages is preserved
+PASS: Document listing responds HTTP 200
+PASS: Uploaded documents appear in the document listing
+LIMITATION: OCR, RAG answer generation and answer citations are not verified by this check.
+FINAL RESULT: PASS

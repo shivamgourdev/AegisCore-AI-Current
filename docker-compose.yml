@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  aegiscore-backend:
+    build: .
+    container_name: aegiscore-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - AEGISCORE_DATA_DIR=/data
+      - AEGISCORE_OLLAMA_URL=http://ollama:11434
+      - AEGISCORE_CHAT_MODEL=phi3.5:3.8b
+      - AEGISCORE_EMBEDDING_MODEL=nomic-embed-text:latest
+      - PYTHONPATH=/app/backend/app
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - aegiscore-data:/data
+    depends_on:
+      ollama:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - aegiscore-network
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: aegiscore-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+    networks:
+      - aegiscore-network
+
+networks:
+  aegiscore-network:
+    driver: bridge
+
+volumes:
+  aegiscore-data:
+  ollama-data:

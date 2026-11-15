@@ -1,0 +1,590 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261102205051
+Username: DESKTOP-9E29O09\shiva
+RunAs User: DESKTOP-9E29O09\shiva
+Configuration Name: 
+Machine: DESKTOP-9E29O09 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -command try { . "c:\Users\shiva\AppData\Local\Programs\Microsoft VS Code\e646868227\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1" } catch {}
+Process ID: 18340
+PSVersion: 5.1.26100.9711
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9711
+BuildVersion: 10.0.26100.9711
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\MASTER-AUDIT-20261102-205051.txt
+
+========== AEGISCORE AI MASTER AUDIT ==========
+Project: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI
+Date: 11/02/2026 20:50:51
+Report: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\MASTER-AUDIT-20261102-205051.txt
+
+========== 1. PYTHON ENVIRONMENT ==========
+
+
+
+========== 2. PROJECT FILE STRUCTURE ==========
+
+
+--- Backend files ---
+
+========== 3. PHASE EVIDENCE FILES ==========
+
+========== 4. IMPLEMENTATION FILES ==========
+
+========== 5. DEPENDENCIES ==========
+Mode   Name                            Length
+----   ----                            ------
+darh-l .git
+dar--l .pytest_cache
+dar--l .venv
+dar--l backend
+dar--l data
+dar--l docs
+dar--l evidence
+dar--l frontend
+dar--l scripts
+dar--l tests
+-a---l .gitignore                      411
+-a---l AEGISCORE_DEVELOPMENT_AUDIT.txt 55120
+-a---l AEGISCORE_FINAL_AUDIT.txt       10184
+-a---l pyproject.toml                  207
+-a---l README.md                       511
+-a---l requirements.txt                131
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunking_service.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunk_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\document_service.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\extraction_service.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\extraction_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_analysis.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py.part5-backup
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py.part5-email-backup
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\ollama_embedding.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\sparse_search.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\vector_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__init__.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_chunking_service.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_chunk_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_document_upload.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_embedding_service.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_extraction_integration.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_extraction_service.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_health.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_analysis.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_analysis_api.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_approval_api.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_approval_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_attachment_api.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_review_api.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_part4_citation_integrity.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_part4_edge_security.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_part4_multi_document.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_part4_restart_recovery.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_rag_qa.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_rag_qa.py.part4f-backup
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_reliability.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_resume_attachment.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_sparse_retrieval.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_vector_search.py
+                                       810
+                                       2322
+                                       764
+                                       437
+                                       8854
+                                       329
+                                       1009
+                                       872
+                                       889
+                                       13082
+                                       767
+                                       2026
+                                       968
+                                       1008
+                                       1190
+                                       11361
+                                       2536
+                                       785
+                                       930
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_analysis.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunk_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\extraction_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py.part5-backup
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\vector_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\chunk_storage.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\extraction_storage.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\job_email_storage.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\vector_storage.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_chunk_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_approval_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_rag_qa.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_rag_qa.py.part4f-backup
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_chunk_storage.cpython-311-pytest-8.3.3.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_chunk_storage.cpython-311-pytest-9.1.1.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_chunk_storage.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_job_email_approval_storage.cpython-311-pytest-8.3.3.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_job_email_approval_storage.cpython-311-pytest-9.1.1.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_job_email_storage.cpython-311-pytest-8.3.3.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_job_email_storage.cpython-311-pytest-9.1.1.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_rag_qa.cpython-311-pytest-8.3.3.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_rag_qa.cpython-311-pytest-9.1.1.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_rag_qa.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunking_service.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunk_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\chunking_service.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\chunk_storage.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_chunking_service.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_chunk_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_chunking_service.cpython-311-pytest-8.3.3.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_chunking_service.cpython-311-pytest-9.1.1.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_chunking_service.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_chunk_storage.cpython-311-pytest-8.3.3.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_chunk_storage.cpython-311-pytest-9.1.1.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_chunk_storage.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\ollama_embedding.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\embedding_service.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\ollama_embedding.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_embedding_service.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_embedding_service.cpython-311-pytest-8.3.3.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_embedding_service.cpython-311-pytest-9.1.1.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_embedding_service.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\vector_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\vector_storage.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_vector_search.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_vector_search.cpython-311-pytest-8.3.3.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_vector_search.cpython-311-pytest-9.1.1.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_vector_search.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_resume_attachment.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_resume_attachment.cpython-311-pytest-8.3.3.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_resume_attachment.cpython-311-pytest-9.1.1.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py.part5-backup
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py.part5-email-backup
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\job_email.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\__pycache__\job_email_storage.cpython-311.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_approval_api.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_approval_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_attachment_api.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_review_api.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_job_email.cpython-311-pytest-8.3.3.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_job_email.cpython-311-pytest-9.1.1.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_job_email_approval_api.cpython-311-pytest-8.3.3.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_job_email_approval_api.cpython-311-pytest-9.1.1.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_job_email_approval_storage.cpython-311-pytest-8.3.3.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_job_email_approval_storage.cpython-311-pytest-9.1.1.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_job_email_attachment_api.cpython-311-pytest-8.3.3.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_job_email_attachment_api.cpython-311-pytest-9.1.1.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_job_email_review_api.cpython-311-pytest-8.3.3.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_job_email_review_api.cpython-311-pytest-9.1.1.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_job_email_storage.cpython-311-pytest-8.3.3.pyc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\__pycache__\test_job_email_storage.cpython-311-pytest-9.1.1.pyc
+
+
+
+
+
+
+
+
+python : WARNING: Package(s) not found: torch
+At line:103 char:5
++     python -m pip show $Package 2>$null |
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARNING: Package(s) not found: torch:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+torch : NOT INSTALLED
+python : WARNING: Package(s) not found: langgraph
+At line:103 char:5
++     python -m pip show $Package 2>$null |
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARNING: Package(s) not found: langgraph:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+langgraph : NOT INSTALLED
+python : WARNING: Package(s) not found: langchain
+At line:103 char:5
++     python -m pip show $Package 2>$null |
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARNING: Package(s) not found: langchain:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+langchain : NOT INSTALLED
+python : WARNING: Package(s) not found: sentence-transformers
+At line:103 char:5
++     python -m pip show $Package 2>$null |
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARNING: Packag...ce-transformers:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+sentence-transformers : NOT INSTALLED
+python : WARNING: Package(s) not found: faiss-cpu
+At line:103 char:5
++     python -m pip show $Package 2>$null |
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARNING: Package(s) not found: faiss-cpu:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+faiss-cpu : NOT INSTALLED
+python : WARNING: Package(s) not found: chromadb
+At line:103 char:5
++     python -m pip show $Package 2>$null |
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARNING: Package(s) not found: chromadb:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+chromadb : NOT INSTALLED
+
+
+
+
+python : WARNING: Package(s) not found: ollama
+At line:103 char:5
++     python -m pip show $Package 2>$null |
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARNING: Package(s) not found: ollama:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ollama : NOT INSTALLED
+python : WARNING: Package(s) not found: pytesseract
+At line:103 char:5
++     python -m pip show $Package 2>$null |
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARNING: Packag...nd: pytesseract:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+pytesseract : NOT INSTALLED
+
+--- Dependency consistency ---
+
+
+========== 6. API ROUTE INVENTORY ==========
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:32: app = FastAPI(
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:42: @app.get("/", tags=["system"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:51: @app.get("/health", tags=["system"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:56: @app.post("/documents/upload", tags=["documents"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:108: @app.get("/documents/{document_id}/chunks", tags=["documents"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:118: @app.post("/documents/{document_id}/embed", tags=["embeddings"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:148: @app.get("/documents/{document_id}/embeddings", tags=["embeddings"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:161: @app.post("/search", tags=["retrieval"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:253: @app.get("/documents", tags=["documents"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:258: @app.get("/documents/{document_id}/extraction", tags=["documents"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:276: @app.post("/ask")
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:424: @app.post(
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:469: @app.get("/jobs/email-drafts/{draft_id}", tags=["jobs"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:484: @app.post("/jobs/email-drafts/{draft_id}/approve", tags=["jobs"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:535: @app.post(
+
+========== 7. JOB AUTOMATION CHECK ==========
+
+--- job_analysis ---
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:5: from aegiscore.job_analysis import analyze_resume
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_analysis.py:3: from aegiscore.job_analysis import analyze_resume, extract_skills
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_analysis_api.py:8: def test_job_analysis_api_returns_skill_matches():
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_analysis_api.py:41: def test_job_analysis_api_rejects_invalid_input(payload):
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_analysis_api.py:46: def test_job_analysis_api_rejects_missing_fields():
+
+--- resume ---
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\document_service.py:219: def get_resume_attachment(document_id: str) -> tuple[dict, Path]:
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\document_service.py:220: """Resolve a stored PDF resume by ID without exposing its path publicly."""
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\document_service.py:234: raise DocumentUploadError("Resume document was not found.", 404)
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\document_service.py:237: raise DocumentUploadError("The selected resume must be a PDF.", 415)
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\document_service.py:243: raise DocumentUploadError("Invalid resume storage reference.", 400)
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\document_service.py:246: raise DocumentUploadError("Stored resume file is missing.", 404)
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\document_service.py:249: raise DocumentUploadError("Stored resume file failed integrity checks.", 409)
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\document_service.py:253: raise DocumentUploadError("Stored resume file failed integrity checks.", 409)
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_analysis.py:1: """Deterministic resume and job-description skill matching."""
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_analysis.py:83: def analyze_resume(resume_text: str, job_description: str) -> dict:
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_analysis.py:85: resume_text = _validate_text(resume_text, "resume_text")
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_analysis.py:88: resume_skills = extract_skills(resume_text)
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_analysis.py:91: resume_set = set(resume_skills)
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_analysis.py:94: matched = [skill for skill in job_skills if skill in resume_set]
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_analysis.py:95: missing = [skill for skill in job_skills if skill not in resume_set]
+
+--- match_score ---
+
+--- job_email ---
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email.py:34: def generate_job_email(
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py:22: CREATE TABLE IF NOT EXISTS job_email_drafts (
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py:64: INSERT INTO job_email_drafts (
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py:93: "SELECT * FROM job_email_drafts WHERE draft_id = ?",
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py:125: FROM job_email_drafts
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py:148: UPDATE job_email_drafts
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:6: from aegiscore.job_email import generate_job_email
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:7: from aegiscore.job_email_storage import approve_draft, create_draft, get_draft
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:470: def get_job_email_draft(draft_id: str) -> dict:
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:485: def approve_job_email_draft(
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:540: def create_job_email_draft(payload: JobEmailDraftRequest) -> dict:
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:546: draft = generate_job_email(
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email.py:2: from aegiscore.job_email import generate_job_email
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email.py:18: draft = generate_job_email(**valid_input())
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email.py:31: generate_job_email(**valid_input(recipient_email=email))
+
+--- approval ---
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email.py:81: "requires_user_approval": True,
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:446: class JobEmailApprovalRequest(BaseModel):
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:462: requires_user_approval: bool
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:479: "requires_user_approval": stored["status"] != "approved",
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:487: payload: JobEmailApprovalRequest,
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:491: raise HTTPException(status_code=400, detail="Explicit approval is required.")
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:529: "requires_user_approval": False,
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:559: stored_draft["requires_user_approval"] = True
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email.py:19: assert draft["requires_user_approval"] is True
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_approval_api.py:14: def approval_context(monkeypatch):
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_approval_api.py:35: def approval_payload(draft):
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_approval_api.py:46: def test_exact_reviewed_draft_can_be_approved(approval_context):
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_approval_api.py:47: client, draft, _ = approval_context
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_approval_api.py:51: json=approval_payload(draft),
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_approval_api.py:61: def test_modified_body_is_rejected(approval_context):
+
+--- attachment ---
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\document_service.py:219: def get_resume_attachment(document_id: str) -> tuple[dict, Path]:
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email.py:80: "attachment_required": True,
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py:27: attachment_document_id TEXT NOT NULL,
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py:28: attachment_filename TEXT NOT NULL,
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py:29: attachment_sha256 TEXT NOT NULL,
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py:49: "attachment_document_id",
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py:50: "attachment_filename",
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py:51: "attachment_sha256",
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py:66: attachment_document_id, attachment_filename,
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py:67: attachment_sha256, status, created_at
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py:75: draft["attachment_document_id"],
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py:76: draft["attachment_filename"],
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py:77: draft["attachment_sha256"],
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py:105: """Approve only if the exact saved email and attachment were reviewed."""
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py:110: "attachment_document_id",
+
+--- SMTP ---
+
+--- send_email ---
+
+--- send_message ---
+
+--- delivery_status ---
+
+========== 8. RAG IMPLEMENTATION CHECK ==========
+
+--- chunk ---
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunking_service.py:2: Deterministic page-aware text chunking with source metadata.
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunking_service.py:19: def _split_text(text: str, chunk_size: int, overlap: int) -> list[str]:
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunking_service.py:23: chunks: list[str] = []
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunking_service.py:28: end = min(start + chunk_size, length)
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunking_service.py:31: minimum_break = start + int(chunk_size * 0.6)
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunking_service.py:43: chunks.append(piece)
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunking_service.py:54: return chunks
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunking_service.py:57: def chunk_document(
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunking_service.py:61: chunk_size: int = 1000,
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunking_service.py:62: chunk_overlap: int = 150,
+
+--- embedding ---
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:2: Local embedding generation and validation for AegisCore document chunks.
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:8: DEFAULT_EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:11: class EmbeddingGenerationError(ValueError):
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:12: """Raised when chunk embeddings cannot be safely generated."""
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:18: model_name: str = DEFAULT_EMBEDDING_MODEL,
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:33: raise EmbeddingGenerationError("batch_size must be a positive integer.")
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:36: raise EmbeddingGenerationError("model_name must be a non-empty string.")
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:41: raise EmbeddingGenerationError(f"Chunk {index} must be a mapping.")
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:44: raise EmbeddingGenerationError(f"Chunk {index} has missing or blank text.")
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:51: raise EmbeddingGenerationError(
+
+--- vector ---
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:21: """Generate L2-normalized vectors and retain each chunk's source metadata.
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:63: raw_vectors = encoder.encode(
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:73: if hasattr(raw_vectors, "tolist"):
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:74: raw_vectors = raw_vectors.tolist()
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:76: if not isinstance(raw_vectors, (list, tuple)) or len(raw_vectors) != len(items):
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:78: "Encoder must return exactly one vector per input chunk."
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:84: for index, raw_vector in enumerate(raw_vectors):
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:85: if hasattr(raw_vector, "tolist"):
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:86: raw_vector = raw_vector.tolist()
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:88: if not isinstance(raw_vector, (list, tuple)) or not raw_vector:
+
+--- ollama ---
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:22: from aegiscore.ollama_embedding import OllamaEmbeddingEncoder, OLLAMA_EMBEDDING_MODEL
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:120: """Generate and persist local Ollama embeddings for a document's chunks."""
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:130: encoder=OllamaEmbeddingEncoder(),
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:131: model_name=OLLAMA_EMBEDDING_MODEL,
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:133: count = store_chunk_embeddings(document_id, embedded, OLLAMA_EMBEDDING_MODEL)
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:142: "model": OLLAMA_EMBEDDING_MODEL,
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:183: model_name = OLLAMA_EMBEDDING_MODEL
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:200: encoder=OllamaEmbeddingEncoder(),
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:229: encoder=OllamaEmbeddingEncoder(),
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:360: async with _rag_httpx.AsyncClient(timeout=180.0) as ollama:
+
+--- citation ---
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:325: "citations": [],
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:382: citation_tokens = _rag_re.findall(r"\[(S[^\]\s]+)\]", answer)
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:384: token for token in citation_tokens if token not in valid_ids
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:386: referenced = set(citation_tokens) & valid_ids
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:396: "citations": [],
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:400: citations = [s for s in sources if s["source_id"] in referenced]
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:404: "citations": citations,
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_chunk_storage.py:55: make_pdf("First page citation", "Second page citation"),
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_chunk_storage.py:66: assert "First page citation" in data["chunks"][0]["text"]
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_chunk_storage.py:67: assert "Second page citation" in data["chunks"][1]["text"]
+
+--- source ---
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunking_service.py:2: Deterministic page-aware text chunking with source metadata.
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunking_service.py:64: """Chunk extracted pages while preserving source metadata.
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py:21: """Generate L2-normalized vectors and retain each chunk's source metadata.
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\extraction_service.py:1: """Extract searchable text and source locations from uploaded documents."""
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\extraction_storage.py:1: """Persist extracted document text and page-level source metadata."""
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\extraction_storage.py:74: """Return stored extracted text and source pages for one document."""
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:110: """Return persisted chunks with source metadata."""
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:260: """Return extracted text and page-level source metadata."""
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:329: sources = []
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:332: sources.append({
+
+--- retrieval ---
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_analysis.py:15: "RAG": ["rag", "retrieval augmented generation"],
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:161: @app.post("/search", tags=["retrieval"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:163: """Search chunks using dense, sparse, or hybrid retrieval.
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:209: item["retrieval_strategy"] = "dense"
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:214: item["retrieval_strategy"] = "sparse"
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:238: item["retrieval_strategy"] = "dense"
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:304: detail="Document retrieval failed: " + search_response.text[:500],
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:310: raise _RAGHTTPException(status_code=503, detail="Retrieval service unavailable.") from exc
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\sparse_search.py:2: BM25 sparse lexical retrieval over persisted document chunks.
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\sparse_search.py:125: "retrieval_strategy": "sparse",
+
+--- rerank ---
+
+--- abstain ---
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:324: "abstained": True,
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:395: "abstained": True,
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:403: "abstained": False,
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_part4_citation_integrity.py:70: def test_nonexistent_citation_id_abstains(self, monkeypatch):
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_part4_citation_integrity.py:72: assert result["abstained"] is True
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_part4_citation_integrity.py:79: def test_mixed_valid_and_invalid_citations_abstains(self, monkeypatch):
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_part4_citation_integrity.py:84: assert result["abstained"] is True
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_part4_citation_integrity.py:89: assert result["abstained"] is True
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_part4_citation_integrity.py:94: def test_factual_answer_without_citations_abstains(self, monkeypatch):
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_part4_citation_integrity.py:96: assert result["abstained"] is True
+
+--- extract ---
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunking_service.py:64: """Chunk extracted pages while preserving source metadata.
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\extraction_service.py:1: """Extract searchable text and source locations from uploaded documents."""
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\extraction_service.py:10: class ExtractedPage:
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\extraction_service.py:16: class ExtractionResult:
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\extraction_service.py:19: pages: tuple[ExtractedPage, ...]
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\extraction_service.py:27: class DocumentExtractionError(ValueError):
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\extraction_service.py:31: def extract_document(filename: str, content: bytes) -> ExtractionResult:
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\extraction_service.py:33: raise DocumentExtractionError("A filename is required.")
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\extraction_service.py:36: raise DocumentExtractionError("The document is empty.")
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\extraction_service.py:44: raise DocumentExtractionError(
+
+========== 9. TEST INVENTORY ==========
+                                       3679
+                                       4016
+                                       4279
+                                       4955
+                                       2754
+                                       2458
+                                       1099
+                                       1785
+                                       1489
+                                       1508
+                                       3092
+                                       2425
+                                       1848
+                                       1527
+                                       1097
+                                       9778
+                                       9016
+                                       8037
+                                       12140
+                                       3424
+                                       674
+                                       3428
+                                       2721
+                                       6344
+                                       3872
+                                       22303
+                                       22066
+                                       7838
+                                       21912
+                                       21726
+                                       7455
+                                       25363
+                                       25152
+                                       7711
+                                       24672
+                                       24503
+                                       10590
+                                       12495
+                                       12406
+                                       4832
+                                       11834
+                                       11777
+                                       6064
+                                       8234
+                                       8131
+                                       2187
+                                       10423
+                                       10361
+                                       6823
+                                       6775
+                                       5485
+                                       5468
+                                       9287
+                                       9229
+                                       7773
+                                       7741
+                                       8065
+                                       8023
+                                       5904
+                                       5868
+                                       6257
+                                       6219
+                                       29430
+                                       29255
+                                       36768
+                                       36423
+                                       30289
+                                       30062
+                                       43578
+                                       43275
+                                       12662
+                                       12591
+                                       1578
+                                       18516
+                                       18376
+                                       5565
+                                       14355
+                                       14246
+                                       26412
+                                       26207
+                                       20156
+                                       19987
+                                       6998
+
+========== 10. PYTHON SYNTAX CHECK ==========
+
+Compile exit code: 0
+
+========== 11. FULL BACKEND TEST SUITE ==========
+
+PYTEST EXIT CODE: 1
+
+========== 12. GIT STATUS ==========
+
+
+
+========== MASTER AUDIT COMPLETED ==========
+Report saved at: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\MASTER-AUDIT-20261102-205051.txt
+Review the report before making any code changes.
+**********************
+Windows PowerShell transcript end
+End time: 20261102205131
+**********************

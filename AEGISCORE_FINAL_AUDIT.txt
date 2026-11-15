@@ -1,0 +1,209 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261031193411
+Username: DESKTOP-9E29O09\shiva
+RunAs User: DESKTOP-9E29O09\shiva
+Configuration Name: 
+Machine: DESKTOP-9E29O09 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -command try { . "c:\Users\shiva\AppData\Local\Programs\Microsoft VS Code\e646868227\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1" } catch {}
+Process ID: 8520
+PSVersion: 5.1.26100.9711
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9711
+BuildVersion: 10.0.26100.9711
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\AEGISCORE_FINAL_AUDIT.txt
+
+========== PROJECT LOCATION ==========
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI
+
+========== VIRTUAL ENVIRONMENT ==========
+Activating: .venv\Scripts\Activate.ps1
+. : File C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Scripts\Activate.ps1 cannot be loaded because running 
+scripts is disabled on this system. For more information, see about_Execution_Policies at 
+https:/go.microsoft.com/fwlink/?LinkID=135170.
+At line:35 char:11
++         . (Join-Path $Root $Venv)
++           ~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : SecurityError: (:) [], PSSecurityException
+    + FullyQualifiedErrorId : UnauthorizedAccess
+. : File C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Script
+s\Activate.ps1 cannot be loaded because running scripts is
+disabled on this system. For more information, see
+about_Execution_Policies at
+https:/go.microsoft.com/fwlink/?LinkID=135170.
+At line:35 char:11
++         . (Join-Path $Root $Venv)
++           ~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : SecurityError: (:) [], PSSecurityEx
+   ception
+    + FullyQualifiedErrorId : UnauthorizedAccess
+
+
+Python executable:
+
+
+========== PROJECT STRUCTURE ==========
+
+Name                      Mode   LastWriteTime
+----                      ----   -------------
+.git                      darh-l 10/31/2026 7:18:48 PM
+.pytest_cache             dar--l 10/22/2026 9:06:45 PM
+.venv                     dar--l 10/22/2026 9:02:01 PM
+backend                   dar--l 10/22/2026 9:06:45 PM
+data                      dar--l 10/23/2026 10:05:38 PM
+docs                      dar--l 10/23/2026 5:05:58 PM
+evidence                  dar--l 10/23/2026 5:11:02 PM
+frontend                  dar--l 10/23/2026 10:03:54 PM
+scripts                   dar--l 10/23/2026 5:10:32 PM
+tests                     dar--l 10/22/2026 9:07:20 PM
+.gitignore                -a---l 10/22/2026 8:59:55 PM
+AEGISCORE_FINAL_AUDIT.txt -a---- 10/31/2026 7:34:14 PM
+pyproject.toml            -a---l 10/23/2026 5:40:59 PM
+README.md                 -a---l 10/22/2026 8:40:50 PM
+requirements.txt          -a---l 10/22/2026 9:09:48 PM
+
+
+
+========== GIT STATUS ==========
+
+
+
+
+========== PHASE RELATED COMMITS ==========
+
+
+========== PHASE AND VERIFICATION FILES ==========
+
+FullName
+--------
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegisc...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegisc...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-01-b...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-01-l...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-02-u...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-03b-...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-03c-...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04-f...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04-p...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04a-...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04b-...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04c-...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04d-...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04f-...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\parts-1-2...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\scripts\verify_bac...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\scripts\verify_liv...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\scripts\verify_par...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\scripts\verify_par...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\scripts\verify_par...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\scripts\verify_par...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\scripts\verify_par...
+
+
+
+========== EVIDENCE CONTENT ==========
+
+Directory: evidence
+
+
+========== CONFIGURATION FILES ==========
+
+========== IMPORTANT PYTHON PACKAGES ==========
+
+
+========== PYTEST TEST COLLECTION ==========
+
+
+========== FULL BACKEND TEST EXECUTION ==========
+
+
+========== FRONTEND CONFIGURATION ==========
+Frontend package.json not found.
+
+========== DOCKER STATUS ==========
+Docker CLI unavailable.
+
+========== LOCAL SERVICE PORTS ==========
+Port 5000 : False
+Port 8000 : False
+Port 8001 : False
+Port 8002 : False
+Port 8003 : False
+Port 5432 : True
+Port 6379 : True
+Port 11434 : True
+
+========== RAG AND APPLICATION MODULES ==========
+FullName
+--------
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-01-b...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-01-l...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-01-u...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-02-u...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-03-e...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-03b-...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-03b-...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-03c-...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04-f...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04-p...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04-p...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04a-...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04b-...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04c-...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04d-...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04f-...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04f-...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\parts-1-2...
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\pyproject.toml
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\requirements.txt
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunking_service.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\chunk_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\embedding_service.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\extraction_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_analysis.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\job_email_storage.py.part5-backup
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py.part5-email-backup
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\ollama_embedding.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\vector_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_chunking_service.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_chunk_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_embedding_service.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_analysis.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_analysis_api.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_approval_api.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_approval_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_attachment_api.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_review_api.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_job_email_storage.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_rag_qa.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_rag_qa.py.part4f-backup
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_resume_attachment.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\tests\test_sparse_retrieval.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04-pdf-rag-uvicorn.log
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04-pdf-rag-verification.txt
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04a-chunking-verification.txt
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04b-chunk-storage-verification.txt
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04c-embedding-verification.txt
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\evidence\part-04f-live-rag-api-verification.txt
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\scripts\verify_part04e_rag_qa.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\scripts\verify_part04f_live_rag_api.py
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\scripts\verify_part04_pdf_rag.py
+
+========== ENVIRONMENT FILE NAMES ==========
+
+========== AUDIT FINISHED ==========
+Project: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI
+Report: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\AEGISCORE_FINAL_AUDIT.txt
+**********************
+Windows PowerShell transcript end
+End time: 20261031193446
+**********************

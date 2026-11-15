@@ -1,0 +1,7 @@
+[tool.pytest.ini_options]
+testpaths = ["backend/tests"]
+pythonpath = ["backend/app"]
+addopts = "-ra --strict-markers"
+markers = [
+    "integration: marks tests requiring live Ollama or external services",
+]

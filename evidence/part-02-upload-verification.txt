@@ -1,0 +1,90 @@
+AEGISCORE AI - PART 2 VERIFICATION RETEST
+Started: 2026-10-22 21:01:01
+Project: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI
+
+Requirement already satisfied: fastapi<1.0,>=0.115 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from -r requirements.txt (line 1)) (0.159.1)
+Requirement already satisfied: uvicorn<1.0,>=0.30 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from uvicorn[standard]<1.0,>=0.30->-r requirements.txt (line 2)) (0.54.0)
+Requirement already satisfied: httpx<1.0,>=0.27 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from -r requirements.txt (line 3)) (0.28.1)
+Requirement already satisfied: pytest<10,>=8 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from -r requirements.txt (line 4)) (9.1.1)
+Requirement already satisfied: python-multipart<1.0,>=0.0.20 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from -r requirements.txt (line 5)) (0.0.32)
+Requirement already satisfied: starlette>=0.46.0 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from fastapi<1.0,>=0.115->-r requirements.txt (line 1)) (1.9.0)
+Requirement already satisfied: pydantic>=2.9.0 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from fastapi<1.0,>=0.115->-r requirements.txt (line 1)) (2.14.1)
+Requirement already satisfied: typing-extensions>=4.8.0 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from fastapi<1.0,>=0.115->-r requirements.txt (line 1)) (4.16.0)
+Requirement already satisfied: typing-inspection>=0.4.2 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from fastapi<1.0,>=0.115->-r requirements.txt (line 1)) (0.4.4)
+Requirement already satisfied: annotated-doc>=0.0.2 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from fastapi<1.0,>=0.115->-r requirements.txt (line 1)) (0.0.5)
+Requirement already satisfied: opentelemetry-api>=1.44.0 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from fastapi<1.0,>=0.115->-r requirements.txt (line 1)) (1.45.1)
+Requirement already satisfied: click>=7.0 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from uvicorn<1.0,>=0.30->uvicorn[standard]<1.0,>=0.30->-r requirements.txt (line 2)) (8.5.0)
+Requirement already satisfied: h11>=0.8 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from uvicorn<1.0,>=0.30->uvicorn[standard]<1.0,>=0.30->-r requirements.txt (line 2)) (0.16.0)
+Requirement already satisfied: anyio in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from httpx<1.0,>=0.27->-r requirements.txt (line 3)) (4.15.1)
+Requirement already satisfied: certifi in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from httpx<1.0,>=0.27->-r requirements.txt (line 3)) (2026.10.19)
+Requirement already satisfied: httpcore==1.* in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from httpx<1.0,>=0.27->-r requirements.txt (line 3)) (1.0.9)
+Requirement already satisfied: idna in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from httpx<1.0,>=0.27->-r requirements.txt (line 3)) (3.20)
+Requirement already satisfied: colorama>=0.4 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from pytest<10,>=8->-r requirements.txt (line 4)) (0.4.6)
+Requirement already satisfied: iniconfig>=1.0.1 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from pytest<10,>=8->-r requirements.txt (line 4)) (2.3.1)
+Requirement already satisfied: packaging>=22 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from pytest<10,>=8->-r requirements.txt (line 4)) (26.3)
+Requirement already satisfied: pluggy<2,>=1.5 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from pytest<10,>=8->-r requirements.txt (line 4)) (1.7.0)
+Requirement already satisfied: pygments>=2.7.2 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from pytest<10,>=8->-r requirements.txt (line 4)) (2.21.0)
+Requirement already satisfied: httptools>=0.8.0 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from uvicorn[standard]<1.0,>=0.30->-r requirements.txt (line 2)) (0.9.0)
+Requirement already satisfied: python-dotenv>=0.13 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from uvicorn[standard]<1.0,>=0.30->-r requirements.txt (line 2)) (1.2.4)
+Requirement already satisfied: pyyaml>=5.1 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from uvicorn[standard]<1.0,>=0.30->-r requirements.txt (line 2)) (6.0.3)
+Requirement already satisfied: watchfiles>=0.20 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from uvicorn[standard]<1.0,>=0.30->-r requirements.txt (line 2)) (1.3.0)
+Requirement already satisfied: websockets>=13.0 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from uvicorn[standard]<1.0,>=0.30->-r requirements.txt (line 2)) (17.3)
+Requirement already satisfied: annotated-types>=0.6.0 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from pydantic>=2.9.0->fastapi<1.0,>=0.115->-r requirements.txt (line 1)) (0.8.0)
+Requirement already satisfied: pydantic-core==2.50.1 in c:\users\shiva\onedrive\desktop\aegiscore-ai\.venv\lib\site-packages (from pydantic>=2.9.0->fastapi<1.0,>=0.115->-r requirements.txt (line 1)) (2.50.1)
+System.Management.Automation.RemoteException
+[notice] A new release of pip is available: 24.0 -> 26.2.2
+[notice] To update, run: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Scripts\python.exe -m pip install --upgrade pip
+Exit code: 0
+PASS: 1. INSTALL DECLARED REQUIREMENTS
+No broken requirements found.
+Exit code: 0
+PASS: 2. CHECK DEPENDENCY CONSISTENCY
+Exit code: 0
+PASS: 3. COMPILE PYTHON FILES
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.1.1, pluggy-1.7.0 -- C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI
+configfile: pyproject.toml
+testpaths: backend/tests
+plugins: anyio-4.15.1
+collecting ... collected 16 items
+
+backend/tests/test_document_upload.py::test_upload_valid_txt PASSED      [  6%]
+backend/tests/test_document_upload.py::test_upload_valid_markdown PASSED [ 12%]
+backend/tests/test_document_upload.py::test_upload_pdf_with_signature PASSED [ 18%]
+backend/tests/test_document_upload.py::test_unsupported_extension_is_rejected PASSED [ 25%]
+backend/tests/test_document_upload.py::test_empty_file_is_rejected PASSED [ 31%]
+backend/tests/test_document_upload.py::test_whitespace_only_text_is_rejected PASSED [ 37%]
+backend/tests/test_document_upload.py::test_invalid_pdf_signature_is_rejected PASSED [ 43%]
+backend/tests/test_document_upload.py::test_invalid_utf8_text_is_rejected PASSED [ 50%]
+backend/tests/test_document_upload.py::test_oversized_upload_is_rejected PASSED [ 56%]
+backend/tests/test_document_upload.py::test_duplicate_content_is_not_stored_twice PASSED [ 62%]
+backend/tests/test_document_upload.py::test_list_documents_returns_registered_metadata PASSED [ 68%]
+backend/tests/test_document_upload.py::test_document_upload_routes_are_in_openapi PASSED [ 75%]
+backend/tests/test_health.py::test_root_endpoint_returns_service_information PASSED [ 81%]
+backend/tests/test_health.py::test_health_endpoint_reports_ok PASSED     [ 87%]
+backend/tests/test_health.py::test_openapi_schema_contains_system_endpoints PASSED [ 93%]
+backend/tests/test_health.py::test_unknown_endpoint_returns_404 PASSED   [100%]
+
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 16 passed, 1 warning in 0.96s ========================
+Exit code: 0
+PASS: 4. RUN ALL AUTOMATED TESTS
+python-multipart import: OK
+Exit code: 0
+PASS: 5. VERIFY MULTIPART SUPPORT
+[PASS] Required file: backend\app\aegiscore\main.py
+[PASS] Required file: backend\app\aegiscore\document_service.py
+[PASS] Required file: backend\tests\test_health.py
+[PASS] Required file: backend\tests\test_document_upload.py
+[PASS] Required file: requirements.txt
+[PASS] Required file: .gitignore
+
+FINAL RESULT: PASS
+Completed: 2026-10-22 21:01:07

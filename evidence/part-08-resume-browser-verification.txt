@@ -1,0 +1,28 @@
+[PASS] Backend health OK
+[PASS] Frontend reachable
+[PASS] Resume section heading visible
+[PASS] Resume upload status: PDF uploaded; text extraction found.
+Document ID: 79ab4d47-a1b0-462a-bb29-66522a9bb650
+[PASS] Extraction mentioned in status: PDF uploaded; text extraction found.
+Document ID: 79ab4d47-a1b0-462a-bb29-66522a9bb650
+[PASS] Resume PDF registered in backend
+[PASS] Extraction endpoint OK
+[PASS] Extraction contains name
+[PASS] Extraction contains skills
+[PASS] Resume text auto-populated in textarea
+[PASS] Resume document persisted after browser refresh
+[PASS] Extraction persists (SQLite)
+[PASS] Resume text available for job analysis
+[PASS] Resume text is non-empty
+[PASS] Second resume upload: PDF uploaded; text extraction found.
+Document ID: f20632e7-c650-4c26-9a90-06a393fb20ef
+[PASS] Second resume registered in backend
+[PASS] First resume still exists after replacement
+[PASS] No console errors. Errors: []
+[PASS] Invalid PDF rejected: 400
+[PASS] Empty PDF upload accepted (extraction may fail)
+[PASS] Empty PDF extraction endpoint OK
+[PASS] Oversized upload rejected: 413
+[PASS] Unsupported extension rejected: 415
+
+=== RESUME SANDBOX VERIFICATION: ALL CHECKS PASSED ===

@@ -1,0 +1,81 @@
+[PASS] Backend health OK
+[PASS] Frontend reachable
+[PASS] Page loads
+[PASS] RAG Knowledge Sandbox heading visible
+[PASS] All 3 docs uploaded. Status: Uploaded 3 document(s).
+[PASS] PDF document in list
+[PASS] TXT document in list
+[PASS] MD document in list
+[PASS] At least 3 documents registered
+[PASS] Status OK for orion_report.pdf
+[PASS] orion_report.pdf extraction status
+[PASS] orion_report.pdf has chunks
+[PASS] orion_report.pdf has embeddings
+[PASS] Status OK for orion_report.pdf
+[PASS] orion_report.pdf extraction status
+[PASS] orion_report.pdf has chunks
+[PASS] orion_report.pdf has embeddings
+[PASS] Status OK for orion_report.pdf
+[PASS] orion_report.pdf extraction status
+[PASS] orion_report.pdf has chunks
+[PASS] orion_report.pdf has embeddings
+[PASS] Status OK for orion_report.pdf
+[PASS] orion_report.pdf extraction status
+[PASS] orion_report.pdf has chunks
+[PASS] orion_report.pdf has embeddings
+[PASS] Status OK for orion_report.pdf
+[PASS] orion_report.pdf extraction status
+[PASS] orion_report.pdf has chunks
+[PASS] orion_report.pdf has embeddings
+[PASS] Status OK for test.txt
+[PASS] test.txt extraction status
+[PASS] test.txt has chunks
+[PASS] test.txt has embeddings
+[PASS] Status OK for orion_report.pdf
+[PASS] orion_report.pdf extraction status
+[PASS] orion_report.pdf has chunks
+[PASS] orion_report.pdf has embeddings
+[PASS] Status OK for orion_report.pdf
+[PASS] orion_report.pdf extraction status
+[PASS] orion_report.pdf has chunks
+[PASS] orion_report.pdf has embeddings
+[PASS] Status OK for orion_report.pdf
+[PASS] orion_report.pdf extraction status
+[PASS] orion_report.pdf has chunks
+[PASS] orion_report.pdf has embeddings
+[PASS] Status OK for orion_report.pdf
+[PASS] orion_report.pdf extraction status
+[PASS] orion_report.pdf has chunks
+[PASS] orion_report.pdf has embeddings
+[PASS] Status OK for readme.md
+[PASS] readme.md extraction status
+[PASS] readme.md has chunks
+[PASS] readme.md has embeddings
+[PASS] Status OK for notes.txt
+[PASS] notes.txt extraction status
+[PASS] notes.txt has chunks
+[PASS] notes.txt has embeddings
+[PASS] Status OK for orion_report.pdf
+[PASS] orion_report.pdf extraction status
+[PASS] orion_report.pdf has chunks
+[PASS] orion_report.pdf has embeddings
+[PASS] Status OK for Shivam_Gour_RSM.pdf
+[PASS] Shivam_Gour_RSM.pdf extraction status
+[PASS] Shivam_Gour_RSM.pdf has chunks
+[PASS] Shivam_Gour_RSM.pdf has embeddings
+[PASS] Dense retrieval returned a response. Status: Answer generated with 10 citation(s).
+[PASS] Dense retrieval has citations when answered
+[PASS] Sparse retrieval returned a response. Status: Answer generated with 2 citation(s).
+[PASS] Sparse retrieval has citations when answered
+[PASS] Hybrid retrieval returned a response. Status: Answer generated with 1 citation(s).
+[PASS] Hybrid retrieval has citations when answered
+[PASS] System returned a response for unsupported question. Status: Answer generated with 2 citation(s).
+[PASS] Unsupported question has citations when answered
+[PASS] Ask button re-enabled after request
+[PASS] Delete buttons visible
+[PASS] Delete status: Document deleted.
+[PASS] Document count decreased: 14 -> 13
+[PASS] At least 2 documents remain after deletion
+[PASS] No console errors. Errors: []
+
+=== RAG KNOWLEDGE SANDBOX BROWSER VERIFICATION: ALL CHECKS PASSED ===

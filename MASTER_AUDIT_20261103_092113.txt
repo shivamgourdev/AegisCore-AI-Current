@@ -1,0 +1,111 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261103092113
+Username: DESKTOP-9E29O09\shiva
+RunAs User: DESKTOP-9E29O09\shiva
+Configuration Name: 
+Machine: DESKTOP-9E29O09 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -command try { . "c:\Users\shiva\AppData\Local\Programs\Microsoft VS Code\e646868227\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1" } catch {}
+Process ID: 5148
+PSVersion: 5.1.26100.9711
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9711
+BuildVersion: 10.0.26100.9711
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\MASTER_AUDIT_20261103_092113.txt
+
+========== AEGISCORE AI MASTER AUDIT ==========
+Project: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI
+Date: 11/03/2026 09:21:13
+
+[1/10] GIT STATUS
+
+
+
+
+[2/10] PYTHON ENVIRONMENT
+
+
+
+[3/10] OLLAMA STATUS
+
+
+[4/10] PYTHON SYNTAX AUDIT
+
+
+[5/10] FULL PYTEST SUITE
+
+PYTEST EXIT CODE: 0
+
+[6/10] FRONTEND JAVASCRIPT CHECK
+
+Script 1 exit code: 0
+
+[7/10] FRONTEND PROXY HTTP METHODS
+name
+----
+phi3.5:3.8b
+nomic-embed-te...
+
+
+
+
+
+
+
+
+
+
+[8/10] FRONTEND API CALLS
+
+
+
+
+
+
+
+
+
+
+
+
+[9/10] BACKEND ROUTE INVENTORY
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:48: @app.get("/", tags=["system"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:57: @app.get("/health", tags=["system"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:62: @app.post("/documents/upload", tags=["documents"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:114: @app.get("/documents/{document_id}/chunks", tags=["documents"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:124: @app.post("/documents/{document_id}/embed", tags=["embeddings"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:154: @app.get("/documents/{document_id}/embeddings", tags=["embeddings"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:167: @app.post("/search", tags=["retrieval"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:259: @app.get("/documents", tags=["documents"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:264: @app.get("/documents/{document_id}/extraction", tags=["documents"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:282: @app.post("/ask")
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:430: @app.post(
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:481: @app.get("/jobs/email-drafts/{draft_id}", tags=["jobs"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:496: @app.put("/jobs/email-drafts/{draft_id}", tags=["jobs"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:552: @app.post("/jobs/email-drafts/{draft_id}/approve", tags=["jobs"])
+C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\backend\app\aegiscore\main.py:603: @app.post(
+
+[10/10] FEATURE AND DEPENDENCY INVENTORY
+[FOUND] frontend\index.html
+[FOUND] frontend\server.py
+[FOUND] backend\app\aegiscore\main.py
+[FOUND] backend\app\aegiscore\job_analysis.py
+[FOUND] backend\app\aegiscore\job_email.py
+[FOUND] backend\app\aegiscore\job_email_storage.py
+[FOUND] backend\tests\test_part4_multi_document.py
+[MISSING] backend\requirements.txt
+
+========== AUDIT SUMMARY ==========
+Pytest exit code: 0
+Report: C:\Users\shiva\OneDrive\Desktop\AegisCore-AI\MASTER_AUDIT_20261103_092113.txt
+No source code was intentionally modified.
+No Git commit or push was performed.
+**********************
+Windows PowerShell transcript end
+End time: 20261103092214
+**********************

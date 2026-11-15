@@ -1,0 +1,43 @@
+[PASS] Backend health OK
+[PASS] Frontend reachable
+[PASS] Resume uploaded: PDF uploaded; text extraction found.
+Document ID: a6af2ae9-2315-4988-b00b-4aab8a74bf01
+[PASS] Resume registered in backend
+[PASS] Draft generated: Draft saved.
+Draft ID: d7f54d31-5dfb-44ff-bb94-c92f1a89e37e
+Status: pending
+Nothing has been sent.
+[PASS] Status says nothing sent
+[PASS] Attachment document ID shown: resume.pdf
+Document ID: a6af2ae9-2315-4988-b00b-4aab8a74bf01
+SHA-256: aba00722a9f750bb0fcac85b6b0e6ff91dfcf3f8200ea96accc2e52296e45297
+[PASS] Attachment SHA-256 shown: resume.pdf
+Document ID: a6af2ae9-2315-4988-b00b-4aab8a74bf01
+SHA-256: aba00722a9f750bb0fcac85b6b0e6ff91dfcf3f8200ea96accc2e52296e45297
+[PASS] Unsaved edits detected after recipient change
+[PASS] Changes saved
+[PASS] Draft retrievable via API: 200
+[PASS] Recipient updated in draft
+[PASS] Draft still requires approval after update
+[PASS] Draft not sent
+[PASS] Draft binds correct resume attachment
+[PASS] Draft SHA-256 matches resume
+[PASS] Interface states no email sent
+[PASS] Disclaimer visible: Important: approval does not send an email. Actual email delivery is not implemented in this version.
+[PASS] Approve button enabled after confirmation
+[PASS] Draft approved: Draft approved successfully.
+Status: approved
+Draft approved. No email has been sent.
+[PASS] Approval confirms no email sent
+[PASS] Approved draft retrievable
+[PASS] Draft status is approved
+[PASS] No longer requires approval
+[PASS] Email not sent
+[PASS] Approved draft modification rejected: 409
+[PASS] Tampered attachment rejected: 409
+[PASS] Unknown attachment rejected: 404
+[PASS] Backend confirms email not sent
+[PASS] UI confirms email not sent
+[PASS] No console errors. Errors: []
+
+=== JOB APPLICATION SANDBOX VERIFICATION: ALL CHECKS PASSED ===

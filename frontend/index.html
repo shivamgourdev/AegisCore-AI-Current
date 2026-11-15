@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AegisCore AI | Unified Sandbox</title>
+<style>
+:root{font-family:Inter,Segoe UI,Arial,sans-serif;color:#e9edf7;background:#0b1020}
+* { box-sizing: border-box }
+body { margin: 0 }
+header { padding: 26px max(20px,calc((100% - 1080px)/2)); border-bottom: 1px solid #29314a; background: #11182b }
+h1 { font-size: 26px; margin: 0 0 8px }
+header p, .muted { color: #aab5cd; font-size: 14px; line-height: 1.6; margin: 0 }
+main { max-width: 1080px; margin: 24px auto; padding: 0 18px 48px }
+.card { background: #131b30; border: 1px solid #2b3652; border-radius: 14px; padding: 22px }
+h2 { font-size: 18px; margin: 0 0 8px }
+label { display: block; font-size: 13px; color: #bdc8df; margin: 14px 0 7px }
+input, textarea { display: block; width: 100%; border: 1px solid #394765; background: #0d1426; color: #f3f6ff; padding: 11px 12px; border-radius: 8px; font: inherit }
+textarea { resize: vertical; min-height: 100px }
+input:focus, textarea:focus { outline: 2px solid #768df9; border-color: transparent }
+button { border: 0; border-radius: 8px; padding: 11px 15px; background: #7488f5; color: #0b1020; font-weight: 700; cursor: pointer; margin-top: 12px }
+button.secondary { background: #263550; color: #e9edf7 }
+button:disabled { opacity: 0.5; cursor: not-allowed }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px }
+.status { padding: 12px; border-radius: 8px; background: #0d1426; color: #bdc8df; white-space: pre-wrap; overflow-wrap: anywhere; margin-top: 12px }
+.status.error { border: 1px solid #a64f65; color: #ffc5d0 }
+.status.ok { border: 1px solid #397e69; color: #aaf0d4 }
+.pill { display: inline-block; border: 1px solid #465477; border-radius: 99px; padding: 5px 9px; color: #bdc8df; font-size: 12px; margin: 5px 5px 0 0 }
+.check { display: flex; gap: 10px; align-items: flex-start; line-height: 1.5 }
+.check input { width: auto; margin-top: 4px }
+small { color: #aab5cd; line-height: 1.5; display: block; margin-top: 8px }
+
+/* Tab navigation */
+.tabs { display: flex; gap: 0; border-bottom: 1px solid #29314a; margin-bottom: 24px }
+.tabs .tab { padding: 14px 24px; background: transparent; border: none; border-bottom: 2px solid transparent; color: #aab5cd; font-size: 14px; font-weight: 600; cursor: pointer }
+.tabs .tab.active { color: #fff; border-bottom-color: #768df9 }
+.tabs .tab:hover { color: #fff }
+
+.section { display: none }
+.section.active { display: block }
+
+/* Responsive */
+@media (max-width: 650px) {
+  .row { grid-template-columns: 1fr }
+  .card { padding: 16px }
+  header { padding: 22px 18px }
+  .tabs .tab { padding: 12px 16px; font-size: 13px }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>AegisCore AI</h1>
+  <p>Unified Sandbox · RAG Knowledge &amp; Job Application</p>
+</header>
+<main>
+  <nav class="tabs">
+    <button class="tab active" data-tab="knowledge" id="tab-knowledge">Knowledge Assistant</button>
+    <button class="tab" data-tab="application" id="tab-application">Job Application</button>
+    <button class="tab" data-tab="resume" id="tab-resume">Resume Manager</button>
+  </nav>
+
+  <!-- ============ WORKSPACE A: RAG KNOWLEDGE ============ -->
+  <section class="section active" id="knowledge">
+    <h2>1. Upload Documents</h2>
+    <p class="muted">Upload PDF, TXT or MD documents. Ask questions across your document collection. Answers are grounded in source material with citations.</p>
+
+    <div style="margin-bottom: 14px">
+      <label for="ragFiles">Upload documents</label>
+      <input id="ragFiles" type="file" accept=".pdf,.txt,.md" multiple>
+      <button id="ragUploadBtn">Upload Selected</button>
+    </div>
+    <div id="ragUploadStatus" class="status">No documents uploaded yet.</div>
+
+    <div id="ragDocumentList" style="margin-top: 12px"></div>
+
+    <div style="margin-top: 18px">
+      <label for="ragQuery">Ask a question</label>
+      <input id="ragQuery" type="text" placeholder="e.g. What was Project Orion's Q3 revenue?">
+      <div class="row" style="margin-top: 10px">
+        <div><label for="ragMode">Retrieval mode</label><select id="ragMode"><option value="dense">Dense (semantic)</option><option value="sparse">Sparse (keyword)</option><option value="hybrid">Hybrid (dense + sparse)</option></select></div>
+        <div><button id="ragAskBtn">Ask</button></div>
+      </div>
+    </div>
+    <div id="ragAskStatus" class="status"></div>
+    <div id="ragAnswer" style="margin-top: 12px; padding: 12px; border: 1px solid #394765; border-radius: 8px; background: #0d1426; white-space: pre-wrap;"></div>
+    <div id="ragCitations" style="margin-top: 10px; font-size: 12px; color: #aab5cd;"></div>
+  </section>
+
+  <!-- ============ WORKSPACE B: JOB APPLICATION ============ -->
+  <section class="section" id="application">
+    <h2>2. Resume</h2>
+    <p class="muted">Upload a PDF resume to extract text and use it for job analysis and email drafting.</p>
+
+    <label for="resumeFile">Resume PDF</label>
+    <input id="resumeFile" type="file" accept=".pdf,application/pdf">
+    <button id="uploadBtn">Upload PDF</button>
+    <div id="uploadStatus" class="status">No resume uploaded yet.</div>
+
+    <label for="resumeText">Resume text (for analysis)</label>
+    <textarea id="resumeText" placeholder="Extracted resume text appears here..."></textarea>
+  </section>
+
+  <section class="section" id="application">
+    <h2>3. Job Analysis</h2>
+    <p class="muted">Paste a job description to compare skills against your resume and get a match percentage.</p>
+
+    <label for="jobDescription">Job description</label>
+    <textarea id="jobDescription" placeholder="Paste the full job description here..."></textarea>
+    <button id="analyzeBtn">Analyze skill match</button>
+    <div id="analysisStatus" class="status">Analysis not run yet.</div>
+    <div id="skills"></div>
+    <small>The percentage measures detected skill overlap. It is not a prediction of hiring or selection.</small>
+  </section>
+
+  <section class="section" id="application">
+    <h2>4. Generate an Application Email Draft</h2>
+    <div class="row">
+      <div><label for="candidate">Your name</label><input id="candidate" placeholder="Your full name"></div>
+      <div><label for="recipient">Recruiter email</label><input id="recipient" type="email" placeholder="hr@company.com"></div>
+      <div><label for="jobTitle">Job title</label><input id="jobTitle" placeholder="Python Developer"></div>
+      <div><label for="company">Company</label><input id="company" placeholder="Company name"></div>
+    </div>
+    <label for="summary">Resume summary / relevant experience</label>
+    <textarea id="summary" placeholder="Briefly describe your relevant skills and projects..."></textarea>
+    <button id="draftBtn">Generate and save draft</button>
+    <div id="draftStatus" class="status">No draft created.</div>
+  </section>
+
+  <section class="section" id="application">
+    <h2>5. Review and Approve</h2>
+    <p class="muted">Review and edit the recipient, subject and email body. Save your changes before explicitly approving the exact content and attachment.</p>
+    <label for="reviewTo">Recipient</label><input id="reviewTo" type="email" autocomplete="email">
+    <label for="reviewSubject">Subject</label><input id="reviewSubject">
+    <label for="reviewBody">Email body</label><textarea id="reviewBody"></textarea>
+    <label>Attachment</label><div id="reviewAttachment" class="status">No attachment selected.</div>
+    <label class="check"><input type="checkbox" id="confirm"><span>I have reviewed and explicitly approve this exact recipient, email content and resume attachment.</span></label>
+    <button id="saveDraftBtn" disabled>Save Changes</button>
+    <button id="approveBtn" disabled>Approve this draft</button>
+    <div id="approvalStatus" class="status">Approval pending.</div>
+    <small>Important: approval does not send an email. Actual email delivery is not implemented in this version.</small>
+  </section>
+
+  <!-- ============ WORKSPACE C: RESUME MANAGER ============ -->
+  <section class="section" id="resume">
+    <h2>5. Resume Manager</h2>
+    <p class="muted">Upload, manage, and version your resume PDF. The active resume is used for job analysis and email drafts.</p>
+
+    <div style="margin-bottom: 14px">
+      <label for="resumeFileMgr">Upload resume PDF</label>
+      <input id="resumeFileMgr" type="file" accept=".pdf">
+      <button id="uploadResumeBtn">Upload PDF</button>
+    </div>
+    <div id="resumeUploadStatus" class="status">No resume uploaded yet.</div>
+
+    <div id="resumeDocList" style="margin-top: 12px"></div>
+
+    <div style="margin-top: 18px">
+      <label for="resumeTextMgr">Resume text (extracted)</label>
+      <textarea id="resumeTextMgr" placeholder="Extracted resume text appears here..." readonly></textarea>
+    </div>
+
+    <div id="resumeVersionsList" style="margin-top: 18px"></div>
+  </section>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+let uploadedDocument = null;
+let currentDraft = null;
+let draftSavedForApproval = false;
+let analysisResult = null;
+
+async function api(path, options = {}) {
+  const response = await fetch(path, options);
+  const raw = await response.text();
+  let data;
+  try { data = raw ? JSON.parse(raw) : {}; } catch { data = { detail: raw || "Unexpected server response" }; }
+  if (!response.ok) {
+    const detail = typeof data.detail === "string" ? data.detail : JSON.stringify(data.detail || data);
+    throw new Error(`HTTP ${response.status}: ${detail}`);
+  }
+  return data;
+}
+function show(id, message, type = "") {
+  const el = $(id);
+  el.textContent = message;
+  el.className = "status" + (type ? " " + type : "");
+}
+function deepFind(obj, keys) {
+  if (!obj || typeof obj !== "object") return null;
+  for (const key of keys) {
+    if (typeof obj[key] === "string" && obj[key].trim()) return obj[key];
+  }
+  for (const value of Object.values(obj)) {
+    const found = deepFind(value, keys);
+    if (found) return found;
+  }
+  return null;
+}
+function deepFindDocumentId(obj) {
+  if (!obj || typeof obj !== "object") return null;
+  if (typeof obj.document_id === "string" && obj.document_id) return obj.document_id;
+  for (const value of Object.values(obj)) {
+    const found = deepFindDocumentId(value);
+    if (found) return found;
+  }
+  return null;
+}
+
+// Tab navigation
+document.querySelectorAll(".tabs .tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".tabs .tab").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+    tab.classList.add("active");
+    $(`${tab.dataset.tab}`).classList.add("active");
+  });
+});
+
+function invalidateDraft() {
+  currentDraft = null;
+  $("approveBtn").disabled = true;
+  $("confirm").checked = false;
+  show("approvalStatus", "Details changed or new draft required. Generate and review a draft first.");
+}
+$("confirm").addEventListener("change", () => {
+  $("approveBtn").disabled =
+    !$("confirm").checked ||
+    !currentDraft ||
+    currentDraft.status !== "pending" ||
+    !draftSavedForApproval;
+});
+["candidate", "recipient", "jobTitle", "company", "summary"].forEach(id => {
+  $(id).addEventListener("input", invalidateDraft);
+});
+
+// ---- Resume upload ----
+$("uploadBtn").addEventListener("click", async () => {
+  const file = $("resumeFile").files[0];
+  if (!file) return show("uploadStatus", "Choose a PDF first.", "error");
+  if (!file.name.toLowerCase().endsWith(".pdf")) return show("uploadStatus", "Only PDF resumes are supported.", "error");
+  const form = new FormData();
+  form.append("file", file);
+  $("uploadBtn").disabled = true;
+  show("uploadStatus", "Uploading and validating PDF...");
+  try {
+    const data = await api("/api/documents/upload", { method: "POST", body: form });
+    const id = deepFindDocumentId(data);
+    if (!id) throw new Error("Upload response did not contain document_id. API response: " + JSON.stringify(data));
+    uploadedDocument = { document_id: id, filename: file.name };
+    show("uploadStatus", `PDF uploaded.\nDocument ID: ${id}\nFilename: ${file.name}`, "ok");
+    show("reviewAttachment", `${file.name}\nDocument ID: ${id}`);
+    try {
+      const extracted = await api("/api/documents/" + encodeURIComponent(id) + "/extraction");
+      const text = deepFind(extracted, ["extracted_text", "full_text", "document_text", "text", "content"]);
+      if (text && !$("resumeText").value.trim()) $("resumeText").value = text;
+      if (text) show("uploadStatus", `PDF uploaded; text extraction found.\nDocument ID: ${id}`, "ok");
+      else show("uploadStatus", `PDF uploaded. Automatic text extraction wasn't found in the response; paste resume text manually.\nDocument ID: ${id}`, "ok");
+    } catch {
+      show("uploadStatus", `PDF uploaded. Paste resume text manually if it wasn't extracted.\nDocument ID: ${id}`, "ok");
+    }
+    invalidateDraft();
+  } catch (e) {
+    show("uploadStatus", e.message, "error");
+  } finally {
+    $("uploadBtn").disabled = false;
+  }
+});
+
+// ---- Job analysis ----
+$("analyzeBtn").addEventListener("click", async () => {
+  const resume_text = $("resumeText").value.trim();
+  const job_description = $("jobDescription").value.trim();
+  if (!resume_text || !job_description) return show("analysisStatus", "Paste both resume text and job description.", "error");
+  $("analyzeBtn").disabled = true;
+  show("analysisStatus", "Analyzing skills...");
+  try {
+    analysisResult = await api("/api/jobs/analyze", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ resume_text, job_description })
+    });
+    show("analysisStatus", `Skill match: ${analysisResult.match_percentage}%\n${analysisResult.interpretation || analysisResult.match_basis || ""}`, "ok");
+    $("skills").replaceChildren();
+    for (const [title, values] of [["Matched skills", analysisResult.matched_skills], ["Skills to strengthen", analysisResult.missing_skills]]) {
+      const heading = document.createElement("p");
+      heading.className = "muted";
+      heading.textContent = title;
+      $("skills").appendChild(heading);
+      for (const value of (values || [])) {
+        const span = document.createElement("span");
+        span.className = "pill";
+        span.textContent = value;
+        $("skills").appendChild(span);
+      }
+    }
+  } catch (e) {
+    show("analysisStatus", e.message, "error");
+  } finally {
+    $("analyzeBtn").disabled = false;
+  }
+});
+
+// ---- Email draft ----
+$("draftBtn").addEventListener("click", async () => {
+  if (!uploadedDocument) return show("draftStatus", "Upload the PDF resume first so the draft can reference the exact attachment.", "error");
+  const payload = {
+    candidate_name: $("candidate").value.trim(),
+    recipient_email: $("recipient").value.trim(),
+    job_title: $("jobTitle").value.trim(),
+    company_name: $("company").value.trim(),
+    resume_summary: $("summary").value.trim() || $("resumeText").value.trim().slice(0, 1200),
+    resume_document_id: uploadedDocument.document_id
+  };
+  if (Object.values(payload).some(v => !v)) return show("draftStatus", "Complete all fields, including a resume summary.", "error");
+  $("draftBtn").disabled = true;
+  show("draftStatus", "Generating and saving draft...");
+  try {
+    currentDraft = await api("/api/jobs/email-draft", {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload)
+    });
+    $("reviewTo").disabled = false;
+    $("reviewSubject").disabled = false;
+    $("reviewBody").disabled = false;
+    $("confirm").disabled = false;
+    $("reviewTo").value = currentDraft.recipient_email;
+    $("reviewSubject").value = currentDraft.subject;
+    $("reviewBody").value = currentDraft.body;
+    $("reviewAttachment").textContent = `${currentDraft.attachment_filename}\nDocument ID: ${currentDraft.attachment_document_id}\nSHA-256: ${currentDraft.attachment_sha256}`;
+    $("confirm").checked = false;
+    draftSavedForApproval = true;
+    $("saveDraftBtn").disabled = true;
+    $("approveBtn").disabled = true;
+    show("draftStatus", `Draft saved.\nDraft ID: ${currentDraft.draft_id}\nStatus: ${currentDraft.status}\nNothing has been sent.`, "ok");
+    show("approvalStatus", "Review every field and attachment above. Tick the approval checkbox to enable approval.");
+  } catch (e) {
+    currentDraft = null;
+    show("draftStatus", e.message, "error");
+  } finally {
+    $("draftBtn").disabled = false;
+  }
+});
+
+let draftSavedForApproval = false;
+function reviewValuesChanged() {
+  if (!currentDraft || currentDraft.status !== "pending") return;
+  const changed =
+    $("reviewTo").value.trim() !== currentDraft.recipient_email ||
+    $("reviewSubject").value.trim() !== currentDraft.subject ||
+    $("reviewBody").value !== currentDraft.body;
+  draftSavedForApproval = !changed;
+  $("confirm").checked = false;
+  $("approveBtn").disabled = true;
+  $("saveDraftBtn").disabled = !changed;
+  show(
+    "approvalStatus",
+    changed
+      ? "Unsaved edits detected. Save Changes before approval."
+      : "Saved draft restored. Review it and tick the approval checkbox."
+  );
+}
+["reviewTo", "reviewSubject", "reviewBody"].forEach(id => {
+  $(id).addEventListener("input", reviewValuesChanged);
+});
+
+$("saveDraftBtn").addEventListener("click", async () => {
+  if (!currentDraft || currentDraft.status !== "pending") return;
+  const payload = {
+    recipient_email: $("reviewTo").value.trim(),
+    subject: $("reviewSubject").value.trim(),
+    body: $("reviewBody").value
+  };
+  $("saveDraftBtn").disabled = true;
+  $("approveBtn").disabled = true;
+  $("confirm").checked = false;
+  show("approvalStatus", "Saving your reviewed changes...");
+  try {
+    const updated = await api(
+      "/api/jobs/email-drafts/" + encodeURIComponent(currentDraft.draft_id),
+      { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }
+    );
+    currentDraft = updated;
+    $("reviewTo").value = updated.recipient_email;
+    $("reviewSubject").value = updated.subject;
+    $("reviewBody").value = updated.body;
+    draftSavedForApproval = true;
+    $("confirm").checked = false;
+    $("saveDraftBtn").disabled = true;
+    $("approveBtn").disabled = true;
+    show("approvalStatus", "Changes saved. Please review the exact content again and tick the approval checkbox.");
+  } catch (e) {
+    draftSavedForApproval = false;
+    $("saveDraftBtn").disabled = false;
+    show("approvalStatus", e.message || "Could not save changes.");
+  }
+});
+
+$("approveBtn").addEventListener("click", async () => {
+  if (!currentDraft || !$("confirm").checked) return;
+  $("approveBtn").disabled = true;
+  show("approvalStatus", "Verifying exact reviewed content and attachment...");
+  try {
+    const payload = {
+      recipient_email: $("reviewTo").value,
+      subject: $("reviewSubject").value,
+      body: $("reviewBody").value,
+      attachment_document_id: currentDraft.attachment_document_id,
+      attachment_sha256: currentDraft.attachment_sha256,
+      confirm: true
+    };
+    const result = await api("/api/jobs/email-drafts/" + encodeURIComponent(currentDraft.draft_id) + "/approve", {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload)
+    });
+    currentDraft = result;
+    draftSavedForApproval = false;
+    $("reviewTo").disabled = true;
+    $("reviewSubject").disabled = true;
+    $("reviewBody").disabled = true;
+    $("saveDraftBtn").disabled = true;
+    $("confirm").disabled = true;
+    $("approveBtn").disabled = true;
+    show("approvalStatus", `Draft approved successfully.\nStatus: ${result.status}\n${result.message || "No email has been sent."}`, "ok");
+  } catch (e) {
+    show("approvalStatus", e.message, "error");
+    $("approveBtn").disabled = false;
+  }
+});
+
+// ===== RAG Knowledge Sandbox =====
+let ragDocuments = [];
+
+async function refreshRagDocumentList() {
+  try {
+    const data = await api("/api/documents", { method: "GET" });
+    ragDocuments = data.documents || [];
+    const listEl = $("ragDocumentList");
+    listEl.replaceChildren();
+    if (ragDocuments.length === 0) {
+      listEl.textContent = "No documents in the collection.";
+      return;
+    }
+    const heading = document.createElement("p");
+    heading.className = "muted";
+    heading.textContent = "Uploaded documents:";
+    listEl.appendChild(heading);
+    for (const doc of ragDocuments) {
+      const row = document.createElement("div");
+      row.style.display = "flex";
+      row.style.alignItems = "center";
+      row.style.gap = "10px";
+      row.style.marginTop = "6px";
+      row.style.fontSize = "12px";
+      row.innerHTML = `<span style="color:#768df9">${doc.filename}</span>
+        <span class="pill">${doc.extension}</span>
+        <span style="color:#aab5cd">ID: ${doc.document_id.slice(0, 8)}...</span>
+        <span style="color:#aab5cd">${(doc.size_bytes / 1024).toFixed(1)} KB</span>
+        <button style="margin-left:auto;background:#a64f65;color:#fff;border:none;border-radius:4px;padding:4px 8px;cursor:pointer;font-size:11px;" onclick="deleteRagDocument('${doc.document_id}')">Delete</button>`;
+      listEl.appendChild(row);
+    }
+  } catch (e) {
+    show("ragUploadStatus", "Failed to load document list: " + e.message, "error");
+  }
+}
+
+async function deleteRagDocument(documentId) {
+  if (!confirm("Delete this document and its chunks/embeddings?")) return;
+  try {
+    await api("/api/documents/" + encodeURIComponent(documentId), { method: "DELETE" });
+    show("ragUploadStatus", "Document deleted.", "ok");
+    await refreshRagDocumentList();
+  } catch (e) {
+    show("ragUploadStatus", "Delete failed: " + e.message, "error");
+  }
+}
+
+$("ragUploadBtn").addEventListener("click", async () => {
+  const files = $("ragFiles").files;
+  if (!files || files.length === 0) return show("ragUploadStatus", "Choose files first.", "error");
+  $("ragUploadBtn").disabled = true;
+  show("ragUploadStatus", "Uploading documents...");
+  try {
+    for (const file of files) {
+      const form = new FormData();
+      form.append("file", file);
+      const data = await api("/api/documents/upload", { method: "POST", body: form });
+      if (data.extraction && data.extraction.status === "text_extracted") {
+        const docId = deepFindDocumentId(data);
+        if (docId) {
+          await api("/api/documents/" + encodeURIComponent(docId) + "/embed", { method: "POST" });
+        }
+      }
+    }
+    show("ragUploadStatus", `Uploaded ${files.length} document(s).`, "ok");
+    await refreshRagDocumentList();
+  } catch (e) {
+    show("ragUploadStatus", e.message, "error");
+  } finally {
+    $("ragUploadBtn").disabled = false;
+  }
+});
+
+$("ragAskBtn").addEventListener("click", async () => {
+  const query = $("ragQuery").value.trim();
+  if (!query) return show("ragAskStatus", "Enter a question.", "error");
+  const mode = $("ragMode").value;
+  $("ragAskBtn").disabled = true;
+  show("ragAskStatus", "Searching and generating answer...");
+  $("ragAnswer").textContent = "";
+  $("ragCitations").textContent = "";
+  try {
+    const data = await api("/ask", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query, top_k: 10, min_similarity: 0.30, mode })
+    });
+    if (data.abstained) {
+      show("ragAskStatus", "No answer: " + data.answer, "error");
+      $("ragAnswer").textContent = "I don't have enough evidence in the uploaded documents to answer that question.";
+    } else {
+      show("ragAskStatus", `Answer generated with ${data.citations.length} citation(s).`, "ok");
+      $("ragAnswer").textContent = data.answer;
+      if (data.citations && data.citations.length > 0) {
+        const citHtml = data.citations.map(c =>
+          `<div style="margin-top:6px;padding:8px;border:1px solid #394765;border-radius:6px;background:#11182b;font-size:12px;">`
+          + `<strong>[${c.source_id}]</strong> ${c.filename}`
+          + (c.page_number ? ` (page ${c.page_number})` : "")
+          + `<br><em>${c.text.slice(0, 300)}</em></div>`
+        ).join("");
+        $("ragCitations").innerHTML = "<strong>Sources:</strong>" + citHtml;
+      }
+    }
+  } catch (e) {
+    show("ragAskStatus", e.message, "error");
+  } finally {
+    $("ragAskBtn").disabled = false;
+  }
+});
+
+// Load document list on page load
+refreshRagDocumentList();
+
+// ===== Resume Manager Sandbox =====
+let resumeDocuments = [];
+
+async function refreshResumeDocumentList() {
+  try {
+    const data = await api("/documents", { method: "GET" });
+    const pdfDocs = (data.documents || []).filter(d => d.extension === ".pdf");
+    resumeDocuments = pdfDocs;
+    const listEl = $("resumeDocumentList");
+    listEl.replaceChildren();
+    if (pdfDocs.length === 0) {
+      listEl.textContent = "No resumes uploaded yet.";
+      return;
+    }
+    const heading = document.createElement("p");
+    heading.className = "muted";
+    heading.textContent = "Uploaded resumes:";
+    listEl.appendChild(heading);
+    for (const doc of pdfDocs) {
+      const row = document.createElement("div");
+      row.style.display = "flex";
+      row.style.alignItems = "center";
+      row.style.gap = "10px";
+      row.style.marginTop = "6px";
+      row.style.fontSize = "12px";
+      row.innerHTML = `<span style="color:#768df9">${doc.filename}</span>
+        <span class="pill">${doc.extension}</span>
+        <span style="color:#aab5cd">ID: ${doc.document_id.slice(0, 8)}...</span>
+        <span style="color:#aab5cd">${(doc.size_bytes / 1024).toFixed(1)} KB</span>`;
+      listEl.appendChild(row);
+    }
+  } catch (e) {
+    show("resumeUploadStatus", "Failed to load document list: " + e.message, "error");
+  }
+}
+
+$("uploadResumeBtn").addEventListener("click", async () => {
+  const file = $("resumeFileMgr").files[0];
+  if (!file) return show("resumeUploadStatus", "Choose a PDF file first.", "error");
+  if (!file.name.toLowerCase().endsWith(".pdf")) return show("resumeUploadStatus", "Only PDF files are supported.", "error");
+  const form = new FormData();
+  form.append("file", file);
+  $("uploadResumeBtn").disabled = true;
+  show("resumeUploadStatus", "Uploading resume...");
+  try {
+    const data = await api("/documents/upload", { method: "POST", body: form });
+    const docId = data.document.document_id;
+    uploadedDocument = docId;
+    show("resumeUploadStatus", `Resume uploaded successfully.\nDocument ID: ${docId}\nFilename: ${data.document.filename}\nSHA-256: ${data.document.sha256}`, "ok");
+    await refreshRagDocumentList();
+    await refreshResumeDocumentList();
+
+    // Auto-extract text
+    try {
+      const ext = await api(`/documents/${docId}/extraction`);
+      if (ext.text) {
+        $("resumeTextMgr").value = ext.text;
+      }
+    } catch (e) {
+      // Ignore extraction errors for now
+    }
+  } catch (e) {
+    show("resumeUploadStatus", e.message, "error");
+  } finally {
+    $("uploadResumeBtn").disabled = false;
+  }
+});
+</script>
+</body>
+</html>

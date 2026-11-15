@@ -1,0 +1,23 @@
+PASS: Live Uvicorn health endpoint returns HTTP 200
+PASS: PDF upload succeeds: {"document":{"document_id":"2d5f2c7c-d4cd-4bab-882f-b848cb966b71","filename":"pdf-page-proof.pdf","extension":".pdf","content_type":"application/pdf","size_bytes":1334,"sha256":"551e1fb897c4db626ff1e0d0c3653b13e12e0f1f3ec4b7cfc85b5cfdc609d959","uploaded_at":"2026-10-23T14:53:34.796271+00:00"},"duplicate":false,"extraction":{"status":"text_extracted","page_count":2,"error":null},"message":"Document
+PASS: PDF extraction reports text_extracted
+PASS: PDF extraction identifies both pages
+PASS: Persisted PDF extraction is readable through the API
+PASS: PDF preserves one-based page numbers: [1, 2]
+PASS: Unique evidence is extracted from actual PDF page 2
+PASS: PDF chunks are available
+PASS: Chunking preserves page 2 and its unique evidence
+PASS: Live Ollama embedding succeeds: {"document_id":"2d5f2c7c-d4cd-4bab-882f-b848cb966b71","model":"nomic-embed-text:latest","embedding_count":2,"dimension":768}
+PASS: PDF chunk embeddings are persisted
+PASS: PDF RAG question returns HTTP 200: {"answer":"The reserved test budget for Project Cedar is 73,500 credits for the October simulation [S1].","abstained":false,"citations":[{"source_id":"S1","filename":"pdf-page-proof.pdf","page_number":2,"text":"Project Cedar verification fact: the reserved test budget is 73,500 credits for the October simulation.","similarity":0.8510801286320968}],"model":"phi3.5:3.8b"}
+PASS: PDF RAG answers the supported question
+PASS: Answer preserves the exact supported amount and unit
+PASS: PDF RAG answer includes citations
+PASS: Citation identifies the uploaded PDF filename
+PASS: Citation points to the correct PDF page 2
+PASS: Page 2 citation passage contains the exact supporting evidence
+PASS: Each returned citation ID is referenced in the answer
+PASS: Unsupported PDF question returns HTTP 200
+PASS: Unsupported PDF question is explicitly abstained
+PASS: Unsupported PDF question returns no citations
+LIVE PDF-TO-RAG VERIFICATION: PASS
